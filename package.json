@@ -1,0 +1,24 @@
+{
+  "name": "soton-bot",
+  "version": "0.0.1",
+  "description": "Bot that will make UoS students' lives easier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odi-group-1/soton-bot.git"
+  },
+  "author": "shakib-bin hamid, thomas aley, deepak thankachan, stefan collier, ina hykaj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odi-group-1/soton-bot/issues"
+  },
+  "homepage": "https://github.com/odi-group-1/soton-bot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "request": "^2.80.0"
+  }
+}
