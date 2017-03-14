@@ -19,3 +19,4 @@ facebook developer. This is so that we __DO NOT put our app secrets/tokens in th
 as an environment variable in either of the following ways -
     - In a terminal before running the app, ```export FB_PAGE_ACCESS_TOKEN=<page_token>```
     - In IDE like IntelliJ IDEA add a run configuration with env variable.
+4. Execute ```node_modules/.bin/nodemon index.js``` to start the server. It will watch for changes and restart as needed.
