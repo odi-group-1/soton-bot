@@ -5,7 +5,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const request = require('request');
+const request = require('request-promise');
 const app = express();
 const logger = require('tracer').colorConsole();
 
@@ -71,7 +71,7 @@ function sendTextMessage(receiver, text, cb, errcb) {
     logger.log("Replying to " + receiver + " => " + messageData);
 
     request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
+        url: 'https://graph.facebook.com/v2.8/me/messages',
         qs: {
             access_token:token
         },
@@ -82,19 +82,17 @@ function sendTextMessage(receiver, text, cb, errcb) {
             },
             message: messageData,
         }
-    }, function(error, response, body) {
-        logger.log('Response from fb ' + JSON.stringify(response.body.error));
-        if (error) {
-            logger.error('Error: ' + error || response.body.error);
-            if (errcb) errcb(error || response.body.error);
-        } else {
-            logger.log('Sending confirmation to fb');
-            if (cb) cb(response);
-        }
-    })
+    }).then(function(response) {
+        logger.log('Response from fb ' + JSON.stringify(response.body));
+        logger.log('Sending confirmation to fb');
+        if (cb) cb(response);
+    }).catch(function (error) {
+        logger.error('Error: ' + error);
+        if (errcb) errcb(error);
+    });
 }
 
-function sendGenericMessage(sender) {
+function sendGenericMessage(sender, cb, errcb) {
     let messageData = {
         "attachment": {
             "type": "template",
@@ -127,19 +125,20 @@ function sendGenericMessage(sender) {
         }
     };
     request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
+        url: 'https://graph.facebook.com/v2.8/me/messages',
         qs: {access_token:token},
         method: 'POST',
         json: {
             recipient: {id:sender},
             message: messageData,
         }
-    }, function(error, response, body) {
-        if (error) {
-            logger.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            logger.log('Error: ', response.body.error)
-        }
+    }).then(function(response, body) {
+        logger.log('Response from fb ' + JSON.stringify(response.body));
+        logger.log('Sending confirmation to fb');
+        if(cb) cb(response);
+    }).then(function (error) {
+        logger.log('Error sending messages: ', error);
+        if(errcb) errcb(error)
     })
 }
 
