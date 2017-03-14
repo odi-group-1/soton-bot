@@ -51,7 +51,7 @@ app.post('/webhook/', function (req, res) {
             if (text === 'Generic') {
                 sendGenericMessage(sender);
             } else {
-                sendTextMessage(sender, "Text received, echo from localhost: " + text.substring(0, 200),
+                sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200),
                     function (fbResponse) {
                         res.sendStatus(200);
                     }, function (fbError) {
@@ -86,6 +86,7 @@ function sendTextMessage(receiver, text, cb, errcb) {
             console.error('Error: ' + error || response.body.error);
             if (errcb) errcb(error || response.body.error);
         } else {
+            console.log('Sending confirmation to fb');
             if (cb) cb(response);
         }
     })
