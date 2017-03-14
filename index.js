@@ -7,6 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const app = express();
+const logger = require('tracer').colorConsole();
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
@@ -45,7 +46,7 @@ app.post('/webhook/', function (req, res) {
 
             let text = event.message.text; // parse the message sent to the bot
 
-            console.log("Received from " + sender + " => " + text);
+            logger.log("Received from " + sender + " => " + text);
 
             // take action based on the text sent to the bot
             if (text === 'Generic') {
@@ -67,7 +68,7 @@ function sendTextMessage(receiver, text, cb, errcb) {
     // the message to send to the bot user
     let messageData = { text:text };
 
-    console.log("Replying to " + receiver + " => " + messageData);
+    logger.log("Replying to " + receiver + " => " + messageData);
 
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -82,11 +83,12 @@ function sendTextMessage(receiver, text, cb, errcb) {
             message: messageData,
         }
     }, function(error, response, body) {
-        if (error || response.body.error) {
-            console.error('Error: ' + error || response.body.error);
+        logger.log('Response from fb ' + JSON.stringify(response.body.error));
+        if (error) {
+            logger.error('Error: ' + error || response.body.error);
             if (errcb) errcb(error || response.body.error);
         } else {
-            console.log('Sending confirmation to fb');
+            logger.log('Sending confirmation to fb');
             if (cb) cb(response);
         }
     })
@@ -134,14 +136,14 @@ function sendGenericMessage(sender) {
         }
     }, function(error, response, body) {
         if (error) {
-            console.log('Error sending messages: ', error)
+            logger.log('Error sending messages: ', error)
         } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
+            logger.log('Error: ', response.body.error)
         }
     })
 }
 
 // Spin up the server
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
+    logger.log('running on port', app.get('port'))
 });
