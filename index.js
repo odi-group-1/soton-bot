@@ -45,23 +45,29 @@ app.post('/webhook/', function (req, res) {
 
             let text = event.message.text; // parse the message sent to the bot
 
+            console.log("Received from " + sender + " => " + text);
+
             // take action based on the text sent to the bot
             if (text === 'Generic') {
                 sendGenericMessage(sender);
-                continue
+            } else {
+                sendTextMessage(sender, "Text received, echo from localhost: " + text.substring(0, 200),
+                    function (fbResponse) {
+                        res.sendStatus(200);
+                    }, function (fbError) {
+                        res.sendStatus(400);
+                    });
             }
-
-            sendTextMessage(sender, "Text received, echo from localhost: " + text.substring(0, 200));
-
         }
     }
-    // res.sendStatus(200);
 });
 
-function sendTextMessage(sender, text) {
+function sendTextMessage(receiver, text, cb, errcb) {
 
     // the message to send to the bot user
     let messageData = { text:text };
+
+    console.log("Replying to " + receiver + " => " + messageData);
 
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -71,15 +77,16 @@ function sendTextMessage(sender, text) {
         method: 'POST',
         json: {
             recipient: {
-                id:sender
+                id:receiver
             },
             message: messageData,
         }
     }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
+        if (error || response.body.error) {
+            console.error('Error: ' + error || response.body.error);
+            if (errcb) errcb(error || response.body.error);
+        } else {
+            if (cb) cb(response);
         }
     })
 }
