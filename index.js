@@ -50,7 +50,12 @@ app.post('/webhook/', function (req, res) {
 
             // take action based on the text sent to the bot
             if (text === 'Generic') {
-                sendGenericMessage(sender);
+                sendGenericMessage(sender,
+                    function (fbResponse) {
+                        res.sendStatus(200);
+                    }, function (fbError) {
+                        res.sendStatus(400);
+                    });
             } else {
                 sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200),
                     function (fbResponse) {
@@ -136,7 +141,7 @@ function sendGenericMessage(sender, cb, errcb) {
         logger.log('Response from fb ' + JSON.stringify(response.body));
         logger.log('Sending confirmation to fb');
         if(cb) cb(response);
-    }).then(function (error) {
+    }).catch(function (error) {
         logger.log('Error sending messages: ', error);
         if(errcb) errcb(error)
     })
