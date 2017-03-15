@@ -20,12 +20,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Index route
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.send('Hello world, I am a chat bot')
 });
 
 // for Facebook verification
-app.get('/webhook/', function (req, res) {
+app.get('/webhook/', (req, res) => {
     if (req.query['hub.verify_token'] === 'we-will-change-student-lives-in-soton') {
         res.send(req.query['hub.challenge'])
     } else {
@@ -33,7 +33,7 @@ app.get('/webhook/', function (req, res) {
     }
 });
 
-app.post('/webhook/', function (req, res) {
+app.post('/webhook/', (req, res) => {
 
     let messaging_events = req.body.entry[0].messaging;
 
@@ -51,16 +51,16 @@ app.post('/webhook/', function (req, res) {
             // take action based on the text sent to the bot
             if (text === 'Generic') {
                 sendGenericMessage(sender,
-                    function (fbResponse) {
+                    (fbResponse) => {
                         res.sendStatus(200);
-                    }, function (fbError) {
+                    }, (fbError) => {
                         res.sendStatus(400);
                     });
             } else {
                 sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200),
-                    function (fbResponse) {
+                    (fbResponse) => {
                         res.sendStatus(200);
-                    }, function (fbError) {
+                    }, (fbError) => {
                         res.sendStatus(400);
                     });
             }
@@ -87,11 +87,11 @@ function sendTextMessage(receiver, text, cb, errcb) {
             },
             message: messageData,
         }
-    }).then(function(response) {
+    }).then((response) =>  {
         logger.log('Response from fb ' + JSON.stringify(response.body));
         logger.log('Sending confirmation to fb');
         if (cb) cb(response);
-    }).catch(function (error) {
+    }).catch( (error) => {
         logger.error('Error: ' + error);
         if (errcb) errcb(error);
     });
@@ -137,17 +137,17 @@ function sendGenericMessage(sender, cb, errcb) {
             recipient: {id:sender},
             message: messageData,
         }
-    }).then(function(response, body) {
+    }).then((response, body) => {
         logger.log('Response from fb ' + JSON.stringify(response.body));
         logger.log('Sending confirmation to fb');
         if(cb) cb(response);
-    }).catch(function (error) {
+    }).catch( (error) => {
         logger.log('Error sending messages: ', error);
         if(errcb) errcb(error)
     })
 }
 
 // Spin up the server
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), () => {
     logger.log('running on port', app.get('port'))
 });
