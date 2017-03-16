@@ -1,0 +1,23 @@
+//- Lists Products & services by Name -//
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Service a gr:ProductOrServicesSomeInstancesPlaceholder ;
+                rdfs:label       ?Name .
+     }
+}
+
+//- Lists Alcohol Offerings by Location URI -// 
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Offering a gr:Offering ;
+                gr:availableAtOrFrom	?Location ;
+                rdfs:label       "Alcohol" .
+     }
+}
+
