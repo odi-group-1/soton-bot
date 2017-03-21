@@ -1,9 +1,7 @@
 const logger = require('tracer').colorConsole();
 const request = require('request-promise');
 
-const echo = require('./echo');
-
-const token = process.env.FB_PAGE_ACCESS_TOKEN;
+const sendMessage = require('./send-message');
 
 var relay = (req, res) => {
 
@@ -14,59 +12,36 @@ var relay = (req, res) => {
         let event = req.body.entry[0].messaging[i]; // the messaging events sent to the bot
         let sender = event.sender.id; // the senders of the message
 
-        logger.log(JSON.stringify(event, null, 2));
-
         // reply only if the message has some text
         if (event.message && event.message.text) {
 
             let text = event.message.text; // parse the message sent to the bot
 
+            // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
 
             switch(text) {
-                case "Generic":
-                    sendGenericMessage(sender,
-                        (fbResponse) => {
-                            res.sendStatus(200);
-                        }, (fbError) => {
-                            res.sendStatus(400);
-                        });
-                    break;
-                case "Where is building 32":
-                    findBuilding(text, sendGenericMessage(sender,
-                        (fbResponse) => {
-                            res.sendStatus(200);
-                        }, (fbError) => {
-                            res.sendStatus(400);
-                        }));
-                    break;
+                // case "Where is building 32":
+                //     findBuilding(text, sendGenericMessage(sender,
+                //         (fbResponse) => {
+                //             res.sendStatus(200);
+                //         }, (fbError) => {
+                //             res.sendStatus(400);
+                //         }));
+                //     break;
                 default:
-                    echo(sender, "Text received, echo: " + text.substring(0, 200),
-                        (fbResponse) => {
-                            res.sendStatus(200);
-                        }, (fbError) => {
-                            res.sendStatus(400);
-                        });
+                    echo(sender, text.substring(0, 200), req, res);
             }
 
-            // take action based on the text sent to the bot
-            // if (text === 'Generic') {
-            //     sendGenericMessage(sender,
-            //         (fbResponse) => {
-            //             res.sendStatus(200);
-            //         }, (fbError) => {
-            //             res.sendStatus(400);
-            //         });
-            // } else {
-            //     echo(sender, "Text received, echo: " + text.substring(0, 200),
-            //         (fbResponse) => {
-            //             res.sendStatus(200);
-            //         }, (fbError) => {
-            //             res.sendStatus(400);
-            //         });
-            // }
+        } else if (event.message && !event.message.text){
+            // message does not have any text
+            logger.log("Received a non-text message => " + JSON.stringify(event));
+            echo(sender, "I don't know what you mean", req, res);
+
         } else {
-            echo(sender, "Couldn't understand the text. ", (fbResponse) => res.sendStatus(200), (fbError) => res.sendStatus(400));
+            // not a message, probably a delivery or sent message, reply yes anyway
+            logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
+            res.sendStatus(200);
         }
     }
 };
@@ -99,54 +74,8 @@ function findBuilding(str, cb) {
     });
 };
 
-function sendGenericMessage(sender, cb, errcb) {
-    let messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
-                    }],
-                }]
-            }
-        }
-    };
-    request({
-        url: 'https://graph.facebook.com/v2.8/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }).then((response, body) => {
-        logger.log('Response from fb ' + JSON.stringify(response));
-        logger.log('Sending confirmation to fb');
-        if(cb) cb(response);
-    }).catch( (error) => {
-        logger.log('Error sending messages: ', error);
-        if(errcb) errcb(error)
-    })
+function echo(sender, text, req, res) {
+    sendMessage(sender, "Text received, echo: " + text.substring(0, 200), undefined, undefined, req, res);
 }
 
 function whereIsSubject(subject, cb) {
