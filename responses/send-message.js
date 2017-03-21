@@ -9,7 +9,7 @@ var sendMessage = (receiver, messageData, cb, errcb, req, res) => {
 
     if (typeof messageData === 'string') messageData = {text:messageData};
 
-    logger.log("Replying to " + receiver + " => " + messageData);
+    logger.log("Replying to " + receiver + " => " + JSON.stringify(messageData));
 
     request({
         url: 'https://graph.facebook.com/v2.8/me/messages',

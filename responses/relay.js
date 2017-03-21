@@ -12,21 +12,24 @@ var relay = (req, res) => {
         let event = req.body.entry[0].messaging[i]; // the messaging events sent to the bot
         let sender = event.sender.id; // the senders of the message
 
-        logger.log(JSON.stringify(event, null, 2));
-
         // reply only if the message has some text
         if (event.message && event.message.text) {
 
             let text = event.message.text; // parse the message sent to the bot
 
-            logger.log("Received from " + sender + " => " + text);
-
             // take action based on the text sent to the bot
+            logger.log("Received from " + sender + " => " + text);
             echo(sender, text.substring(0, 200), req, res);
 
-        } else {
+        } else if (event.message && !event.message.text){
             // message does not have any text
+            logger.log("Received a non-text message => " + JSON.stringify(event));
             echo(sender, "I don't know what you mean", req, res);
+
+        } else {
+            // not a message, probably a delivery or sent message, reply yes anyway
+            logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
+            res.sendStatus(200);
         }
     }
 };
