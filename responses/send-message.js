@@ -1,12 +1,13 @@
 const logger = require('tracer').colorConsole();
 const request = require('request-promise');
 
+const handleSendApiResponse = require('./handleSendApiResponse');
+
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
-var echo = (receiver, text, cb, errcb) => {
+var sendMessage = (receiver, messageData, cb, errcb, req, res) => {
 
-    // the message to send to the bot user
-    let messageData = { text:text };
+    if (typeof messageData === 'string') messageData = {text:messageData};
 
     logger.log("Replying to " + receiver + " => " + messageData);
 
@@ -23,13 +24,12 @@ var echo = (receiver, text, cb, errcb) => {
             message: messageData,
         }
     }).then((response) =>  {
-        logger.log('Response from fb ' + JSON.stringify(response));
-        logger.log('Sending confirmation to fb');
         if (cb) cb(response);
+        else handleSendApiResponse.fbSuccessDefaultResponse(res);
     }).catch( (error) => {
-        logger.error('Error: ' + error);
         if (errcb) errcb(error);
+        else handleSendApiResponse.fbFailedDefaultResponse(res, error);
     });
 };
 
-module.exports = echo;
+module.exports = sendMessage;
