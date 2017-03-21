@@ -1,0 +1,10 @@
+'https://api.api.ai/api/query?
+v=20150910
+query=Where%20is%20building%2042
+lang=en
+sessionId=52159cf0-baa3-40ec-a282-2e526ee2faac
+timezone=2017-03-21T15:14:42+0000' 
+
+
+-H 'Authorization:Bearer 5f3a90b02cfa4c6781cc11dbc4706b19'
+

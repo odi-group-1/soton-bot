@@ -2,6 +2,7 @@ const logger = require('tracer').colorConsole();
 const request = require('request-promise');
 
 const sendMessage = require('./send-message');
+const responseMaker = require('./responseMaker');
 
 var relay = (req, res) => {
 
@@ -19,7 +20,12 @@ var relay = (req, res) => {
 
             // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
-            echo(sender, text.substring(0, 200), req, res);
+
+            let test = function (text) {
+                echo(sender, text.substring(0, 200), req, res);
+            };
+
+            responseMaker.handleThis(text, test);
 
         } else if (event.message && !event.message.text){
             // message does not have any text
