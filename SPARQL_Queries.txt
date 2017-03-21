@@ -1,0 +1,63 @@
+//- Lists Products & services by Name -//
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Service a gr:ProductOrServicesSomeInstancesPlaceholder ;
+                rdfs:label       ?Name .
+     }
+}
+
+//- Lists Alcohol Offerings by Location URI -// 
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Offering a gr:Offering ;
+                gr:availableAtOrFrom	?Location ;
+                rdfs:label       "Alcohol" .
+     }
+}
+
+//- Filter list by term -//
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Service a gr:ProductOrServicesSomeInstancesPlaceholder ;
+                rdfs:label       ?Name ;
+                FILTER (?Name = "Cigarettes") .
+     }
+}
+
+//- Using filter to find: Where to buy cigarettes -//
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Offering a gr:Offering ;
+                gr:availableAtOrFrom	?Location ;
+                rdfs:label       ?Name ;
+                FILTER (?Name = "Cigarettes") .
+     }
+}
+
+// Change The word in the filter only to find where to get Cigarettes/Alcohol/etc.
+
+//- Where can I get cigarettes or alcohol then use JS to find matching to know place where you can go to get both! -//
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+SELECT * WHERE { 
+  GRAPH <http://id.southampton.ac.uk/dataset/amenities/latest> {
+        ?Offering a gr:Offering ;
+                gr:availableAtOrFrom	?Location ;
+                rdfs:label       ?Name ;
+                FILTER (?Name = "Alcohol" || ?Name = "Cigarettes") .
+     }
+}
+
