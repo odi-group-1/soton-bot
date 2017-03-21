@@ -122,3 +122,14 @@ SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
 }
 
 Lists all the buildings!
+
+//---------------- Where is building __ ---------------------
+
+SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
+	?s ?p ?o ;
+    FILTER(?s = <http://id.southampton.ac.uk/building/32> && 
+           (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || 
+            ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)) .
+}
+
+//Change the building number from 32 to any building number needed

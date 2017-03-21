@@ -23,26 +23,80 @@ var relay = (req, res) => {
 
             logger.log("Received from " + sender + " => " + text);
 
-            // take action based on the text sent to the bot
-            if (text === 'Generic') {
-                sendGenericMessage(sender,
-                    (fbResponse) => {
-                        res.sendStatus(200);
-                    }, (fbError) => {
-                        res.sendStatus(400);
-                    });
-            } else {
-                echo(sender, "Text received, echo: " + text.substring(0, 200),
-                    (fbResponse) => {
-                        res.sendStatus(200);
-                    }, (fbError) => {
-                        res.sendStatus(400);
-                    });
+            switch(text) {
+                case "Generic":
+                    sendGenericMessage(sender,
+                        (fbResponse) => {
+                            res.sendStatus(200);
+                        }, (fbError) => {
+                            res.sendStatus(400);
+                        });
+                    break;
+                case "Where is building 32":
+                    findBuilding(text, sendGenericMessage(sender,
+                        (fbResponse) => {
+                            res.sendStatus(200);
+                        }, (fbError) => {
+                            res.sendStatus(400);
+                        }));
+                    break;
+                default:
+                    echo(sender, "Text received, echo: " + text.substring(0, 200),
+                        (fbResponse) => {
+                            res.sendStatus(200);
+                        }, (fbError) => {
+                            res.sendStatus(400);
+                        });
             }
+
+            // take action based on the text sent to the bot
+            // if (text === 'Generic') {
+            //     sendGenericMessage(sender,
+            //         (fbResponse) => {
+            //             res.sendStatus(200);
+            //         }, (fbError) => {
+            //             res.sendStatus(400);
+            //         });
+            // } else {
+            //     echo(sender, "Text received, echo: " + text.substring(0, 200),
+            //         (fbResponse) => {
+            //             res.sendStatus(200);
+            //         }, (fbError) => {
+            //             res.sendStatus(400);
+            //         });
+            // }
         } else {
             echo(sender, "Couldn't understand the text. ", (fbResponse) => res.sendStatus(200), (fbError) => res.sendStatus(400));
         }
     }
+};
+function findBuilding(str, cb) {
+    let building = str.replace("Where is building ","");
+    let myquery = new sparqls.Query({limit: 2});
+    myquery.registerTriple({'subject':'?s','predicate':'?p','object':'?o'});
+    myquery.filter("?s = <http://id.southampton.ac.uk/building/"+building+"> && (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)");
+
+    console.log(myquery.sparqlQuery);
+
+    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
+    let lat = undefined;
+    let lng = undefined;
+    let ans = "Sorry, I don't know where that is...";
+
+    sparqler.send(myquery, function(error, data){
+        if(data.results.bindings.length > 0) {
+            try {
+                // Try because trying to access JSON properties that may be undefined
+                lat = data.results.bindings[0].o.value;
+                lng = data.results.bindings[1].o.value;
+                console.log('LAT: ' + lat + ' LONG: ' + lng);
+                ans = 'LAT: ' + lat + ' LONG: ' + lng;
+            } catch (err) {
+                console.log('Tried to find building, failed...');
+            }
+        };
+        if(cb) cb(ans);
+    });
 };
 
 function sendGenericMessage(sender, cb, errcb) {
