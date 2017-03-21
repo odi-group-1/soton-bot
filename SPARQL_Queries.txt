@@ -61,3 +61,64 @@ SELECT * WHERE {
      }
 }
 
+//---------------------------------------------
+
+Using HTTP endpoint:
+sparql.data.southampton.ac.uk?output=json&show_inline=0&query=
+
+Add on the end:
+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+gr%3A+%3Chttp%3A%2F%2Fpurl.org%2Fgoodrelations%2Fv1%23%3E%0D%0ASELECT+DISTINCT+%3FLocation+%3FName+%0D%0AWHERE+%7B+%0D%0A++GRAPH+%3Chttp%3A%2F%2Fid.southampton.ac.uk%2Fdataset%2Famenities%2Flatest%3E+%7B%0D%0A++++++++%3FOffering+a+gr%3AOffering+%3B%0D%0A++++++++++++++++gr%3AavailableAtOrFrom%09%3FLocation+%3B%0D%0A++++++++++++++++rdfs%3Alabel+++++++%3FName+%3B%0D%0A++++++++++++++++FILTER+%28%3FName+%3D+%22Alcohol%22%29+.%0D%0A+++++%7D%0D%0A%7D
+
+Important! Query length is potentially limited so remove all the +'s that appear because of pretty formating
+
+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+gr%3A+%3Chttp%3A%2F%2Fpurl.org%2Fgoodrelations%2Fv1%23%3E%0D%0ASELECT+DISTINCT+%3FLocation+%3FName+%0D%0AWHERE+%7B+%0D%0A++GRAPH+%3Chttp%3A%2F%2Fid.southampton.ac.uk%2Fdataset%2Famenities%2Flatest%3E+%7B%0D%0A+%3FOffering+a+gr%3AOffering+%3B%0D%0A+gr%3AavailableAtOrFrom%09%3FLocation+%3B%0D%0A+rdfs%3Alabel+%3FName+%3B%0D%0A+FILTER+%28%3FName+%3D+%22Alcohol%22%29+.%0D%0A+%7D%0D%0A%7D
+
+Copy and past below into browser or postman etc.
+
+sparql.data.southampton.ac.uk?output=json&show_inline=0&query=PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+gr%3A+%3Chttp%3A%2F%2Fpurl.org%2Fgoodrelations%2Fv1%23%3E%0D%0ASELECT+DISTINCT+%3FLocation+%3FName+%0D%0AWHERE+%7B+%0D%0A+GRAPH+%3Chttp%3A%2F%2Fid.southampton.ac.uk%2Fdataset%2Famenities%2Flatest%3E+%7B%0D%0A+%3FOffering+a+gr%3AOffering+%3B%0D%0A+gr%3AavailableAtOrFrom%09%3FLocation+%3B%0D%0A+rdfs%3Alabel+%3FName+%3B%0D%0A+FILTER+%28%3FName+%3D+%22Alcohol%22%29+.%0D%0A+%7D%0D%0A%7D
+
+On returned data:
+
+var results = //The returned JSON//.results.bindings;
+
+var locations = [];
+
+results.forEach(function (res){
+	var location = res.Location.value;
+	locations.push((location.replace("http://id.southampton.ac.uk/point-of-service/","")));
+});
+
+Example output:
+
+Array[9]
+0:"highfield-hall-bar"
+1:"chamberlain-hall-bar"
+2:"connaught-hall-bar"
+3:"susu-stags"
+4:"126-burgess-road"
+5:"turner-sims-bar"
+6:"163-university-road"
+7:"the-crown-inn"
+8:"unit1-citygateway"
+
+//-------------------------------------------------------
+
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
+	?s ?p ?o ;
+    FILTER(?o = "Building 32 is non-residential") .
+}
+
+Result:
+
+S: http://id.southampton.ac.uk/building/32#residential	
+P: http://www.w3.org/2000/01/rdf-schema#label	
+O: Building 32 is non-residential
+
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
+	?s ?p ?o ;
+    FILTER(?p = <http://www.w3.org/2000/01/rdf-schema#label>) .
+}
+
+Lists all the buildings!
