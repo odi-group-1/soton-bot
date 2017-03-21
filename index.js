@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Process application/json
 app.use(bodyParser.json());
 
-// Index route
+// just to check if the app is running
 app.get('/', (req, res) => {
     res.send('Hello world, I am a chat bot')
 });
@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 // for Facebook verification
 app.get('/webhook/', verifyAppToken);
 
+// replying to messages sent by the facebook bot
 app.post('/webhook/', relay);
 
 // Spin up the server

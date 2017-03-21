@@ -1,6 +1,8 @@
 const logger = require('tracer').colorConsole();
 const request = require('request-promise');
 
+const echo = require('./echo');
+
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
 var relay = (req, res) => {
@@ -10,11 +12,11 @@ var relay = (req, res) => {
     for (let i = 0; i < messaging_events.length; i++) {
 
         let event = req.body.entry[0].messaging[i]; // the messaging events sent to the bot
-
-        logger.log(JSON.stringify(event, null, 2))
-
         let sender = event.sender.id; // the senders of the message
 
+        logger.log(JSON.stringify(event, null, 2));
+
+        // reply only if the message has some text
         if (event.message && event.message.text) {
 
             let text = event.message.text; // parse the message sent to the bot
@@ -30,7 +32,7 @@ var relay = (req, res) => {
                         res.sendStatus(400);
                     });
             } else {
-                sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200),
+                echo(sender, "Text received, echo: " + text.substring(0, 200),
                     (fbResponse) => {
                         res.sendStatus(200);
                     }, (fbError) => {
@@ -38,44 +40,10 @@ var relay = (req, res) => {
                     });
             }
         } else {
-            sendTextMessage(sender, "Couldn't understand the text. ",
-                (fbResponse) => {
-                    res.sendStatus(200);
-                }, (fbError) => {
-                    res.sendStatus(400);
-                });
+            echo(sender, "Couldn't understand the text. ", (fbResponse) => res.sendStatus(200), (fbError) => res.sendStatus(400));
         }
     }
-}
-
-function sendTextMessage(receiver, text, cb, errcb) {
-
-    // the message to send to the bot user
-    let messageData = { text:text };
-
-    logger.log("Replying to " + receiver + " => " + messageData);
-
-    request({
-        url: 'https://graph.facebook.com/v2.8/me/messages',
-        qs: {
-            access_token:token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id:receiver
-            },
-            message: messageData,
-        }
-    }).then((response) =>  {
-        logger.log('Response from fb ' + JSON.stringify(response));
-        logger.log('Sending confirmation to fb');
-        if (cb) cb(response);
-    }).catch( (error) => {
-        logger.error('Error: ' + error);
-        if (errcb) errcb(error);
-    });
-}
+};
 
 function sendGenericMessage(sender, cb, errcb) {
     let messageData = {
