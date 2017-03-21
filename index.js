@@ -11,6 +11,8 @@ const logger = require('tracer').colorConsole();
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
+const verifyAppToken = require('./responses/webhook-verification');
+
 app.set('port', (process.env.PORT || 5000));
 
 // Process application/x-www-form-urlencoded
@@ -25,13 +27,7 @@ app.get('/', (req, res) => {
 });
 
 // for Facebook verification
-app.get('/webhook/', (req, res) => {
-    if (req.query['hub.verify_token'] === 'we-will-change-student-lives-in-soton') {
-        res.send(req.query['hub.challenge'])
-    } else {
-        res.send('Error, wrong token')
-    }
-});
+app.get('/webhook/', verifyAppToken);
 
 app.post('/webhook/', (req, res) => {
 
@@ -40,6 +36,9 @@ app.post('/webhook/', (req, res) => {
     for (let i = 0; i < messaging_events.length; i++) {
 
         let event = req.body.entry[0].messaging[i]; // the messaging events sent to the bot
+
+        logger.log(JSON.stringify(event, null, 2))
+
         let sender = event.sender.id; // the senders of the message
 
         if (event.message && event.message.text) {
@@ -64,6 +63,13 @@ app.post('/webhook/', (req, res) => {
                         res.sendStatus(400);
                     });
             }
+        } else {
+            sendTextMessage(sender, "Couldn't understand the text. ",
+                (fbResponse) => {
+                    res.sendStatus(200);
+                }, (fbError) => {
+                    res.sendStatus(400);
+                });
         }
     }
 });
@@ -88,7 +94,7 @@ function sendTextMessage(receiver, text, cb, errcb) {
             message: messageData,
         }
     }).then((response) =>  {
-        logger.log('Response from fb ' + JSON.stringify(response.body));
+        logger.log('Response from fb ' + JSON.stringify(response));
         logger.log('Sending confirmation to fb');
         if (cb) cb(response);
     }).catch( (error) => {
@@ -138,7 +144,7 @@ function sendGenericMessage(sender, cb, errcb) {
             message: messageData,
         }
     }).then((response, body) => {
-        logger.log('Response from fb ' + JSON.stringify(response.body));
+        logger.log('Response from fb ' + JSON.stringify(response));
         logger.log('Sending confirmation to fb');
         if(cb) cb(response);
     }).catch( (error) => {
