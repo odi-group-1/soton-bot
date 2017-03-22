@@ -22,23 +22,7 @@ var relay = (req, res) => {
             // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
 
-            responseMaker.handleThis(text, sender, function (aiResponse, sender) {
-                if (!aiResponse.result.actionIncomplete) {
-                    switch (aiResponse.result.action) {
-                        case "find-building" :
-                            findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
-                                echo(sender, location, req, res);
-                            });
-                            break;
-                        default:
-                            // let test = function (text) {
-                            //     echo(sender, text.substring(0, 200), req, res);
-                            // };
-                            // responseMaker.handleThis(text, sender, test);
-                            echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
-                    }
-                }
-            });
+            responseMaker.handleThis(text, sender, switchOnAction(req, res));
 
 
         } else if (event.message && !event.message.text){
@@ -54,20 +38,22 @@ var relay = (req, res) => {
     }
 };
 
-function switchOnAction(aiResponse, sender){
-    if (!aiResponse.result.actionIncomplete) {
-        switch (aiResponse.result.action) {
-            case "find-building" :
-                findBuilding(text, function (location) {
-                    echo(sender, location, req, res);
-                });
-                break;
-            default:
-                // let test = function (text) {
-                //     echo(sender, text.substring(0, 200), req, res);
-                // };
-                // responseMaker.handleThis(text, sender, test);
-                echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
+function switchOnAction(req, res){
+    return function (aiResponse, sender) {
+        if (!aiResponse.result.actionIncomplete) {
+            switch (aiResponse.result.action) {
+                case "find-building" :
+                    findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
+                        echo(sender, location, req, res);
+                    });
+                    break;
+                default:
+                    // let test = function (text) {
+                    //     echo(sender, text.substring(0, 200), req, res);
+                    // };
+                    // responseMaker.handleThis(text, sender, test);
+                    echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
+            }
         }
     }
 }
