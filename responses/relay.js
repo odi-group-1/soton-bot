@@ -22,19 +22,23 @@ var relay = (req, res) => {
             // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
 
-            switch(text) {
-                case "Where is building 53":
-                    findBuilding(text, function (location) {
-                        echo(sender, location, req, res);
-                    });
-                    break;
-                default:
-                    // let test = function (text) {
-                    //     echo(sender, text.substring(0, 200), req, res);
-                    // };
-                    // responseMaker.handleThis(text, test);
-                    echo(sender, text.substring(0, 200), req, res);
-            }
+            responseMaker.handleThis(text, sender, function (aiResponse, sender) {
+                if (!aiResponse.result.actionIncomplete) {
+                    switch (aiResponse.result.action) {
+                        case "find-building" :
+                            findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
+                                echo(sender, location, req, res);
+                            });
+                            break;
+                        default:
+                            // let test = function (text) {
+                            //     echo(sender, text.substring(0, 200), req, res);
+                            // };
+                            // responseMaker.handleThis(text, sender, test);
+                            echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
+                    }
+                }
+            });
 
 
         } else if (event.message && !event.message.text){
@@ -49,8 +53,27 @@ var relay = (req, res) => {
         }
     }
 };
+
+function switchOnAction(aiResponse, sender){
+    if (!aiResponse.result.actionIncomplete) {
+        switch (aiResponse.result.action) {
+            case "find-building" :
+                findBuilding(text, function (location) {
+                    echo(sender, location, req, res);
+                });
+                break;
+            default:
+                // let test = function (text) {
+                //     echo(sender, text.substring(0, 200), req, res);
+                // };
+                // responseMaker.handleThis(text, sender, test);
+                echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
+        }
+    }
+}
+
 function findBuilding(str, cb) {
-    let building = str.replace("Where is building ","");
+    let building = str;
     let myquery = new sparqls.Query({limit: 2});
     myquery.registerTriple({'subject':'?s','predicate':'?p','object':'?o'});
     myquery.filter("?s = <http://id.southampton.ac.uk/building/"+building+"> && (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)");
