@@ -1,7 +1,7 @@
 var apiai = require('apiai');
 const logger = require('tracer').colorConsole();
 
-var chat_app = apiai("5f3a90b02cfa4c6781cc11dbc4706b19");
+var chat_app = apiai("0131221ffe7b41b49872ed7e12b53237");
 
 var handleThis = (messageText, cb, errcb) => {
     logger.log("Message Starting");

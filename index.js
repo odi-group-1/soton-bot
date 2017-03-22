@@ -23,6 +23,31 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.send('Hello world, I am a chat bot')
 });
+var test_apiai = require('apiai');
+
+var test_chat_app = test_apiai("0131221ffe7b41b49872ed7e12b53237");
+
+app.get('/chat/', (req, res) => {
+    console.log("Message Starting");
+    var request = test_chat_app.textRequest('Where is building 11?', {
+        sessionId: '239482934'
+    });
+
+    request.on('response', function(response) {
+        console.log("Success");
+        res.send(response)
+    });
+
+    request.on('error', function(error) {
+        console.log("Fails");
+        console.log(error);
+        res.sendStatus(error.status);
+    });
+
+    request.end();
+    console.log("Message ended");
+});
+
 
 // for Facebook verification
 app.get('/webhook/', verifyAppToken);
