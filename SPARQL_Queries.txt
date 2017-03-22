@@ -133,3 +133,20 @@ SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
 }
 
 //Change the building number from 32 to any building number needed
+
+
+//---------------------------------------------
+
+Find Lat, Long, Name and post code it's near of Food places!
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX ns: <http://id.southampton.ac.uk/ns/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT * FROM <http://id.southampton.ac.uk/dataset/southampton-food-outlets/latest> WHERE {
+  ?business a ns:FoodOrDrinkEstablishment ;
+  	geo:lat ?lat ;
+    geo:long ?long ;
+  	rdfs:label ?name ;
+  	foaf:based_near ?near .
+}

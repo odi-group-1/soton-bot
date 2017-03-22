@@ -5,6 +5,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const sparqls = require('sparqling-star');
 const app = express();
 const logger = require('tracer').colorConsole();
 

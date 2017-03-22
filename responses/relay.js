@@ -30,7 +30,25 @@ var relay = (req, res) => {
         } else if (event.message && !event.message.text){
             // message does not have any text
             logger.log("Received a non-text message => " + JSON.stringify(event));
-            echo(sender, "I don't know what you mean", req, res);
+
+            // does the message have attachments
+            let attachments = event.message.attachments;
+
+            if (attachments) {
+                let attachment = attachments[0];
+
+                // the user sent coordinates
+                if (attachment.payload && attachment.payload.coordinates) {
+                    logger.log('Received position from ' + sender + ' ' + JSON.stringify(attachment.payload.coordinates));
+                    queries.findNearestFood(attachment.payload.coordinates, function (foodStr) {
+                        echo(sender, foodStr, req, res);
+                    });
+                } else {
+                    echo(sender, "I don't recognize the attachments", req, res);
+                }
+            } else {
+                echo(sender, "I don't know what you mean", req, res);
+            }
 
         } else {
             // not a message, probably a delivery or sent message, reply yes anyway
