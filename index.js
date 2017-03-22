@@ -105,7 +105,9 @@ app.get('/tom/:text', (req, res) => {
     let result = [];
     let ans = "";
 
-    let myLocation = {"lat":50.934735, "long":-1.395784}; // Remove hard coded value
+    //{'lat': 50.928965, 'long':-1.344170}
+    //{'lat':50.934735, 'long':-1.395784}
+    let myLocation = {'lat': 50.928965, 'long':-1.344170}; // Remove hard coded value
 
     sparqler.send(myquery, function(error, data){
         if(data.results.bindings.length > 0) {
@@ -113,7 +115,7 @@ app.get('/tom/:text', (req, res) => {
                 // Try because trying to access JSON properties that may be undefined
                 data.results.bindings.forEach( function(resultBinding) {
                     let distance = getDistanceFromLatLonInKm(myLocation.lat, myLocation.long, resultBinding.lat.value, resultBinding.long.value);
-                    if(distance <= 0.250) { //Within 250m
+                       if(distance <= 0.250) { //Within 250m
                         result.push({
                             // 'lat': resultBinding.lat.value,
                             // 'long': resultBinding.long.value,
@@ -123,15 +125,17 @@ app.get('/tom/:text', (req, res) => {
                     }
                 });
                 result = _.sortBy(result, 'dist');
-                ans = "Within 250m there are " + result.length + ' places to eat: ';
-                result.forEach( function(place) {
-                    ans += " " + place.name + " " + place.dist + "km";
-                });
+                if (result.length > 0) {
+                    ans = "Within 250m there are " + result.length + ' places to eat: ';
+                    result.forEach(function (place) {
+                        ans += " " + place.name + " " + place.dist + "km";
+                    });
+                } else {
+                    ans = "You are not close enough to UoS..."
+                };
             } catch (err) {
                 console.log('Failed to read query results');
             }
-        } else {
-            ans = "No places to eat within 250m :("
         };
          res.send(ans);
     });
