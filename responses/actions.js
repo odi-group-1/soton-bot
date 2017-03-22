@@ -23,6 +23,9 @@ function switchOnAction(req, res){
                     // responseMaker.handleThis(text, sender, test);
                     echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
             }
+        } else {
+            // basic incomplete action response
+            echo(sender, aiResponse.fulfillment.speech.substring(0, 200), req, res);
         }
     }
 }
