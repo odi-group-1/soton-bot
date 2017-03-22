@@ -30,6 +30,19 @@ var relay = (req, res) => {
         } else if (event.message && !event.message.text){
             // message does not have any text
             logger.log("Received a non-text message => " + JSON.stringify(event));
+
+            // does the message have attachments
+            let attachments = event.message.attachments;
+
+            if (attachments) {
+                let attachment = attachments[0];
+
+                // the user sent coordinates
+                if (attachment.payload && attachment.payload.coordinates) {
+                    logger.log('Received position from ' + sender + ' ' + JSON.stringify(attachment.payload.coordinates));
+                }
+            }
+
             echo(sender, "I don't know what you mean", req, res);
 
         } else {
