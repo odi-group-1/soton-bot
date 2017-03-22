@@ -22,7 +22,12 @@ function switchOnAction(req, res){
                     //     echo(sender, text.substring(0, 200), req, res);
                     // };
                     // responseMaker.handleThis(text, sender, test);
-                    echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
+                    if (aiResponse.fulfillment && aiResponse.fulfillment.speech) {
+                        echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
+                    } else {
+                        let responseString = "I'm tired, ask me later please.";
+                        echo(sender, responseString, req, res)
+                    }
             }
         } else {
             // basic incomplete action response
