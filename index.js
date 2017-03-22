@@ -36,35 +36,65 @@ app.listen(app.get('port'), () => {
     logger.log('running on port', app.get('port'))
 });
 
-app.get('/sparql/:id', (req, res) => {
+app.get('/tom/:text', (req, res) => {
+
+    // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    // PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+    // PREFIX ns: <http://id.southampton.ac.uk/ns/>
+    // PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    // SELECT * FROM <http://id.southampton.ac.uk/dataset/southampton-food-outlets/latest> WHERE {
+    //  ?business a ns:FoodOrDrinkEstablishment ;
+    //      geo:lat ?lat ;
+    //      geo:long ?long ;
+    //      rdfs:label ?name ;
+    //      foaf:based_near ?near .
+    // }
+    // LIMIT 10
+
     logger.log("hello");
-    logger.log(req.params.id)
+    logger.log(req.params.text);
 
-    let building = req.params.id;
+    let building = req.params.text;
 
-    let myquery = new sparqls.Query({limit: 2});
-    myquery.registerTriple({'subject':'?s','predicate':'?p','object':'?o'});
-    myquery.filter("?s = <http://id.southampton.ac.uk/building/"+building+"> && (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)");
+    let myquery = new sparqls.Query({limit: 10});
+
+    myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
+    myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
+    myquery.registerPrefix( 'ns', '<http://id.southampton.ac.uk/ns/>');
+
+    let business = {
+        'type': 'ns:FoodOrDrinkEstablishment',
+        'geo:lat': '?lat',
+        'geo:long': '?long',
+        'rdfs:label': '?name'
+        // TODO: Figure out query that finds out closest to you!
+    };
+
+    myquery.registerVariable('business', business);
 
     console.log(myquery.sparqlQuery);
 
     let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
-    let lat = undefined;
-    let lng = undefined;
-    let ans = "Sorry, I don't know where that is...";
+
+    let result = [];
 
     sparqler.send(myquery, function(error, data){
         if(data.results.bindings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
-                lat = data.results.bindings[0].o.value;
-                lng = data.results.bindings[1].o.value;
-                console.log('LAT: ' + lat + ' LONG: ' + lng);
-                ans = 'LAT: ' + lat + ' LONG: ' + lng;
+                data.results.bindings.forEach( function(resultBinding) {
+                    result.push({
+                        'lat': resultBinding.lat.value,
+                        'long': resultBinding.long.value,
+                        'name': resultBinding.name.value
+                    });
+                });
             } catch (err) {
-                console.log('Tried to find building, failed...');
+                console.log('Tried to find food, failed...');
             }
         };
-        res.send(ans);
+         res.send(result);
     });
-})
+});
+
+
