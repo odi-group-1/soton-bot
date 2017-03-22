@@ -1,6 +1,7 @@
 /**
  * Created by shakib on 22/03/17.
  */
+const logger = require('tracer').colorConsole();
 const queries = require('./queries');
 const sendMessage = require('./send-message');
 /*
@@ -21,11 +22,11 @@ function switchOnAction(req, res){
                     //     echo(sender, text.substring(0, 200), req, res);
                     // };
                     // responseMaker.handleThis(text, sender, test);
-                    echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
+                    echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
             }
         } else {
             // basic incomplete action response
-            echo(sender, aiResponse.fulfillment.speech.substring(0, 200), req, res);
+            echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
         }
     }
 }
