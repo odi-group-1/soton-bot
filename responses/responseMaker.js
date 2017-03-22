@@ -1,22 +1,22 @@
 var apiai = require('apiai');
 const logger = require('tracer').colorConsole();
 
-var chat_app = apiai("5f3a90b02cfa4c6781cc11dbc4706b19");
+var chat_app = apiai("0131221ffe7b41b49872ed7e12b53237");
 
-var handleThis = (messageText, cb, errcb) => {
+var handleThis = (messageText, senderId, cb, errcb) => {
     logger.log("Message Starting");
     var request = chat_app.textRequest(messageText, {
-        sessionId: '239482934'
+        sessionId: senderId
     });
 
     request.on('response', function(response) {
         logger.log("Success");
-        if (cb) cb(JSON.stringify(response));
+        if (cb) cb(response, senderId);
     });
 
     request.on('error', function(error) {
         logger.log("Fails");
-        if (errcb) errcb(error);
+        if (errcb) errcb(error, senderId);
     });
 
     request.end();
