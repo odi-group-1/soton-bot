@@ -4,6 +4,7 @@ const request = require('request-promise');
 const sendMessage = require('./send-message');
 const responseMaker = require('./responseMaker');
 const queries = require('./queries');
+const actions = require('./actions');
 
 // this is a higher level function that will relay based on what type of message was sent
 var relay = (req, res) => {
@@ -23,7 +24,7 @@ var relay = (req, res) => {
             // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
 
-            responseMaker.handleThis(text, sender, switchOnAction(req, res));
+            responseMaker.handleThis(text, sender, actions.switchOnAction(req, res));
 
 
         } else if (event.message && !event.message.text){
@@ -38,30 +39,6 @@ var relay = (req, res) => {
         }
     }
 };
-
-/*
-   this is a function that will take the http context and generate the closure
-   that will ask apiai for actions and switch on that action
- */
-function switchOnAction(req, res){
-    return function (aiResponse, sender) {
-        if (!aiResponse.result.actionIncomplete) {
-            switch (aiResponse.result.action) {
-                case "find-building" :
-                    queries.findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
-                        echo(sender, location, req, res);
-                    });
-                    break;
-                default:
-                    // let test = function (text) {
-                    //     echo(sender, text.substring(0, 200), req, res);
-                    // };
-                    // responseMaker.handleThis(text, sender, test);
-                    echo(sender, aiResponse.result.resolvedQuery.substring(0, 200), req, res);
-            }
-        }
-    }
-}
 
 function echo(sender, text, req, res) {
     sendMessage(sender, text, undefined, undefined, req, res);
