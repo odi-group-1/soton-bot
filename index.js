@@ -6,6 +6,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sparqls = require('sparqling-star');
+const _ = require('lodash');
 const app = express();
 const logger = require('tracer').colorConsole();
 
@@ -81,7 +82,7 @@ app.get('/tom/:text', (req, res) => {
 
     let building = req.params.text;
 
-    let myquery = new sparqls.Query({limit: 10});
+    let myquery = new sparqls.Query({limit: 10000});
 
     myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
     myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
@@ -102,24 +103,56 @@ app.get('/tom/:text', (req, res) => {
     let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
 
     let result = [];
+    let ans = "";
+
+    let myLocation = {"lat":50.934735, "long":-1.395784}; // Remove hard coded value
 
     sparqler.send(myquery, function(error, data){
         if(data.results.bindings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 data.results.bindings.forEach( function(resultBinding) {
-                    result.push({
-                        'lat': resultBinding.lat.value,
-                        'long': resultBinding.long.value,
-                        'name': resultBinding.name.value
-                    });
+                    let distance = getDistanceFromLatLonInKm(myLocation.lat, myLocation.long, resultBinding.lat.value, resultBinding.long.value);
+                    if(distance <= 0.250) { //Within 250m
+                        result.push({
+                            // 'lat': resultBinding.lat.value,
+                            // 'long': resultBinding.long.value,
+                            'name': resultBinding.name.value,
+                            'dist': Number(Math.round(distance+'e3')+'e-3')
+                        });
+                    }
+                });
+                result = _.sortBy(result, 'dist');
+                ans = "Within 250m there are " + result.length + ' places to eat: ';
+                result.forEach( function(place) {
+                    ans += " " + place.name + " " + place.dist + "km";
                 });
             } catch (err) {
-                console.log('Tried to find food, failed...');
+                console.log('Failed to read query results');
             }
+        } else {
+            ans = "No places to eat within 250m :("
         };
-         res.send(result);
+         res.send(ans);
     });
 });
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+};
+
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+};
 
 
