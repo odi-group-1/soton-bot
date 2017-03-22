@@ -1,9 +1,9 @@
 const logger = require('tracer').colorConsole();
 const request = require('request-promise');
-const sparqls = require('sparqling-star');
 
 const sendMessage = require('./send-message');
 const responseMaker = require('./responseMaker');
+const queries = require('./queries');
 
 var relay = (req, res) => {
 
@@ -43,7 +43,7 @@ function switchOnAction(req, res){
         if (!aiResponse.result.actionIncomplete) {
             switch (aiResponse.result.action) {
                 case "find-building" :
-                    findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
+                    queries.findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
                         echo(sender, location, req, res);
                     });
                     break;
@@ -57,35 +57,6 @@ function switchOnAction(req, res){
         }
     }
 }
-
-function findBuilding(str, cb) {
-    let building = str;
-    let myquery = new sparqls.Query({limit: 2});
-    myquery.registerTriple({'subject':'?s','predicate':'?p','object':'?o'});
-    myquery.filter("?s = <http://id.southampton.ac.uk/building/"+building+"> && (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)");
-
-    console.log(myquery.sparqlQuery);
-
-    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
-    let lat = undefined;
-    let lng = undefined;
-    let ans = "Sorry, I don't know where that is...";
-
-    sparqler.send(myquery, function(error, data){
-        if(data.results.bindings.length > 0) {
-            try {
-                // Try because trying to access JSON properties that may be undefined
-                lat = data.results.bindings[0].o.value;
-                lng = data.results.bindings[1].o.value;
-                console.log('LAT: ' + lat + ' LONG: ' + lng);
-                ans = 'LAT: ' + lat + ' LONG: ' + lng;
-            } catch (err) {
-                console.log('Tried to find building, failed...');
-            }
-        };
-        if(cb) cb(ans);
-    });
-};
 
 function echo(sender, text, req, res) {
     sendMessage(sender, "Text received, echo: " + text.substring(0, 200), undefined, undefined, req, res);
