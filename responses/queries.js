@@ -1,5 +1,6 @@
 const sparqls = require('sparqling-star');
 const logger = require('tracer').colorConsole();
+const _ = require('lodash');
 
 let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     let R = 6371; // Radius of the earth in km
@@ -18,7 +19,7 @@ let deg2rad = (deg) => {
     return deg * (Math.PI/180)
 };
 
-let findLocation = (location, cb) => {
+let findNearestFood = (location, cb) => {
 
     let myquery = new sparqls.Query({limit: 10000});
 
@@ -67,7 +68,7 @@ let findLocation = (location, cb) => {
                     ans = "You are not close enough to UoS..."
                 }
             } catch (err) {
-                console.log('Failed to read query results');
+                logger.log('Failed to read query results');
             }
         }
         if (cb) cb(ans);
@@ -103,5 +104,6 @@ let findBuilding = (str, cb) => {
 };
 
 module.exports = {
-    findBuilding: findBuilding
+    findBuilding: findBuilding,
+    findNearestFood: findNearestFood
 };
