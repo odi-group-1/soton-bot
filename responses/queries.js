@@ -1,4 +1,5 @@
 const sparqls = require('sparqling-star');
+const logger = require('tracer').colorConsole();
 
 var findBuilding = function(str, cb) {
     let building = str;
@@ -6,7 +7,7 @@ var findBuilding = function(str, cb) {
     myquery.registerTriple({'subject':'?s','predicate':'?p','object':'?o'});
     myquery.filter("?s = <http://id.southampton.ac.uk/building/"+building+"> && (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> || ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)");
 
-    console.log(myquery.sparqlQuery);
+    logger.log(myquery.sparqlQuery);
 
     let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
     let lat = undefined;
@@ -19,10 +20,9 @@ var findBuilding = function(str, cb) {
                 // Try because trying to access JSON properties that may be undefined
                 lat = data.results.bindings[0].o.value;
                 lng = data.results.bindings[1].o.value;
-                console.log('LAT: ' + lat + ' LONG: ' + lng);
                 ans = 'LAT: ' + lat + ' LONG: ' + lng;
             } catch (err) {
-                console.log('Tried to find building, failed...');
+                logger.log('Tried to find building, failed...');
             }
         }
         if(cb) cb(ans);

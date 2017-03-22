@@ -5,6 +5,7 @@ const sendMessage = require('./send-message');
 const responseMaker = require('./responseMaker');
 const queries = require('./queries');
 
+// this is a higher level function that will relay based on what type of message was sent
 var relay = (req, res) => {
 
     let messaging_events = req.body.entry[0].messaging;
@@ -38,6 +39,10 @@ var relay = (req, res) => {
     }
 };
 
+/*
+   this is a function that will take the http context and generate the closure
+   that will ask apiai for actions and switch on that action
+ */
 function switchOnAction(req, res){
     return function (aiResponse, sender) {
         if (!aiResponse.result.actionIncomplete) {
@@ -59,7 +64,7 @@ function switchOnAction(req, res){
 }
 
 function echo(sender, text, req, res) {
-    sendMessage(sender, "Text received, echo: " + text.substring(0, 200), undefined, undefined, req, res);
+    sendMessage(sender, text, undefined, undefined, req, res);
 }
 
 module.exports = relay;
