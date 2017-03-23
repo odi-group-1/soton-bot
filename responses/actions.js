@@ -17,6 +17,8 @@ function switchOnAction(req, res){
                         echo(sender, location, req, res);
                     });
                     break;
+                case "find-nearest-service" :
+                case "nearest-food":
                 default:
                     // let test = function (text) {
                     //     echo(sender, text.substring(0, 200), req, res);
