@@ -121,7 +121,7 @@ function switchOnAction(req, res){
                     queries.startTermDates(term, function (stringStartDate) {
                         // Get the response and att the date to it
                         var aiRawSpeech = aiResponse.result.fulfillment.speech;
-                        echo(sender, aiRawSpeech + stringStartDate, req, res);
+                        echo(sender, aiRawSpeech + " " + stringStartDate, req, res);
 
                     }, function (errorMessage) {
                         // Give some random response
@@ -135,7 +135,7 @@ function switchOnAction(req, res){
                     // Find the end date for that term
                     queries.endTermDates(term, function (stringEndDate) {
                         var aiRawSpeech = aiResponse.result.fulfillment.speech;
-                        echo(sender, aiRawSpeech + stringEndDate, req, res);
+                        echo(sender, aiRawSpeech + " " + stringEndDate, req, res);
 
                     }, function (errorMessage) {
                         // Give some random response
