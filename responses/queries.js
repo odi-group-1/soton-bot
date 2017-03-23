@@ -94,7 +94,10 @@ let findBuilding = (str, cb) => {
                 // Try because trying to access JSON properties that may be undefined
                 lat = data.results.bindings[0].o.value;
                 lng = data.results.bindings[1].o.value;
-                ans = 'LAT: ' + lat + ' LONG: ' + lng;
+                ans = {
+                    lat: lat,
+                    long: lng
+                };
             } catch (err) {
                 logger.error('Tried to find building, failed...');
             }

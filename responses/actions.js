@@ -15,7 +15,27 @@ function switchOnAction(req, res){
                 case "find-building" :
                     let buildingNumber = aiResponse.result.parameters.buidingNumber;
                     queries.findBuilding(buildingNumber, function (location) {
-                        echo(sender, location, req, res);
+
+                        if (typeof location === 'string') {
+                            echo(sender, location, req, res);
+                        } else {
+                            location = {
+                                "attachment": {
+                                    "type": "template",
+                                    "payload": {
+                                        "template_type": "generic",
+                                        "elements": [
+                                            {
+                                                "title": aiResponse.result.fulfillment.speech,
+                                                "image_url": "http://staticmap.openstreetmap.de/staticmap.php?center="+location.lat + ","+location.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + location.lat + "," + location.long,
+                                                "subtitle": "From Open Street Map",
+                                            }
+                                        ]
+                                    }
+                                }
+                            };
+                            echo(sender, location, req, res);
+                        }
                     });
                     break;
                 case "find-nearest-service" :
@@ -67,12 +87,8 @@ function switchOnAction(req, res){
                     break;
 
                 default:
-                    // let test = function (text) {
-                    //     echo(sender, text.substring(0, 200), req, res);
-                    // };
-                    // responseMaker.handleThis(text, sender, test);
                     if (aiResponse.result.fulfillment && aiResponse.result.fulfillment.speech) {
-                        echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
+                        echo(sender, aiResponse.result.fulfillment.speech, req, res);
                     } else {
                         let responseString = "I'm tired, ask me later please.";
                         echo(sender, responseString, req, res)
