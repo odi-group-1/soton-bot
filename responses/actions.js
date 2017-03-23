@@ -20,15 +20,15 @@ function switchOnAction(req, res){
                             echo(sender, location, req, res);
                         } else {
                             location = {
-                                "attachment": {
-                                    "type": "template",
-                                    "payload": {
-                                        "template_type": "generic",
-                                        "elements": [
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: [
                                             {
-                                                "title": aiResponse.result.fulfillment.speech,
-                                                "image_url": "http://staticmap.openstreetmap.de/staticmap.php?center="+location.lat + ","+location.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + location.lat + "," + location.long,
-                                                "subtitle": "From Open Street Map",
+                                                title: aiResponse.result.fulfillment.speech,
+                                                image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+location.lat + ","+location.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + location.lat + "," + location.long,
+                                                subtitle: "From Open Street Map",
                                             }
                                         ]
                                     }
@@ -42,7 +42,27 @@ function switchOnAction(req, res){
                     let desiredService = aiResponse.result.parameters.offering;
 
                     queries.findOffering(desiredService, function (services) {
-                        echo(sender, services, req, res);
+                        if (typeof services === 'string') {
+                            echo(sender, services, req, res);
+                        } else {
+                            let servs = {
+                                attachment: {
+                                    type: "template",
+                                    payload: {
+                                        template_type: "generic",
+                                        elements: []
+                                    }
+                                }
+                            };
+                            for (let i = 0; i < services.length; i++) {
+                                servs.attachment.payload.elements.push({
+                                    title: services[i],
+                                    image_url: services[i]
+                                })
+                            }
+                            echo(sender, servs, req, res);
+                            // echo(sender, JSON.stringify(services), req, res);
+                        }
                     });
 
                     break;

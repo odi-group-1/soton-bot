@@ -138,11 +138,7 @@ function findOffering(param, cb) {
                     // console.log(resultBinding);
                     result.push(resultBinding.location.value);
                 });
-                // Parse results array
-                ans = "I've found the following " + param + " locations: \n";
-                result.forEach( function(location) {
-                    ans += location +"\n";
-                });
+                ans = result;
             } catch (err) {
                 logger.error('Failed to read query results');
             }
