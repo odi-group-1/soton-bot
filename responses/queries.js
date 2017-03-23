@@ -68,7 +68,7 @@ let findNearestFood = (location, cb) => {
                     ans = "You are not close enough to UoS..."
                 }
             } catch (err) {
-                logger.log('Failed to read query results');
+                logger.error('Failed to read query results');
             }
         }
         if (cb) cb(ans);
@@ -96,14 +96,60 @@ let findBuilding = (str, cb) => {
                 lng = data.results.bindings[1].o.value;
                 ans = 'LAT: ' + lat + ' LONG: ' + lng;
             } catch (err) {
-                logger.log('Tried to find building, failed...');
+                logger.error('Tried to find building, failed...');
             }
         }
         if(cb) cb(ans);
     });
 };
 
+function findOffering(param, cb) {
+
+    let myquery = new sparqls.Query({limit: 5, distinct: true});
+
+    myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
+    myquery.registerPrefix( 'gr', '<http://purl.org/goodrelations/v1#>');
+
+    let Offering = {
+        'type': 'gr:Offering',
+        'gr:availableAtOrFrom': '?location',
+        'rdfs:label': '?name'
+    };
+
+    myquery.registerVariable('Offering', Offering);
+
+    myquery.filter("?name = '" + param + "'");
+
+    logger.log(myquery.sparqlQuery);
+
+    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
+
+    let result = [];
+    let ans = "Sorry, I couldn't find any " + param + ".";
+
+    sparqler.send(myquery, function(error, data){
+        if(data.results.bindings.length > 0) {
+            try {
+                // Try because trying to access JSON properties that may be undefined
+                data.results.bindings.forEach( function(resultBinding) {
+                    // console.log(resultBinding);
+                    result.push(resultBinding.location.value);
+                });
+                // Parse results array
+                ans = "I've found the following " + param + " locations: \n";
+                result.forEach( function(location) {
+                    ans += location +"\n";
+                });
+            } catch (err) {
+                logger.error('Failed to read query results');
+            }
+        }
+        if (cb) cb(ans);
+    });
+}
+
 module.exports = {
     findBuilding: findBuilding,
-    findNearestFood: findNearestFood
+    findNearestFood: findNearestFood,
+    findOffering: findOffering
 };

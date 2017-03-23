@@ -20,10 +20,12 @@ function switchOnAction(req, res){
                     break;
                 case "find-nearest-service" :
                     let desiredService = aiResponse.result.parameters.offering;
+
+                    queries.findOffering(desiredService, function (services) {
+                        echo(sender, services, req, res);
+                    });
+
                     break;
-
-                    //Go wild with that knowledge Tom
-
                 case "nearest-food":
                     try {
                         let attachment = req.body.entry[0].messaging[0].message.attachments[0];
@@ -75,7 +77,18 @@ function switchOnAction(req, res){
             }
         } else {
             // basic incomplete action response
-            echo(sender, "Incomplete. " + aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
+            let speech = aiResponse.result.fulfillment.speech;
+            if (speech.includes('location pin')) {
+                speech = {
+                    "text":"Please share your location:",
+                    "quick_replies":[
+                        {
+                            "content_type":"location",
+                        }
+                    ]
+                }
+            }
+            echo(sender, typeof speech === 'string'? "Incomplete. " + speech : speech, req, res);
         }
     }
 }
