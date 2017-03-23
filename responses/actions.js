@@ -63,7 +63,14 @@ function switchOnAction(req, res){
                             for (let i = 0; i < services.length; i++) {
                                 servs.attachment.payload.elements.push({
                                     title: services[i],
-                                    image_url: services[i]
+                                    image_url: services[i],
+                                    "buttons":[
+                                        {
+                                            "type":"web_url",
+                                            "url": services[i],
+                                            "title":"More details",
+                                        }
+                                    ]
                                 })
                             }
                             logger.log(servs);
