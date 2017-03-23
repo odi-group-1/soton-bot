@@ -65,18 +65,44 @@ app.get('/tom/:text', (req, res) => {
 
     let param = req.params.text;
 
+//     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+//         PREFIX gr: <http://purl.org/goodrelations/v1#>
+//         PREFIX ns0: <http://purl.org/goodrelations/v1#>
+//         PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+//         SELECT ?name ?lat ?long WHERE {
+//             ?Offering a gr:Offering .
+//         ?Offering gr:availableAtOrFrom ?Location .
+//         ?Offering rdfs:label ?name .
+//         ?Location a ns0:LocationOfSalesOrServiceProvisioning .
+//         ?Location geo:lat ?lat .
+//         ?Location geo:long ?long .
+//     FILTER(?name = 'Alcohol') .
+//     }
+//     LIMIT 5
+
     let myquery = new sparqls.Query({limit: 5, distinct: true});
 
     myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
     myquery.registerPrefix( 'gr', '<http://purl.org/goodrelations/v1#>');
+    myquery.registerPrefix( 'ns0', '<http://purl.org/goodrelations/v1#>');
+    myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
+
+    myquery.selection(['?lat','?long']);
 
     let Offering = {
         'type': 'gr:Offering',
-        'gr:availableAtOrFrom': '?location',
+        'gr:availableAtOrFrom': '?Location',
         'rdfs:label': '?name'
     };
 
+    let Location = {
+        'type': 'ns0:LocationOfSalesOrServiceProvisioning',
+        'geo:lat': '?lat',
+        'geo:long': '?long'
+    }
+
     myquery.registerVariable('Offering', Offering);
+    myquery.registerVariable('Location', Location);
 
     myquery.filter("?name = '" + param + "'");
 
@@ -88,19 +114,21 @@ app.get('/tom/:text', (req, res) => {
     let ans = "Sorry, I couldn't find any " + param + ".";
 
     sparqler.send(myquery, function(error, data){
+        logger.log(data);
         if(data.results.bindings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 data.results.bindings.forEach( function(resultBinding) {
-                    // console.log(resultBinding);
-                    result.push(resultBinding.location.value);
+                    result.push({ 'lat': resultBinding.lat.value,
+                                  'long': resultBinding.long.value});
                 });
                 // Parse results array
                 ans = "I've found the following " + param + " locations: \n"
-                result.forEach( function(location) {
-                    ans += location +"\n";
+                result.forEach( function(item) {
+                    ans += "lat: " + item.lat + " long: " + item.long +"\n";
                 });
             } catch (err) {
+                logger.log(err);
                 logger.log('Failed to read query results');
             }
         }

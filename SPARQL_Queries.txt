@@ -150,3 +150,22 @@ SELECT * FROM <http://id.southampton.ac.uk/dataset/southampton-food-outlets/late
   	rdfs:label ?name ;
   	foaf:based_near ?near .
 }
+
+//--------------------------------------------------
+
+Get coordinates of amenitie using two datasets (without specifying FROM)
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX ns0: <http://purl.org/goodrelations/v1#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+SELECT ?name ?lat ?long WHERE { 
+  ?Offering a gr:Offering .
+  ?Offering gr:availableAtOrFrom ?Location .
+  ?Offering rdfs:label ?name .
+  ?Location a ns0:LocationOfSalesOrServiceProvisioning .
+  ?Location geo:lat ?lat .
+  ?Location geo:long ?long .
+  FILTER(?name = 'Cigarettes') .
+}
+LIMIT 50
