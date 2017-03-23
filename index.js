@@ -6,6 +6,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sparqls = require('sparqling-star');
+const _ = require('lodash');
 const app = express();
 const logger = require('tracer').colorConsole();
 
@@ -65,29 +66,34 @@ app.get('/tom/:text', (req, res) => {
 
     let param = req.params.text;
 
-//     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-//         PREFIX gr: <http://purl.org/goodrelations/v1#>
-//         PREFIX ns0: <http://purl.org/goodrelations/v1#>
-//         PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-//         SELECT ?name ?lat ?long WHERE {
-//             ?Offering a gr:Offering .
-//         ?Offering gr:availableAtOrFrom ?Location .
-//         ?Offering rdfs:label ?name .
-//         ?Location a ns0:LocationOfSalesOrServiceProvisioning .
-//         ?Location geo:lat ?lat .
-//         ?Location geo:long ?long .
-//     FILTER(?name = 'Alcohol') .
-//     }
-//     LIMIT 5
+        // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        // PREFIX gr: <http://purl.org/goodrelations/v1#>
+        // PREFIX ns0: <http://purl.org/goodrelations/v1#>
+        // PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+        // SELECT ?Location ?shop ?name ?lat ?long ?day ?opens ?closes WHERE {
+        //     ?Offering a gr:Offering .
+        //     ?Offering gr:availableAtOrFrom ?Location .
+        //     ?Offering rdfs:label ?name .
+        //     ?Location a ns0:LocationOfSalesOrServiceProvisioning .
+        //     ?Location rdfs:label ?shop .
+        //     ?Location geo:lat ?lat .
+        //     ?Location geo:long ?long .
+        //     ?Location gr:hasOpeningHoursSpecification ?Hours .
+        //     ?Hours gr:hasOpeningHoursDayOfWeek ?day .
+        //     ?Hours gr:opens ?opens .
+        //     ?Hours gr:closes ?closes .
+        // FILTER(?name = 'Cigarettes') .
+        // }
+        // LIMIT 700
 
-    let myquery = new sparqls.Query({limit: 5, distinct: true});
+    let myquery = new sparqls.Query({limit: 700, distinct: true});
 
     myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
     myquery.registerPrefix( 'gr', '<http://purl.org/goodrelations/v1#>');
     myquery.registerPrefix( 'ns0', '<http://purl.org/goodrelations/v1#>');
     myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
 
-    myquery.selection(['?lat','?long']);
+    myquery.selection(['?Location', '?shop', '?lat', '?long', '?day', '?opens', '?closes']);
 
     let Offering = {
         'type': 'gr:Offering',
@@ -98,11 +104,20 @@ app.get('/tom/:text', (req, res) => {
     let Location = {
         'type': 'ns0:LocationOfSalesOrServiceProvisioning',
         'geo:lat': '?lat',
-        'geo:long': '?long'
+        'geo:long': '?long',
+        'rdfs:label': '?shop',
+        'gr:hasOpeningHoursSpecification': '?Hours'
+    };
+
+    let Hours = {
+        'gr:hasOpeningHoursDayOfWeek': '?day',
+        'gr:opens': '?opens',
+        'gr:closes': '?closes'
     }
 
     myquery.registerVariable('Offering', Offering);
     myquery.registerVariable('Location', Location);
+    myquery.registerVariable('Hours', Hours);
 
     myquery.filter("?name = '" + param + "'");
 
@@ -111,28 +126,46 @@ app.get('/tom/:text', (req, res) => {
     let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
 
     let result = [];
-    let ans = "Sorry, I couldn't find any " + param + ".";
+    let times = [];
+    let d = new Date();
+    let today = d.getDay();
+    let weekday = new Array(7);
+    weekday[0] =  "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
 
     sparqler.send(myquery, function(error, data){
-        logger.log(data);
         if(data.results.bindings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 data.results.bindings.forEach( function(resultBinding) {
-                    result.push({ 'lat': resultBinding.lat.value,
-                                  'long': resultBinding.long.value});
-                });
-                // Parse results array
-                ans = "I've found the following " + param + " locations: \n"
-                result.forEach( function(item) {
-                    ans += "lat: " + item.lat + " long: " + item.long +"\n";
+                    let foundDay = resultBinding.day.value.replace("http://purl.org/goodrelations/v1#", "")
+                    if( foundDay === weekday[today]) {
+                        result.push(
+                            {
+                                'shop': resultBinding.shop.value,
+                                'uri': resultBinding.Location.value,
+                                'coordinates': {
+                                    'lat': resultBinding.lat.value,
+                                    'long': resultBinding.long.value
+                                },
+                                'times': {
+                                    'open': resultBinding.opens.value,
+                                    'close': resultBinding.closes.value
+                                }
+                            });
+                    }
                 });
             } catch (err) {
-                logger.log(err);
                 logger.log('Failed to read query results');
+                logger.log(err);
             }
         }
-        res.send(ans);
+        res.send(result);
     });
 
 });
