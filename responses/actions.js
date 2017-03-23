@@ -90,20 +90,50 @@ function switchOnAction(req, res){
                     }
                     break;
 
+                // case "when-term-start":
+                //     var term = aiResponse.result.parameters.term;
+                //
+                //     echo(sender, "not impl", req, res);
+                //
+                //     //Go wild Deepak
+                //     break;
+                //
+                // case "when-term-end":
+                //     var term = aiResponse.result.parameters.term;
+                //
+                //     echo(sender, "not impl", req, res);
+                //
+                //     //Go wild Deepak
+                //     break;
+
                 case "when-term-start":
+                    // Get the term they asked for
                     var term = aiResponse.result.parameters.term;
 
-                    echo(sender, "not impl", req, res);
-                    
-                    //Go wild Deepak
+                    // Find the start date for that term
+                    queries.startTermDates(term, function (stringStartDate) {
+                        // Get the response and att the date to it
+                        var aiRawSpeech = aiResponse.result.fulfillment.speech;
+                        echo(sender, aiRawSpeech + stringStartDate, req, res);
+
+                    }, function (errorMessage) {
+                        // Give some random response
+                        echo(sender, "Some term error message", req, res);
+                    });
                     break;
 
                 case "when-term-end":
+                    // Get the term they asked for
                     var term = aiResponse.result.parameters.term;
+                    // Find the end date for that term
+                    queries.endTermDates(term, function (stringEndDate) {
+                        var aiRawSpeech = aiResponse.result.fulfillment.speech;
+                        echo(sender, aiRawSpeech + stringEndDate, req, res);
 
-                    echo(sender, "not impl", req, res);
-
-                    //Go wild Deepak
+                    }, function (errorMessage) {
+                        // Give some random response
+                        echo(sender, "Some term error message", req, res);
+                    });
                     break;
 
                 default:
