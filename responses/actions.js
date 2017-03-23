@@ -13,11 +13,16 @@ function switchOnAction(req, res){
         if (!aiResponse.result.actionIncomplete) {
             switch (aiResponse.result.action) {
                 case "find-building" :
-                    queries.findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
+                    let buildingNumber = aiResponse.result.parameters.buidingNumber;
+                    queries.findBuilding(buildingNumber, function (location) {
                         echo(sender, location, req, res);
                     });
                     break;
                 case "find-nearest-service" :
+                    let desiredService = aiResponse.result.parameters.offering;
+
+                    //Go wild with that knowledge Tom
+
                 case "nearest-food":
                     try {
                         let location = req.body.entry[0].messaging[0].message.attachments[0].payload.coordinates;
@@ -34,6 +39,17 @@ function switchOnAction(req, res){
                     } catch (error) {
                         echo(sender, "Something went wrong while I was getting your location", req, res);
                     }
+                    // Toms section
+
+                case "when-term-start":
+                    var term = aiResponse.result.parameters.term;
+                    
+                    //Go wild Deepak
+
+                case "when-term-end":
+                    var term = aiResponse.result.parameters.term;
+
+                    //Go wild Deepak
 
                 default:
                     // let test = function (text) {
