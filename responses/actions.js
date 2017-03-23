@@ -13,12 +13,30 @@ function switchOnAction(req, res){
         if (!aiResponse.result.actionIncomplete) {
             switch (aiResponse.result.action) {
                 case "find-building" :
-                    queries.findBuilding(aiResponse.result.parameters.buidingNumber, function (location) {
+                    let buildingNumber = aiResponse.result.parameters.buidingNumber;
+                    queries.findBuilding(buildingNumber, function (location) {
                         echo(sender, location, req, res);
                     });
                     break;
                 case "find-nearest-service" :
+                    let desiredService = aiResponse.result.parameters.offering;
+
+                    //Go wild with that knowledge Tom
+
                 case "nearest-food":
+                    // Toms section
+
+                case "when-term-start":
+                    let term = aiResponse.result.parameters.term;
+                    
+                    //Go wild Deepak
+
+                case "when-term-end":
+                    let term = aiResponse.result.parameters.term;
+
+                    //Go wild Deepak
+
+
                 default:
                     // let test = function (text) {
                     //     echo(sender, text.substring(0, 200), req, res);
