@@ -29,6 +29,12 @@ function switchOnAction(req, res){
                                                 title: aiResponse.result.fulfillment.speech,
                                                 image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+location.lat + ","+location.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + location.lat + "," + location.long,
                                                 subtitle: "From Open Street Map",
+                                                default_action: {
+                                                    type: "web_url",
+                                                    url: "https://www.openstreetmap.org/?mlat="+location.lat+"&mlon="+location.long+"4#map=19/"+location.lat+"/"+location.long+"&layers=N",
+                                                    "messenger_extensions": true,
+                                                    "webview_height_ratio" : "tall",
+                                                },
                                             }
                                         ]
                                     }
@@ -60,6 +66,7 @@ function switchOnAction(req, res){
                                     image_url: services[i]
                                 })
                             }
+                            logger.log(servs);
                             echo(sender, servs, req, res);
                             // echo(sender, JSON.stringify(services), req, res);
                         }
