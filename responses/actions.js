@@ -22,7 +22,7 @@ function switchOnAction(req, res){
                     //     echo(sender, text.substring(0, 200), req, res);
                     // };
                     // responseMaker.handleThis(text, sender, test);
-                    if (aiResponse.fulfillment && aiResponse.fulfillment.speech) {
+                    if (aiResponse.result.fulfillment && aiResponse.result.fulfillment.speech) {
                         echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
                     } else {
                         let responseString = "I'm tired, ask me later please.";
