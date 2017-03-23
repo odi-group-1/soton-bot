@@ -19,6 +19,22 @@ function switchOnAction(req, res){
                     break;
                 case "find-nearest-service" :
                 case "nearest-food":
+                    try {
+                        let location = req.body.entry[0].messaging[0].message.attachments[0].payload.coordinates;
+
+                        if (location) {
+                            logger.log('Received position from ' + sender + ' ' + JSON.stringify(attachment.payload.coordinates));
+                            queries.findNearestFood(location, function (foodStr) {
+                                echo(sender, foodStr, req, res);
+                            });
+                        } else {
+                            echo(sender, "Everything went right, but didn't get your location!", req, res);
+                        }
+
+                    } catch (error) {
+                        echo(sender, "Something went wrong while I was getting your location", req, res);
+                    }
+
                 default:
                     // let test = function (text) {
                     //     echo(sender, text.substring(0, 200), req, res);

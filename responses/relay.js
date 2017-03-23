@@ -39,10 +39,7 @@ var relay = (req, res) => {
 
                 // the user sent coordinates
                 if (attachment.payload && attachment.payload.coordinates) {
-                    logger.log('Received position from ' + sender + ' ' + JSON.stringify(attachment.payload.coordinates));
-                    queries.findNearestFood(attachment.payload.coordinates, function (foodStr) {
-                        echo(sender, foodStr, req, res);
-                    });
+                    responseMaker.handleThis('got-coords--InaDeepakTomShakibStefan-hidden-key', sender, actions.switchOnAction(req, res))
                 } else {
                     echo(sender, "I don't recognize the attachments", req, res);
                 }
