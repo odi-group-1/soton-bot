@@ -134,7 +134,6 @@ SELECT ?s ?p ?o FROM <http://id.southampton.ac.uk/dataset/places/latest> {
 
 //Change the building number from 32 to any building number needed
 
-
 //---------------------------------------------
 
 Find Lat, Long, Name and post code it's near of Food places!
@@ -153,19 +152,24 @@ SELECT * FROM <http://id.southampton.ac.uk/dataset/southampton-food-outlets/late
 
 //--------------------------------------------------
 
-Get coordinates of amenitie using two datasets (without specifying FROM)
+Get coordinates and open times of amenitie using two datasets (without specifying FROM)
 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX gr: <http://purl.org/goodrelations/v1#>
 PREFIX ns0: <http://purl.org/goodrelations/v1#>
 PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-SELECT ?name ?lat ?long WHERE { 
+SELECT ?Location ?shop ?name ?lat ?long ?day ?opens ?closes WHERE {
   ?Offering a gr:Offering .
   ?Offering gr:availableAtOrFrom ?Location .
   ?Offering rdfs:label ?name .
   ?Location a ns0:LocationOfSalesOrServiceProvisioning .
+  OPTIONAL {?Location rdfs:label ?shop}
   ?Location geo:lat ?lat .
   ?Location geo:long ?long .
-  FILTER(?name = 'Cigarettes') .
+  OPTIONAL {?Location gr:hasOpeningHoursSpecification ?Hours}
+  OPTIONAL {?Hours gr:hasOpeningHoursDayOfWeek ?day}
+  OPTIONAL {?Hours gr:opens ?opens}
+  OPTIONAL {?Hours gr:closes ?closes}
+  FILTER(?name = 'ATM') .
 }
-LIMIT 50
+LIMIT 700

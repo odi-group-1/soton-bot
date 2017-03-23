@@ -75,14 +75,14 @@ app.get('/tom/:text', (req, res) => {
         //     ?Offering gr:availableAtOrFrom ?Location .
         //     ?Offering rdfs:label ?name .
         //     ?Location a ns0:LocationOfSalesOrServiceProvisioning .
-        //     ?Location rdfs:label ?shop .
+        //     OPTIONAL {?Location rdfs:label ?shop}
         //     ?Location geo:lat ?lat .
         //     ?Location geo:long ?long .
-        //     ?Location gr:hasOpeningHoursSpecification ?Hours .
-        //     ?Hours gr:hasOpeningHoursDayOfWeek ?day .
-        //     ?Hours gr:opens ?opens .
-        //     ?Hours gr:closes ?closes .
-        // FILTER(?name = 'Cigarettes') .
+        //     OPTIONAL {?Location gr:hasOpeningHoursSpecification ?Hours}
+        //     OPTIONAL {?Hours gr:hasOpeningHoursDayOfWeek ?day}
+        //     OPTIONAL {?Hours gr:opens ?opens}
+        //     OPTIONAL {?Hours gr:closes ?closes}
+        //     FILTER(?name = 'ATM') .
         // }
         // LIMIT 700
 
@@ -100,6 +100,8 @@ app.get('/tom/:text', (req, res) => {
         'gr:availableAtOrFrom': '?Location',
         'rdfs:label': '?name'
     };
+
+    // TODO: Figure out how to do optional as shown in the query above
 
     let Location = {
         'type': 'ns0:LocationOfSalesOrServiceProvisioning',
