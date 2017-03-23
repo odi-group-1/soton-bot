@@ -20,15 +20,22 @@ function switchOnAction(req, res){
                     break;
                 case "find-nearest-service" :
                     let desiredService = aiResponse.result.parameters.offering;
+                    break;
 
                     //Go wild with that knowledge Tom
 
                 case "nearest-food":
                     try {
-                        let location = req.body.entry[0].messaging[0].message.attachments[0].payload.coordinates;
+                        let attachment = req.body.entry[0].messaging[0].message.attachments[0];
 
-                        if (location) {
-                            logger.log('Received position from ' + sender + ' ' + JSON.stringify(attachment.payload.coordinates));
+                        // have the location to deal with nearest food
+                        if (attachment && attachment.type === 'location') {
+
+                            let location = attachment.payload.coordinates;
+
+                            logger.log('Received position from ' + sender + ' to find food => ' + JSON.stringify(attachment.payload.coordinates));
+
+                            // make sparql query
                             queries.findNearestFood(location, function (foodStr) {
                                 echo(sender, foodStr, req, res);
                             });
@@ -37,19 +44,21 @@ function switchOnAction(req, res){
                         }
 
                     } catch (error) {
-                        echo(sender, "Something went wrong while I was getting your location", req, res);
+                        echo(sender, "Something went wrong while I was reading the attachment", req, res);
                     }
-                    // Toms section
+                    break;
 
                 case "when-term-start":
                     var term = aiResponse.result.parameters.term;
                     
                     //Go wild Deepak
+                    break;
 
                 case "when-term-end":
                     var term = aiResponse.result.parameters.term;
 
                     //Go wild Deepak
+                    break;
 
                 default:
                     // let test = function (text) {
@@ -62,10 +71,11 @@ function switchOnAction(req, res){
                         let responseString = "I'm tired, ask me later please.";
                         echo(sender, responseString, req, res)
                     }
+                    break;
             }
         } else {
             // basic incomplete action response
-            echo(sender, aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
+            echo(sender, "Incomplete. " + aiResponse.result.fulfillment.speech.substring(0, 200), req, res);
         }
     }
 }
