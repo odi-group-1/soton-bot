@@ -52,12 +52,16 @@ function switchOnAction(req, res){
 
                 case "when-term-start":
                     var term = aiResponse.result.parameters.term;
+
+                    echo(sender, "not impl", req, res);
                     
                     //Go wild Deepak
                     break;
 
                 case "when-term-end":
                     var term = aiResponse.result.parameters.term;
+
+                    echo(sender, "not impl", req, res);
 
                     //Go wild Deepak
                     break;
