@@ -60,3 +60,12 @@ app.post('/webhook/', relay);
 app.listen(app.get('port'), () => {
     logger.log('running on port', app.get('port'))
 });
+
+app.get('/tom/:text', (req, res) => {
+
+    let param = req.params.text;
+
+
+    res.send(param);
+
+});
