@@ -147,8 +147,153 @@ function findOffering(param, cb) {
     });
 }
 
+let endTermDates = (passedTerm, cb, errcb) => {
+
+    let myquery = new sparqls.Query();
+
+    myquery.registerPrefix('rdfs','<http://www.w3.org/2000/01/rdf-schema#>');
+    myquery.registerPrefix('ns','<http://id.southampton.ac.uk/ns/>');
+    myquery.registerPrefix('tl','<http://purl.org/NET/c4dm/timeline.owl#>');
+
+    let terms = {
+        'type':'ns:AcademicSessionTerm',
+        'rdfs:label' : '?name',
+        'tl:beginsAtDateTime' : '?start',
+        'tl:endsAtDateTime' : '?end'
+    };
+    let currentYear = new Date().getFullYear();
+    let currentDate = new Date();
+
+    myquery.registerVariable('terms', terms);
+    myquery.filter("regex(?name, \'" + currentYear +"\')");
+    myquery.filter("regex(?name, \'" + passedTerm +"\')");
+
+    logger.log(myquery.sparqlQuery);
+
+    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
+    let result = [];
+    let withinEndTerm = true;
+    let dateToSendBack;
+
+
+
+    sparqler.send(myquery, function(error, data){
+        if(data.results.bindings.length > 0) {
+            try {
+
+                data.results.bindings.forEach( function(resultBinding) {
+                    result.push({
+                        'name': resultBinding.name.value,
+                        'startDate': new Date(resultBinding.start.value),
+                        'endDate':  new Date(resultBinding.end.value)
+                    });
+                });
+
+                //check if they are within the current term's end data
+                for(let i=0; i<result.length;i++){
+                    if(currentDate <= result[i].endDate){
+                        //within term end date
+                        dateToSendBack = result[i].endDate;
+                        break;
+                    }else{
+                        withinEndTerm = false;
+                    }
+                }
+
+                if(dateToSendBack){
+                    let month = dateToSendBack.getUTCMonth() + 1;
+                    let day = dateToSendBack.getUTCDate();
+                    let year = dateToSendBack.getUTCFullYear();
+
+                    if (cb) cb(day+"/"+month+"/"+year);
+                }else{
+                    logger.log('Failed to retrieve date, even though query passed.');
+                    if (errcb) errcb("No dates available");
+                }
+            } catch (err) {
+                logger.log('Failed to read query results');
+                if (errcb) errcb("No dates available");
+            }
+        }
+
+    });
+};
+
+let startTermDates = (passedTerm, cb, errcb) => {
+
+    let myquery = new sparqls.Query();
+
+    myquery.registerPrefix('rdfs','<http://www.w3.org/2000/01/rdf-schema#>');
+    myquery.registerPrefix('ns','<http://id.southampton.ac.uk/ns/>');
+    myquery.registerPrefix('tl','<http://purl.org/NET/c4dm/timeline.owl#>');
+
+    let terms = {
+        'type':'ns:AcademicSessionTerm',
+        'rdfs:label' : '?name',
+        'tl:beginsAtDateTime' : '?start',
+        'tl:endsAtDateTime' : '?end'
+    };
+    let currentYear = new Date().getFullYear();
+    let currentDate = new Date();
+
+    myquery.registerVariable('terms', terms);
+    myquery.filter("regex(?name, \'" + currentYear +"\')");
+    myquery.filter("regex(?name, \'" + passedTerm +"\')");
+
+    logger.log(myquery.sparqlQuery);
+
+    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
+    let result = [];
+    let termNotStarted = true;
+    let dateToSendBack;
+
+
+    sparqler.send(myquery, function(error, data){
+        if(data.results.bindings.length > 0) {
+            try {
+
+                data.results.bindings.forEach( function(resultBinding) {
+                    result.push({
+                        'name': resultBinding.name.value,
+                        'startDate': new Date(resultBinding.start.value),
+                        'endDate':  new Date(resultBinding.end.value)
+                    });
+                });
+
+                //check if they are before the current term's start data
+                for(let i=0; i<result.length;i++){
+                    if(currentDate <= result[i].startDate){
+                        //within term start date
+                        dateToSendBack = result[i].startDate;
+                        break;
+                    }else{
+                        termNotStarted = false;
+                    }
+                }
+
+                if(dateToSendBack){
+                    let month = dateToSendBack.getUTCMonth() + 1;
+                    let day = dateToSendBack.getUTCDate();
+                    let year = dateToSendBack.getUTCFullYear();
+
+                    if (cb) cb(day+"/"+month+"/"+year);
+                }else{
+                    logger.log('Failed to retrieve date, even though query passed.');
+                    if (errcb) errcb("No dates available");
+                }
+            } catch (err) {
+                logger.log('Failed to read query results');
+                if (errcb) errcb("No dates available");
+            }
+        }
+
+    });
+};
+
 module.exports = {
     findBuilding: findBuilding,
     findNearestFood: findNearestFood,
-    findOffering: findOffering
+    findOffering: findOffering,
+    endTermDates: endTermDates,
+    startTermDates: startTermDates
 };
