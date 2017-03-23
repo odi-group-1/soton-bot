@@ -26,7 +26,6 @@ var relay = (req, res) => {
 
             responseMaker.handleThis(text, sender, actions.switchOnAction(req, res));
 
-
         } else if (event.message && !event.message.text){
             // message does not have any text
             logger.log("Received a non-text message => " + JSON.stringify(event));
@@ -41,10 +40,12 @@ var relay = (req, res) => {
                 if (attachment.payload && attachment.payload.coordinates) {
                     responseMaker.handleThis('got-coords--InaDeepakTomShakibStefan-hidden-key', sender, actions.switchOnAction(req, res))
                 } else {
+                    // unrecognized attachments
                     echo(sender, "I don't recognize the attachments", req, res);
                 }
             } else {
-                echo(sender, "I don't know what you mean", req, res);
+                // message without text or attachments!
+                echo(sender, "I was expecting some attachments.", req, res);
             }
 
         } else {
