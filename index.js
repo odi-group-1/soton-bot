@@ -9,6 +9,7 @@ const sparqls = require('sparqling-star');
 const _ = require('lodash');
 const app = express();
 const logger = require('tracer').colorConsole();
+const htmlencode = require('htmlencode');
 
 const verifyAppToken = require('./responses/webhook-verification');
 const relay = require('./responses/relay');
@@ -60,6 +61,53 @@ app.post('/webhook/', relay);
 // Spin up the server
 app.listen(app.get('port'), () => {
     logger.log('running on port', app.get('port'))
+});
+
+app.get('/parser/', (req, res) => {
+
+    let queryJson = {};
+
+    let queryString = "";
+    let endpoint = "";
+
+    // Set endpoint
+    endpoint = queryJson.endpoint;
+
+    // Add prefixes
+    queryJson.prefix.forEach( function(prefix) {
+        queryString += 'PREFIX ' + prefix.id.replace("'","") + ' ' + prefix.at.replace("'","") + ' ';
+    });
+
+    // Add select
+    queryString += 'SELECT ';
+    queryJson.select.forEach( function(variable) {
+        queryString += variable.replace("'","") + ' ';
+    });
+
+    // Add where
+    queryString += 'WHERE { ';
+    queryJson.where.forEach( function(statement){
+        switch(statement.type) {
+            case "STANDARD":
+                queryString += statement.s.replace("'","") + ' ' + statement.p.replace("'","") + ' ' + statement.o.replace("'","") + '. ';
+                break;
+            case "FILTER":
+                queryString += 'FILTER (' + statement.cond + '). ';
+                break;
+        };
+    });
+    queryString += '} ';
+
+    // Add limit
+    queryString += 'LIMIT ' + queryJson.limit;
+
+    // Encode query
+    htmlencode.htmlencode(queryString);
+
+    // Add endpoint to query
+    queryString += endpoint + queryString;
+
+    res.send(queryString);
 });
 
 app.get('/tom/:obj', (req, res) => {
