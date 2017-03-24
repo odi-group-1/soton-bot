@@ -20,7 +20,7 @@
 
 let query = 
 {
-        'endpoint': 'sparql.data.southampton.ac.uk?output=json&show_inline=0&query='
+        'endpoint': 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query='
         'prefix': [
                         {
                                 'id':'rdfs:', 
