@@ -9,35 +9,43 @@ let parseJsonQuery = (queryJson) => {
     let queryString = "";
 
     // Add prefixes
-    queryJson.prefix.forEach( function(prefix) {
-        queryString += 'PREFIX ' + prefix.id + ' ' + prefix.at + ' ';
-    });
+    if (queryJson.prefix) {
+        queryJson.prefix.forEach(function (prefix) {
+            queryString += 'PREFIX ' + prefix.id + ' ' + prefix.at + ' ';
+        });
+    }
 
     // Add select
     queryString += 'SELECT ';
-    queryJson.select.forEach( function(variable) {
-        queryString += variable + ' ';
-    });
+    if (queryJson.select) {
+        queryJson.select.forEach(function (variable) {
+            queryString += variable + ' ';
+        });
+    }
 
     // Add where
     queryString += 'WHERE { ';
-    queryJson.where.forEach( function(statement){
-        switch(statement.type) {
-            case "STANDARD":
-                queryString += statement.s + ' ' + statement.p + ' ' + statement.o + '. ';
-                break;
-            case "FILTER":
-                queryString += 'FILTER (' + statement.cond + '). ';
-                break;
-            case "OPTIONAL":
-                queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o +'} ';
-                break;
-        }
-    });
+    if (queryJson.where) {
+        queryJson.where.forEach(function (statement) {
+            switch (statement.type) {
+                case "STANDARD":
+                    queryString += statement.s + ' ' + statement.p + ' ' + statement.o + '. ';
+                    break;
+                case "FILTER":
+                    queryString += 'FILTER (' + statement.cond + '). ';
+                    break;
+                case "OPTIONAL":
+                    queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o + '} ';
+                    break;
+            }
+        });
+    }
     queryString += '} ';
 
     // Add limit
-    queryString += 'LIMIT ' + queryJson.limit;
+    if (queryJson.limit) {
+        queryString += 'LIMIT ' + queryJson.limit;
+    }
 
     logger.log("sending query => " + queryString);
 

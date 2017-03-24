@@ -22,27 +22,21 @@ let amenity = (searchCriteria) => {
                 s: '?Offering',
                 p: 'a',
                 o: 'gr:Offering',
-                cond: undefined
             },
             {
                 type: 'STANDARD',
                 s: '?Offering',
                 p: 'gr:availableAtOrFrom',
                 o: '?Location',
-                cond: undefined
             },
             {
                 type: 'STANDARD',
                 s: '?Offering',
                 p: 'rdfs:label',
                 o: '?name',
-                cond: undefined
             },
             {
                 type: 'FILTER',
-                s: '?Offering',
-                p: 'gr:availableAtOrFrom',
-                o: '?Location',
                 cond: '?name = \"'+searchCriteria+'\"'
             },
 
@@ -99,9 +93,31 @@ let food = () => {
     };
 };
 
+let building = (buildingId) => {
+  return {
+      endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+      select: [ '*' ],
+      where: [
+          {
+              type: 'STANDARD',
+              s: '?s',
+              p: '?p',
+              o: '?o'
+          },
+          {
+              type: 'FILTER',
+              cond: '?s = <http://id.southampton.ac.uk/building/'+buildingId+'> '+
+              '&& (?p = <http://www.w3.org/2003/01/geo/wgs84_pos#lat> '+
+              '|| ?p = <http://www.w3.org/2003/01/geo/wgs84_pos#long>)'
+          }
+      ]
+  }
+};
+
 module.exports = {
     amenity : amenity,
-    food : food
+    food : food,
+    building : building
 };
 
 
