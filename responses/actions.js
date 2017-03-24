@@ -120,8 +120,8 @@ function switchOnAction(req, res){
 
                             // make sparql query
                             queries.findNearestFood(location, function (foodPlaces) {
-                                if (typeof services === 'string') {
-                                    echo(sender, services, req, res);
+                                if (typeof foodPlaces === 'string') {
+                                    echo(sender, foodPlaces, req, res);
                                 } else {
                                     let servs = {
                                         attachment: {
@@ -154,7 +154,6 @@ function switchOnAction(req, res){
                                         })
                                     }
                                     echo(sender, servs, req, res);
-                                    // echo(sender, "HIYA", req, res);
                                 }
                             });
                         } else {
