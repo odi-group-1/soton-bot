@@ -148,16 +148,18 @@ app.get('/parser/', (req, res) => {
     // Add limit
     queryString += 'LIMIT ' + queryJson.limit;
 
+    queryString = encode(queryString);
+
     // Add endpoint to query
-    let temp = endpoint + queryString;
-    queryString = temp;
+    queryString = endpoint + queryString;
 
     console.log(queryString);
-
     res.send(queryString);
 });
 
-
+let encode = (unencoded) => {
+    return encodeURIComponent(unencoded).replace(/'/g, "%27").replace(/"/g, "%22");
+};
 
 app.get('/tom/:obj', (req, res) => {
 
