@@ -9,7 +9,6 @@ const sparqls = require('sparqling-star');
 const _ = require('lodash');
 const app = express();
 const logger = require('tracer').colorConsole();
-const htmlencode = require('htmlencode');
 
 const verifyAppToken = require('./responses/webhook-verification');
 const relay = require('./responses/relay');
@@ -65,7 +64,55 @@ app.listen(app.get('port'), () => {
 
 app.get('/parser/', (req, res) => {
 
-    let queryJson = {};
+    let queryJson =
+    {
+        endpoint : 'sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix : [
+            {
+                'id':'rdfs:',
+                'at':'<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                'id':'gr:',
+                'at':'<http://purl.org/goodrelations/v1#>'
+            }
+        ],
+        select : [ '?Location',  '?name' ],
+        where :  [
+            {
+                'type': 'STANDARD',
+                's': '?Offering',
+                'p': 'a',
+                'o': 'gr:Offering',
+                'cond': undefined
+            },
+            {
+                'type': 'STANDARD',
+                's': '?Offering',
+                'p': 'gr:availableAtOrFrom',
+                'o': '?Location',
+                'cond': undefined
+            },
+            {
+                'type': 'STANDARD',
+                's': '?Offering',
+                'p': 'rdfs:label',
+                'o': '?name',
+                'cond': undefined
+            },
+            {
+                'type': 'FILTER',
+                's': '?Offering',
+                'p': 'gr:availableAtOrFrom',
+                'o': '?Location',
+                'cond': '?name = \"Alcohol\"'
+            },
+
+        ],
+        limit: 100
+    };
+
+    //let queryJson = {};
 
     let queryString = "";
     let endpoint = "";
@@ -101,14 +148,16 @@ app.get('/parser/', (req, res) => {
     // Add limit
     queryString += 'LIMIT ' + queryJson.limit;
 
-    // Encode query
-    htmlencode.htmlencode(queryString);
-
     // Add endpoint to query
-    queryString += endpoint + queryString;
+    let temp = endpoint + queryString;
+    queryString = temp;
+
+    console.log(queryString);
 
     res.send(queryString);
 });
+
+
 
 app.get('/tom/:obj', (req, res) => {
 

@@ -52,5 +52,6 @@ let query =
             },
 
     ],
+        limit: 100
 };
 
