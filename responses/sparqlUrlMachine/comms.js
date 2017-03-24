@@ -45,3 +45,7 @@ let get = (url) => {
     //     return undefined;
     });
 };
+
+module.exports = {
+    get : get
+};
