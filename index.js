@@ -39,7 +39,7 @@ app.listen(app.get('port'), () => {
 
 app.get('/parser/', (req, res) => {
     let stored = require('./responses/sparqlUrlMachine/storedQueries');
-    let queryJson = stored.amenity('Cigarettes');
+    let queryJson = stored.amenity('Alcohol', 'Friday');
 
     let jqc = require('./responses/sparqlUrlMachine/jsonQueryConverter');
     jqc.getOfferings(queryJson, function (allOfferings) {

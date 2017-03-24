@@ -113,28 +113,28 @@ function findOffering(obj, cb) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 allOfferings.forEach( function(resultBinding) {
-                    let distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long,
-                        resultBinding.lat.value, resultBinding.long.value);
-                    if (resultBinding.shop && resultBinding.Location && resultBinding.opens && resultBinding.closes){
-                        result.push(
-                            {
-                                'venue': resultBinding.shop.value,
-                                'uri': resultBinding.Location.value,
-                                'dist': Number(Math.round(distance+'e3')+'e-3'),
-                                'coordinates': {
-                                    'lat': resultBinding.lat.value,
-                                    'long': resultBinding.long.value
-                                },
-                                'times': {
-                                    'open': resultBinding.opens.value,
-                                    'close': resultBinding.closes.value
-                                }
-                            });
-                    }else{
-                        //TODO: Remove after debug
-                        console.log("Missing something:"+JSON.stringify(resultBinding,null,2));
+                    let distance = undefined;
+                    if (resultBinding.LocationLat && resultBinding.LocationLong) {
+                        distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long,
+                            resultBinding.LocationLat.value, resultBinding.LocationLong.value);
                     }
+                    logger.log((distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity);
+                    result.push(
+                        {
+                            'venue': resultBinding.LocationShop.value,
+                            'uri': resultBinding.Location.value,
+                            'dist': (distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity,
+                            'coordinates': {
+                                'lat': (distance) ? resultBinding.LocationLat.value : undefined,
+                                'long': (distance) ? resultBinding.LocationLong.value: undefined
+                            },
+                            'times': {
+                                'open': (resultBinding.LocationOpens) ? resultBinding.LocationOpens.value : undefined,
+                                'close': (resultBinding.LocationCloses) ? resultBinding.LocationCloses.value : undefined
+                            }
+                        });
                 });
+                result = _.sortBy(result, 'dist');
             } catch (err) {
                 logger.log('Failed to read query results');
                 logger.error(err);

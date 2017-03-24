@@ -18,59 +18,100 @@
 // }
 // LIMIT 700
 
-let query = 
-{
-        'endpoint': 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query='
-        'prefix': [
+let amenity = (searchCriteria) => {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query='
+        prefix: [
                         {
-                                'id':'rdfs:', 
-                                'at':'<http://www.w3.org/2000/01/rdf-schema#>'
+                                id:'rdfs:', 
+                                at:'<http://www.w3.org/2000/01/rdf-schema#>'
                         },
                         {
-                                'id':'gr:', 
-                                'at':'<http://purl.org/goodrelations/v1#>'
+                                id:'gr:', 
+                                at:'<http://purl.org/goodrelations/v1#>'
                         },
                         {
-                                'id':'ns0:', 
-                                'at':'<http://purl.org/goodrelations/v1#>'
+                                id:'ns0:', 
+                                at:'<http://purl.org/goodrelations/v1#>'
                         },
                         {       
-                                'id':'geo:', 
-                                'at':'<http://www.w3.org/2003/01/geo/wgs84_pos#>'
+                                id:'geo:', 
+                                at:'<http://www.w3.org/2003/01/geo/wgs84_pos#>'
                         }
                   ],
-        'select': [
+        select: [
                         '?Location', '?shop', '?name', '?lat', '?long', '?day', '?opens', '?closes'
                   ],
-        'where':  [
+        where:  [
                         {
-                                'type': 'STANDARD',
-                                's': '?Offering',
-                                'p': 'a',
-                                'o': 'gr:Offering',
-                                'cond': undefined
+                                type: 'STANDARD',
+                                s: '?Offering',
+                                p: 'a',
+                                o: 'gr:Offering'
                         },
                         {
-                                'type': 'STANDARD',
-                                's': '?Offering',
-                                'p': 'gr:availableAtOrFrom',
-                                'o': '?Location',
-                                'cond': undefined
+                                type: 'STANDARD',
+                                s: '?Offering',
+                                p: 'gr:availableAtOrFrom',
+                                o: '?Location'
                         },
                         {
-                                'type': 'STANDARD',
-                                's': '?Offering',
-                                'p': 'rdfs:label',
-                                'o': '?name',
-                                'cond': undefined
+                                type: 'STANDARD',
+                                s: '?Offering',
+                                p: 'rdfs:label',
+                                o: '?name'
                         },
                         {
-                                'type': 'STANDARD',
-                                's': '?Location',
-                                'p': 'rdfs:label',
-                                'o': '?name',
-                                'cond': undefined
+                                type: 'STANDARD',
+                                s: '?Location',
+                                p: 'a',
+                                o: 'ns0:LocationOfSalesOrServiceProvisioning'
+                        },
+                        {
+                                type: 'OPTIONAL',
+                                s: '?Location',
+                                p: 'rdfs:label',
+                                o: '?shop'
+                        },
+                        {
+                                type: 'STANDARD',
+                                s: '?Location',
+                                p: 'geo:lat',
+                                o: '?lat'
+                        },
+                        {
+                                type: 'STANDARD',
+                                s: '?Location',
+                                p: 'geo:long',
+                                o: '?long'
+                        },
+                        {
+                                type: 'OPTIONAL',
+                                s: '?Location',
+                                p: 'gr:hasOpeningHoursSpecification',
+                                o: '?Hours'
+                        },
+                        {
+                                type: 'OPTIONAL',
+                                s: '?Hours',
+                                p: 'gr:hasOpeningHoursDayOfWeek',
+                                o: '?day'
+                        },
+                        {
+                                type: 'OPTIONAL',
+                                s: '?Hours',
+                                p: 'gr:opens',
+                                o: '?opens'
+                        },
+                        {
+                                type: 'OPTIONAL',
+                                s: '?Hours',
+                                p: 'gr:closes',
+                                o: '?closes'
+                        },
+                        {
+                                type: 'FILTER',
+                                cond: '?name = \"'+searchCriteria+'\"'
                         }
                   ],
-        'limit': 100
+        limit: 700
 };

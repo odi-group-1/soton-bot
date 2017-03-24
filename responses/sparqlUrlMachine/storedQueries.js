@@ -23,7 +23,15 @@ let amenity = (searchCriteria, today) => {
                 at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
             }
         ],
-        select: [ '?Location', '?shop', '?name', '?lat', '?long', '?day', '?opens', '?closes' ],
+        select: [ 'DISTINCT',
+            '?Location',
+            '(SAMPLE (?shop) AS ?LocationShop)',
+            '(SAMPLE (?name) AS ?LocationName)',
+            '(SAMPLE (?lat) AS ?LocationLat)',
+            '(SAMPLE (?long) AS ?LocationLong)',
+            '(SAMPLE (?day) AS ?LocationDay)',
+            '(SAMPLE (?opens) AS ?LocationOpens)',
+            '(SAMPLE (?closes) AS ?LocationCloses)' ],
         where: [
             {
                 type: 'STANDARD',
@@ -56,13 +64,13 @@ let amenity = (searchCriteria, today) => {
                 o: '?shop'
             },
             {
-                type: 'STANDARD',
+                type: 'OPTIONAL',
                 s: '?Location',
                 p: 'geo:lat',
                 o: '?lat'
             },
             {
-                type: 'STANDARD',
+                type: 'OPTIONAL',
                 s: '?Location',
                 p: 'geo:long',
                 o: '?long'
@@ -96,7 +104,8 @@ let amenity = (searchCriteria, today) => {
                 cond: '?name = \"' + searchCriteria + '\" && ?day = gr:'+today
             },
         ],
-        limit: 700
+        group: '?Location',
+        limit: 100
     }
 };
 

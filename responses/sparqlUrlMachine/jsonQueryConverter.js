@@ -35,16 +35,20 @@ let parseJsonQuery = (queryJson) => {
                     queryString += 'FILTER (' + statement.cond + '). ';
                     break;
                 case "OPTIONAL":
-                    queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o + '} ';
+                    queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o + '}. ';
                     break;
             }
         });
     }
     queryString += '} ';
 
+    if (queryJson.group) {
+        queryString += 'GROUP BY ' + queryJson.group + ' ';
+    }
+
     // Add limit
     if (queryJson.limit) {
-        queryString += 'LIMIT ' + queryJson.limit;
+        queryString += 'LIMIT ' + queryJson.limit + ' ';
     }
 
     logger.log("sending query => ##" + queryString+"##");
