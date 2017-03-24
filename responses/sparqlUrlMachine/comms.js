@@ -2,6 +2,7 @@
  * Created by stefan on 24/03/17.
  */
 
+const http = require('http');
 
 let get = (url) => {
     http.get(url, (res) => {
