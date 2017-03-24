@@ -112,60 +112,15 @@ app.get('/parser/', (req, res) => {
         limit: 100
     };
 
-    //let queryJson = {};
-
-    let queryString = "";
-    let endpoint = "";
-
-    // Set endpoint
-    endpoint = queryJson.endpoint;
-
-    // Add prefixes
-    queryJson.prefix.forEach( function(prefix) {
-        queryString += 'PREFIX ' + prefix.id + ' ' + prefix.at + ' ';
-    });
-
-    // Add select
-    queryString += 'SELECT ';
-    queryJson.select.forEach( function(variable) {
-        queryString += variable + ' ';
-    });
-
-    // Add where
-    queryString += 'WHERE { ';
-    queryJson.where.forEach( function(statement){
-        switch(statement.type) {
-            case "STANDARD":
-                queryString += statement.s + ' ' + statement.p + ' ' + statement.o + '. ';
-                break;
-            case "FILTER":
-                queryString += 'FILTER (' + statement.cond + '). ';
-                break;
-            case "OPTIONAL":
-                queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o +'} ';
-                break;
-        };
-    });
-    queryString += '} ';
-
-    // Add limit
-    queryString += 'LIMIT ' + queryJson.limit;
-
-    queryString = encode(queryString);
-
-    // Add endpoint to query
-    queryString = endpoint + queryString;
-
-    let comms = require('./responses/sparqlUrlMachine/comms');
-    comms.get(queryString, function (allOfferings) {
-        logger.log(allOfferings);
+    let jqc = require('./responses/sparqlUrlMachine/jsonQueryConverter');
+    jqc.getOfferings(queryJson, function (allOfferings) {
         res.send(allOfferings);
-    });
-});
 
-let encode = (unencoded) => {
-    return encodeURIComponent(unencoded).replace(/'/g, "%27").replace(/"/g, "%22");
-};
+    },function (error) {
+        logger.log(error);
+        res.send(error);
+    })
+});
 
 app.get('/tom/:obj', (req, res) => {
 
