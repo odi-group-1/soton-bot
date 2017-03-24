@@ -12,11 +12,14 @@ function switchOnAction(req, res){
     return function (aiResponse, sender) {
         if (!aiResponse.result.actionIncomplete) {
             switch (aiResponse.result.action) {
+
+                // find a building
                 case "find-building" :
                     let buildingNumber = aiResponse.result.parameters.buidingNumber;
                     queries.findBuilding(buildingNumber, function (location) {
 
                         if (typeof location === 'string') {
+                            // used when actually nothing was found and an apology string was sent
                             echo(sender, location, req, res);
                         } else {
                             location = {
@@ -27,11 +30,11 @@ function switchOnAction(req, res){
                                         elements: [
                                             {
                                                 title: aiResponse.result.fulfillment.speech,
-                                                image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+location.lat + ","+location.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + location.lat + "," + location.long,
+                                                image_url: getStaticOpenStreetMap(location.lat, location.long),
                                                 subtitle: "From Open Street Map",
                                                 default_action: {
                                                     type: "web_url",
-                                                    url: "https://www.openstreetmap.org/?mlat="+location.lat+"&mlon="+location.long+"4#map=19/"+location.lat+"/"+location.long+"&layers=N",
+                                                    url: interactiveOpenStreetMap(location.lat, location.long),
                                                     "messenger_extensions": true,
                                                     "webview_height_ratio" : "tall",
                                                 },
@@ -80,10 +83,10 @@ function switchOnAction(req, res){
                                         servs.attachment.payload.elements.push({
                                             title: service.venue,
                                             subtitle: "Opening Times: " + service.times.open + " " + service.times.close,
-                                            image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+service.coordinates.lat + ","+service.coordinates.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + service.coordinates.lat + "," + service.coordinates.long,
+                                            image_url: getStaticOpenStreetMap(service.coordinates.lat, service.coordinates.long),
                                             default_action: {
                                                 type: "web_url",
-                                                url: "https://www.openstreetmap.org/?mlat="+service.coordinates.lat+"&mlon="+service.coordinates.long+"4#map=19/"+service.coordinates.lat+"/"+service.coordinates.long+"&layers=N",
+                                                url: interactiveOpenStreetMap(service.coordinates.lat, service.coordinates.long),
                                                 "messenger_extensions": true,
                                                 "webview_height_ratio" : "tall",
                                             },
@@ -137,10 +140,10 @@ function switchOnAction(req, res){
                                         servs.attachment.payload.elements.push({
                                             title: service.name,
                                             subtitle: service.dist*1000 + ' metres from you',
-                                            image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+service.lat + ","+service.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + service.lat + "," + service.long,
+                                            image_url: getStaticOpenStreetMap(service.lat, service.long),
                                             default_action: {
                                                 type: "web_url",
-                                                url: "https://www.openstreetmap.org/?mlat="+service.lat+"&mlon="+service.long+"4#map=19/"+service.lat+"/"+service.long+"&layers=N",
+                                                url: interactiveOpenStreetMap(service.lat, service.long),
                                                 "messenger_extensions": true,
                                                 "webview_height_ratio" : "tall",
                                             },
@@ -224,6 +227,14 @@ function switchOnAction(req, res){
 
 function echo(sender, text, req, res) {
     sendMessage(sender, text, undefined, undefined, req, res);
+}
+
+function getStaticOpenStreetMap(lat, long){
+    return "http://staticmap.openstreetmap.de/staticmap.php?center="+lat + ","+long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + lat + "," + long;
+}
+
+function interactiveOpenStreetMap(lat, long) {
+    return "https://www.openstreetmap.org/?mlat="+lat+"&mlon="+long+"4#map=19/"+lat+"/"+long+"&layers=N";
 }
 
 module.exports = {
