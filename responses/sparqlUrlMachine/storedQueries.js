@@ -4,7 +4,7 @@
 
 let amenity = (searchCriteria) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+    endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
         prefix: [
             {
                 id: 'rdfs:',
@@ -13,42 +13,91 @@ let amenity = (searchCriteria) => {
             {
                 id: 'gr:',
                 at: '<http://purl.org/goodrelations/v1#>'
+            },
+            {
+                id: 'ns0:',
+                at: '<http://purl.org/goodrelations/v1#>'
+            },
+            {
+                id: 'geo:',
+                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
             }
         ],
-        select: ['?Location', '?name'],
+        select: [ '?Location', '?shop', '?name', '?lat', '?long', '?day', '?opens', '?closes' ],
         where: [
             {
                 type: 'STANDARD',
                 s: '?Offering',
                 p: 'a',
-                o: 'gr:Offering',
-                cond: undefined
+                o: 'gr:Offering'
             },
             {
                 type: 'STANDARD',
                 s: '?Offering',
                 p: 'gr:availableAtOrFrom',
-                o: '?Location',
-                cond: undefined
+                o: '?Location'
             },
             {
                 type: 'STANDARD',
                 s: '?Offering',
                 p: 'rdfs:label',
-                o: '?name',
-                cond: undefined
+                o: '?name'
+            },
+            {
+                type: 'STANDARD',
+                s: '?Location',
+                p: 'a',
+                o: 'ns0:LocationOfSalesOrServiceProvisioning'
+            },
+            {
+                type: 'OPTIONAL',
+                s: '?Location',
+                p: 'rdfs:label',
+                o: '?shop'
+            },
+            {
+                type: 'STANDARD',
+                s: '?Location',
+                p: 'geo:lat',
+                o: '?lat'
+            },
+            {
+                type: 'STANDARD',
+                s: '?Location',
+                p: 'geo:long',
+                o: '?long'
+            },
+            {
+                type: 'OPTIONAL',
+                s: '?Location',
+                p: 'gr:hasOpeningHoursSpecification',
+                o: '?Hours'
+            },
+            {
+                type: 'OPTIONAL',
+                s: '?Hours',
+                p: 'gr:hasOpeningHoursDayOfWeek',
+                o: '?day'
+            },
+            {
+                type: 'OPTIONAL',
+                s: '?Hours',
+                p: 'gr:opens',
+                o: '?opens'
+            },
+            {
+                type: 'OPTIONAL',
+                s: '?Hours',
+                p: 'gr:closes',
+                o: '?closes'
             },
             {
                 type: 'FILTER',
-                s: '?Offering',
-                p: 'gr:availableAtOrFrom',
-                o: '?Location',
-                cond: '?name = \"'+searchCriteria+'\"'
-            },
-
+                cond: '?name = \"' + searchCriteria + '\"'
+            }
         ],
-        limit: 100
-    };
+        limit: 700
+    }
 };
 
 let food = () => {
