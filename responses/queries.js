@@ -51,19 +51,21 @@ let findNearestFood = (location, cb) => {
                     let distance = getDistanceFromLatLonInKm(location.lat, location.long, resultBinding.lat.value, resultBinding.long.value);
                     if(distance <= 0.250) { //Within 250m
                         result.push({
-                            // 'lat': resultBinding.lat.value,
-                            // 'long': resultBinding.long.value,
-                            'name': resultBinding.name.value,
-                            'dist': Number(Math.round(distance+'e3')+'e-3')
+                            uri: resultBinding.business.value,
+                            lat: resultBinding.lat.value,
+                            long: resultBinding.long.value,
+                            name: resultBinding.name.value,
+                            dist: Number(Math.round(distance+'e3')+'e-3'),
                         });
                     }
                 });
                 result = _.sortBy(result, 'dist');
                 if (result.length > 0) {
-                    ans = "Within 250m there are " + result.length + ' places to eat: ';
-                    result.forEach(function (place) {
-                        ans += " " + place.name + " " + place.dist + "km";
-                    });
+                    ans = result;
+                    // ans = "Within 250m there are " + result.length + ' places to eat: ';
+                    // result.forEach(function (place) {
+                    //     ans += " " + place.name + " " + place.dist + "km";
+                    // });
                 } else {
                     ans = "You are not close enough to UoS..."
                 }

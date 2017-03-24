@@ -119,8 +119,43 @@ function switchOnAction(req, res){
                             logger.log('Received position from ' + sender + ' to find food => ' + JSON.stringify(attachment.payload.coordinates));
 
                             // make sparql query
-                            queries.findNearestFood(location, function (foodStr) {
-                                echo(sender, foodStr, req, res);
+                            queries.findNearestFood(location, function (foodPlaces) {
+                                if (typeof services === 'string') {
+                                    echo(sender, services, req, res);
+                                } else {
+                                    let servs = {
+                                        attachment: {
+                                            type: "template",
+                                            payload: {
+                                                template_type: "generic",
+                                                elements: []
+                                            }
+                                        }
+                                    };
+                                    for (let i = 0; i < Math.min(5, foodPlaces.length); i++) {
+                                        let service = foodPlaces[i];
+                                        servs.attachment.payload.elements.push({
+                                            title: service.name,
+                                            subtitle: service.dist*1000 + ' metres from you',
+                                            image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+service.lat + ","+service.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + service.lat + "," + service.long,
+                                            default_action: {
+                                                type: "web_url",
+                                                url: "https://www.openstreetmap.org/?mlat="+service.lat+"&mlon="+service.long+"4#map=19/"+service.lat+"/"+service.long+"&layers=N",
+                                                "messenger_extensions": true,
+                                                "webview_height_ratio" : "tall",
+                                            },
+                                            "buttons":[
+                                                {
+                                                    "type":"web_url",
+                                                    "url": service.uri,
+                                                    "title":"More details",
+                                                }
+                                            ]
+                                        })
+                                    }
+                                    echo(sender, servs, req, res);
+                                    // echo(sender, "HIYA", req, res);
+                                }
                             });
                         } else {
                             echo(sender, "Everything went right, but didn't get your location!", req, res);
@@ -131,22 +166,6 @@ function switchOnAction(req, res){
                     }
                     break;
 
-                // case "when-term-start":
-                //     var term = aiResponse.result.parameters.term;
-                //
-                //     echo(sender, "not impl", req, res);
-                //
-                //     //Go wild Deepak
-                //     break;
-                //
-                // case "when-term-end":
-                //     var term = aiResponse.result.parameters.term;
-                //
-                //     echo(sender, "not impl", req, res);
-                //
-                //     //Go wild Deepak
-                //     break;
-
                 case "when-term-start":
                     // Get the term they asked for
                     var term = aiResponse.result.parameters.term;
@@ -154,7 +173,7 @@ function switchOnAction(req, res){
                     // Find the start date for that term
                     queries.startTermDates(term, function (stringStartDate) {
                         // Get the response and att the date to it
-                        var aiRawSpeech = aiResponse.result.fulfillment.speech;
+                        let aiRawSpeech = aiResponse.result.fulfillment.speech;
                         echo(sender, aiRawSpeech + " " + stringStartDate, req, res);
 
                     }, function (errorMessage) {
@@ -168,7 +187,7 @@ function switchOnAction(req, res){
                     var term = aiResponse.result.parameters.term;
                     // Find the end date for that term
                     queries.endTermDates(term, function (stringEndDate) {
-                        var aiRawSpeech = aiResponse.result.fulfillment.speech;
+                        let aiRawSpeech = aiResponse.result.fulfillment.speech;
                         echo(sender, aiRawSpeech + " " + stringEndDate, req, res);
 
                     }, function (errorMessage) {
