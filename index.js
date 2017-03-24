@@ -122,13 +122,13 @@ app.get('/parser/', (req, res) => {
 
     // Add prefixes
     queryJson.prefix.forEach( function(prefix) {
-        queryString += 'PREFIX ' + prefix.id.replace("'","") + ' ' + prefix.at.replace("'","") + ' ';
+        queryString += 'PREFIX ' + prefix.id + ' ' + prefix.at + ' ';
     });
 
     // Add select
     queryString += 'SELECT ';
     queryJson.select.forEach( function(variable) {
-        queryString += variable.replace("'","") + ' ';
+        queryString += variable + ' ';
     });
 
     // Add where
@@ -136,10 +136,13 @@ app.get('/parser/', (req, res) => {
     queryJson.where.forEach( function(statement){
         switch(statement.type) {
             case "STANDARD":
-                queryString += statement.s.replace("'","") + ' ' + statement.p.replace("'","") + ' ' + statement.o.replace("'","") + '. ';
+                queryString += statement.s + ' ' + statement.p + ' ' + statement.o + '. ';
                 break;
             case "FILTER":
                 queryString += 'FILTER (' + statement.cond + '). ';
+                break;
+            case "OPTIONAL":
+                queryString += 'OPTIONAL {' + statement.s + ' ' + statement.p + ' ' + statement.o +'} ';
                 break;
         };
     });
