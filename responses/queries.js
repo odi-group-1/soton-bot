@@ -2,6 +2,9 @@ const sparqls = require('sparqling-star');
 const logger = require('tracer').colorConsole();
 const _ = require('lodash');
 
+let stored = require('./sparqlUrlMachine/storedQueries');
+let jqc = require('./sparqlUrlMachine/jsonQueryConverter');
+
 let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     let R = 6371; // Radius of the earth in km
     let dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -21,58 +24,40 @@ let deg2rad = (deg) => {
 
 let findNearestFood = (location, cb) => {
 
-    let myquery = new sparqls.Query({limit: 10000});
-
-    myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
-    myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
-    myquery.registerPrefix( 'ns', '<http://id.southampton.ac.uk/ns/>');
-
-    let business = {
-        'type': 'ns:FoodOrDrinkEstablishment',
-        'geo:lat': '?lat',
-        'geo:long': '?long',
-        'rdfs:label': '?name'
-    };
-
-    myquery.registerVariable('business', business);
-
-    logger.log(myquery.sparqlQuery);
-
-    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
-
     let result = [];
-    let ans = "";
+    let ans = "Something went wrong.";
 
-    sparqler.send(myquery, function(error, data){
-        if(data.results.bindings.length > 0) {
-            try {
-                // Try because trying to access JSON properties that may be undefined
-                data.results.bindings.forEach( function(resultBinding) {
-                    let distance = getDistanceFromLatLonInKm(location.lat, location.long, resultBinding.lat.value, resultBinding.long.value);
-                    if(distance <= 0.250) { //Within 250m
-                        result.push({
-                            uri: resultBinding.business.value,
-                            lat: resultBinding.lat.value,
-                            long: resultBinding.long.value,
-                            name: resultBinding.name.value,
-                            dist: Number(Math.round(distance+'e3')+'e-3'),
-                        });
-                    }
-                });
-                result = _.sortBy(result, 'dist');
-                if (result.length > 0) {
-                    ans = result;
-                    // ans = "Within 250m there are " + result.length + ' places to eat: ';
-                    // result.forEach(function (place) {
-                    //     ans += " " + place.name + " " + place.dist + "km";
-                    // });
-                } else {
-                    ans = "You are not close enough to UoS..."
+    let queryJson = stored.food();
+
+    jqc.getOfferings(queryJson, function (allOfferings) {
+        try {
+            // Try because trying to access JSON properties that may be undefined
+            allOfferings.forEach( function(resultBinding) {
+                let distance = getDistanceFromLatLonInKm(location.lat, location.long, resultBinding.lat.value, resultBinding.long.value);
+                if(distance <= 0.250) { //Within 250m
+                    result.push({
+                        uri: resultBinding.Business.value,
+                        lat: resultBinding.lat.value,
+                        long: resultBinding.long.value,
+                        name: resultBinding.name.value,
+                        dist: Number(Math.round(distance+'e3')+'e-3'),
+                    });
                 }
-            } catch (err) {
-                logger.error('Failed to read query results');
+            });
+            result = _.sortBy(result, 'dist');
+            if (result.length > 0) {
+                ans = result;
+            } else {
+                ans = "You are not close enough to UoS..."
             }
+        } catch (err) {
+            logger.log(err)
+            logger.error('Failed to read query results');
         }
+        if (cb) cb(ans);
+
+    },function (error) {
+        logger.log(error);
         if (cb) cb(ans);
     });
 };

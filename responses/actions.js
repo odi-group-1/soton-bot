@@ -164,6 +164,7 @@ function switchOnAction(req, res){
                         }
 
                     } catch (error) {
+                        logger.log(error)
                         echo(sender, "Something went wrong while I was reading the attachment", req, res);
                     }
                     break;

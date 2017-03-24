@@ -3,7 +3,7 @@
  */
 const request = require('request');
 const encoder = require('./htmlEncoder');
-
+const logger = require('tracer').colorConsole();
 
 let parseJsonQuery = (queryJson) => {
     let queryString = "";
@@ -38,6 +38,9 @@ let parseJsonQuery = (queryJson) => {
 
     // Add limit
     queryString += 'LIMIT ' + queryJson.limit;
+
+    logger.log("sending query => " + queryString);
+
     queryString = encoder.encode(queryString);
 
     return queryJson.endpoint + queryString;
