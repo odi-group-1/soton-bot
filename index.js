@@ -62,9 +62,12 @@ app.listen(app.get('port'), () => {
     logger.log('running on port', app.get('port'))
 });
 
-app.get('/tom/:text', (req, res) => {
+app.get('/tom/:obj', (req, res) => {
 
-    let param = req.params.text;
+    // Expecting { amenity: 'Alcohol', location:{ lat:50.000000, long:-1.000000 }}
+
+    //let obj = req.params.obj; // TODO: Use this
+    let obj = { 'amenity':'Cigarettes', 'location':{'lat':50.9346656, 'long':-1.3959572}};
 
         // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         // PREFIX gr: <http://purl.org/goodrelations/v1#>
@@ -121,7 +124,7 @@ app.get('/tom/:text', (req, res) => {
     myquery.registerVariable('Location', Location);
     myquery.registerVariable('Hours', Hours);
 
-    myquery.filter("?name = '" + param + "'");
+    myquery.filter("?name = '" + obj.amenity + "'");
 
     logger.log(myquery.sparqlQuery);
 
@@ -146,11 +149,13 @@ app.get('/tom/:text', (req, res) => {
                 // Try because trying to access JSON properties that may be undefined
                 data.results.bindings.forEach( function(resultBinding) {
                     let foundDay = resultBinding.day.value.replace("http://purl.org/goodrelations/v1#", "")
+                    let distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long, resultBinding.lat.value, resultBinding.long.value);
                     if( foundDay === weekday[today]) {
                         result.push(
                             {
-                                'shop': resultBinding.shop.value,
+                                'venue': resultBinding.shop.value,
                                 'uri': resultBinding.Location.value,
+                                'dist': Number(Math.round(distance+'e3')+'e-3'),
                                 'coordinates': {
                                     'lat': resultBinding.lat.value,
                                     'long': resultBinding.long.value
@@ -171,3 +176,20 @@ app.get('/tom/:text', (req, res) => {
     });
 
 });
+
+let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
+    let R = 6371; // Radius of the earth in km
+    let dLat = deg2rad(lat2-lat1);  // deg2rad below
+    let dLon = deg2rad(lon2-lon1);
+    let a =
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2)
+        ;
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+};
+
+let deg2rad = (deg) => {
+    return deg * (Math.PI/180)
+};
