@@ -2,8 +2,17 @@ const sparqls = require('sparqling-star');
 const logger = require('tracer').colorConsole();
 const _ = require('lodash');
 
-let stored = require('./sparqlUrlMachine/storedQueries');
-let jqc = require('./sparqlUrlMachine/jsonQueryConverter');
+const stored = require('./sparqlUrlMachine/storedQueries');
+const jqc = require('./sparqlUrlMachine/jsonQueryConverter');
+
+const weekday = new Array(7);
+weekday[0] =  "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
 
 let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     let R = 6371; // Radius of the earth in km
@@ -93,89 +102,21 @@ let findBuilding = (buildingId, cb) => {
 function findOffering(obj, cb) {
 
     // Expecting { amenity: 'Alcohol', location:{ lat:50.000000, long:-1.000000 }}
-
-    //let obj = req.params.obj; // TODO: Use this
-    // let obj = { 'amenity':'Cigarettes', 'location':{'lat':50.9346656, 'long':-1.3959572}};
-
-    // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    // PREFIX gr: <http://purl.org/goodrelations/v1#>
-    // PREFIX ns0: <http://purl.org/goodrelations/v1#>
-    // PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-    // SELECT ?Location ?shop ?name ?lat ?long ?day ?opens ?closes WHERE {
-    //     ?Offering a gr:Offering .
-    //     ?Offering gr:availableAtOrFrom ?Location .
-    //     ?Offering rdfs:label ?name .
-    //     ?Location a ns0:LocationOfSalesOrServiceProvisioning .
-    //     OPTIONAL {?Location rdfs:label ?shop}
-    //     ?Location geo:lat ?lat .
-    //     ?Location geo:long ?long .
-    //     OPTIONAL {?Location gr:hasOpeningHoursSpecification ?Hours}
-    //     OPTIONAL {?Hours gr:hasOpeningHoursDayOfWeek ?day}
-    //     OPTIONAL {?Hours gr:opens ?opens}
-    //     OPTIONAL {?Hours gr:closes ?closes}
-    //     FILTER(?name = 'ATM') .
-    // }
-    // LIMIT 700
-
-    let myquery = new sparqls.Query({limit: 700, distinct: true});
-
-    myquery.registerPrefix( 'rdfs', '<http://www.w3.org/2000/01/rdf-schema#>');
-    myquery.registerPrefix( 'gr', '<http://purl.org/goodrelations/v1#>');
-    myquery.registerPrefix( 'ns0', '<http://purl.org/goodrelations/v1#>');
-    myquery.registerPrefix( 'geo', '<http://www.w3.org/2003/01/geo/wgs84_pos#>');
-
-    myquery.selection(['?Location', '?shop', '?lat', '?long', '?day', '?opens', '?closes']);
-
-    let Offering = {
-        'type': 'gr:Offering',
-        'gr:availableAtOrFrom': '?Location',
-        'rdfs:label': '?name'
-    };
-
-    // TODO: Figure out how to do optional as shown in the query above
-
-    let Location = {
-        'type': 'ns0:LocationOfSalesOrServiceProvisioning',
-        'geo:lat': '?lat',
-        'geo:long': '?long',
-        'rdfs:label': '?shop',
-        'gr:hasOpeningHoursSpecification': '?Hours'
-    };
-
-    let Hours = {
-        'gr:hasOpeningHoursDayOfWeek': '?day',
-        'gr:opens': '?opens',
-        'gr:closes': '?closes'
-    };
-
-    myquery.registerVariable('Offering', Offering);
-    myquery.registerVariable('Location', Location);
-    myquery.registerVariable('Hours', Hours);
-
-    myquery.filter("?name = '" + obj.amenity + "'");
-
-    logger.log(myquery.sparqlQuery);
-
-    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
+    let obj = req.params.obj;
 
     let result = [];
-    let times = [];
     let d = new Date();
     let today = d.getDay();
-    let weekday = new Array(7);
-    weekday[0] =  "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
 
-    sparqler.send(myquery, function(error, data){
-        if(data.results.bindings.length > 0) {
+    let queryJson = stored.amenity(obj.amenity);
+
+    logger.log();
+
+    jqc.getOfferings(queryJson, function (allOfferings) {
+        if(allOfferings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
-                data.results.bindings.forEach( function(resultBinding) {
+                allOfferings.forEach( function(resultBinding) {
                     let foundDay = resultBinding.day.value.replace("http://purl.org/goodrelations/v1#", "")
                     let distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long, resultBinding.lat.value, resultBinding.long.value);
                     if( foundDay === weekday[today]) {
@@ -200,11 +141,14 @@ function findOffering(obj, cb) {
                 logger.log(err);
             }
         } else {
-            result = "Sorry I couldn't find one close to you :("
+            result = "Sorry I couldn't find any results close to you :("
         }
         if (cb) cb(result);
+    },function (error) {
+        logger.log(error);
+        if (cb) cb("Something went wrong...");
     });
-}
+};
 
 let endTermDates = (passedTerm, cb, errcb) => {
 
