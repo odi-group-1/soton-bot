@@ -45,40 +45,67 @@ function switchOnAction(req, res){
                     });
                     break;
                 case "find-nearest-service" :
-                    let desiredService = aiResponse.result.parameters.offering;
+                    try {
+                        let attachment = req.body.entry[0].messaging[0].message.attachments[0];
 
-                    queries.findOffering(desiredService, function (services) {
-                        if (typeof services === 'string') {
-                            echo(sender, services, req, res);
-                        } else {
-                            let servs = {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: []
-                                    }
-                                }
+                        // have the location to deal with nearest food
+                        if (attachment && attachment.type === 'location') {
+
+                            let location = attachment.payload.coordinates;
+                            let desiredService = aiResponse.result.parameters.offering;
+
+                            logger.log('Received position from ' + sender + ' to find ' + desiredService + ' => ' + JSON.stringify(attachment.payload.coordinates));
+
+                            let obj = {
+                                'amenity': desiredService,
+                                'location': location
                             };
-                            for (let i = 0; i < services.length; i++) {
-                                servs.attachment.payload.elements.push({
-                                    title: services[i],
-                                    image_url: services[i],
-                                    "buttons":[
-                                        {
-                                            "type":"web_url",
-                                            "url": services[i],
-                                            "title":"More details",
-                                        }
-                                    ]
-                                })
-                            }
-                            logger.log(servs);
-                            echo(sender, servs, req, res);
-                            // echo(sender, JSON.stringify(services), req, res);
-                        }
-                    });
 
+                            queries.findOffering(obj, function (services) {
+                                if (typeof services === 'string') {
+                                    echo(sender, services, req, res);
+                                } else {
+                                    let servs = {
+                                        attachment: {
+                                            type: "template",
+                                            payload: {
+                                                template_type: "generic",
+                                                elements: []
+                                            }
+                                        }
+                                    };
+                                    // fix here!
+                                    for (let i = 0; i < Math.min(5, services.length); i++) {
+                                        let service = services[i];
+                                        servs.attachment.payload.elements.push({
+                                            title: service.venue,
+                                            subtitle: "Opening Times: " + service.times.open + " " + service.times.close,
+                                            image_url: "http://staticmap.openstreetmap.de/staticmap.php?center="+service.coordinates.lat + ","+service.coordinates.long+"&zoom=18&size=865x512&maptype=mapnik&markers=" + service.coordinates.lat + "," + service.coordinates.long,
+                                            default_action: {
+                                                type: "web_url",
+                                                url: "https://www.openstreetmap.org/?mlat="+service.coordinates.lat+"&mlon="+service.coordinates.long+"4#map=19/"+service.coordinates.lat+"/"+service.coordinates.long+"&layers=N",
+                                                "messenger_extensions": true,
+                                                "webview_height_ratio" : "tall",
+                                            },
+                                            "buttons":[
+                                                {
+                                                    "type":"web_url",
+                                                    "url": service.uri,
+                                                    "title":"More details",
+                                                }
+                                            ]
+                                        })
+                                    }
+                                    echo(sender, servs, req, res);
+                                    // echo(sender, "HIYA", req, res);
+                                }
+                            });
+                        } else {
+                            echo(sender, "Everything went right, but didn't get your location!", req, res);
+                        }
+                    } catch (error) {
+                        echo(sender, "Something went wrong while I was reading the attachment", req, res);
+                    }
                     break;
                 case "nearest-food":
                     try {
