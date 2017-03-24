@@ -47,7 +47,7 @@ let parseJsonQuery = (queryJson) => {
         queryString += 'LIMIT ' + queryJson.limit;
     }
 
-    logger.log("sending query => " + queryString);
+    logger.log("sending query => ##" + queryString+"##");
 
     queryString = encoder.encode(queryString);
 

@@ -107,6 +107,7 @@ function switchOnAction(req, res){
                             echo(sender, "Everything went right, but didn't get your location!", req, res);
                         }
                     } catch (error) {
+                        logger.error(error)
                         echo(sender, "Something went wrong while I was reading the attachment", req, res);
                     }
                     break;

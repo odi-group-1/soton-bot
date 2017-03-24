@@ -101,54 +101,49 @@ let findBuilding = (buildingId, cb) => {
 
 function findOffering(obj, cb) {
 
-    // Expecting { amenity: 'Alcohol', location:{ lat:50.000000, long:-1.000000 }}
-    let obj = req.params.obj;
-
     let result = [];
     let d = new Date();
-    let today = d.getDay();
+    let today = weekday[d.getDay()];
 
-    let queryJson = stored.amenity(obj.amenity);
-
-    logger.log();
+    let queryJson = stored.amenity(obj.amenity, today);
 
     jqc.getOfferings(queryJson, function (allOfferings) {
+
         if(allOfferings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 allOfferings.forEach( function(resultBinding) {
-                    let foundDay = resultBinding.day.value.replace("http://purl.org/goodrelations/v1#", "")
-                    let distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long, resultBinding.lat.value, resultBinding.long.value);
-                    if( foundDay === weekday[today]) {
-                        result.push(
-                            {
-                                'venue': resultBinding.shop.value,
-                                'uri': resultBinding.Location.value,
-                                'dist': Number(Math.round(distance+'e3')+'e-3'),
-                                'coordinates': {
-                                    'lat': resultBinding.lat.value,
-                                    'long': resultBinding.long.value
-                                },
-                                'times': {
-                                    'open': resultBinding.opens.value,
-                                    'close': resultBinding.closes.value
-                                }
-                            });
-                    }
+                    let distance = getDistanceFromLatLonInKm(obj.location.lat,
+                    obj.location.long, resultBinding.lat.value, resultBinding.long.value);
+                    result.push(
+                        {
+                            'venue': resultBinding.shop.value,
+                            'uri': resultBinding.Location.value,
+                            'dist': Number(Math.round(distance+'e3')+'e-3'),
+                            'coordinates': {
+                                'lat': resultBinding.lat.value,
+                                'long': resultBinding.long.value
+                            },
+                            'times': {
+                                'open': resultBinding.opens.value,
+                                'close': resultBinding.closes.value
+                            }
+                        });
                 });
             } catch (err) {
                 logger.log('Failed to read query results');
-                logger.log(err);
+                logger.error(err);
             }
         } else {
             result = "Sorry I couldn't find any results close to you :("
         }
+
         if (cb) cb(result);
     },function (error) {
         logger.log(error);
         if (cb) cb("Something went wrong...");
     });
-};
+}
 
 let endTermDates = (passedTerm, cb, errcb) => {
 

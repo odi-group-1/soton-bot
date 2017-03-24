@@ -2,7 +2,7 @@
  * Created by stefan on 24/03/17.
  */
 
-let amenity = (searchCriteria) => {
+let amenity = (searchCriteria, today) => {
     return {
         endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
         prefix: [
@@ -93,8 +93,8 @@ let amenity = (searchCriteria) => {
             },
             {
                 type: 'FILTER',
-                cond: '?name = \"' + searchCriteria + '\"'
-            }
+                cond: '?name = \"' + searchCriteria + '\" && ?day = gr:'+today
+            },
         ],
         limit: 700
     }
