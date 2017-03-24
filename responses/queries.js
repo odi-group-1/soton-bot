@@ -113,22 +113,27 @@ function findOffering(obj, cb) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 allOfferings.forEach( function(resultBinding) {
-                    let distance = getDistanceFromLatLonInKm(obj.location.lat,
-                    obj.location.long, resultBinding.lat.value, resultBinding.long.value);
-                    result.push(
-                        {
-                            'venue': resultBinding.shop.value,
-                            'uri': resultBinding.Location.value,
-                            'dist': Number(Math.round(distance+'e3')+'e-3'),
-                            'coordinates': {
-                                'lat': resultBinding.lat.value,
-                                'long': resultBinding.long.value
-                            },
-                            'times': {
-                                'open': resultBinding.opens.value,
-                                'close': resultBinding.closes.value
-                            }
-                        });
+                    let distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long,
+                        resultBinding.lat.value, resultBinding.long.value);
+                    if (resultBinding.shop && resultBinding.Location && resultBinding.opens && resultBinding.closes){
+                        result.push(
+                            {
+                                'venue': resultBinding.shop.value,
+                                'uri': resultBinding.Location.value,
+                                'dist': Number(Math.round(distance+'e3')+'e-3'),
+                                'coordinates': {
+                                    'lat': resultBinding.lat.value,
+                                    'long': resultBinding.long.value
+                                },
+                                'times': {
+                                    'open': resultBinding.opens.value,
+                                    'close': resultBinding.closes.value
+                                }
+                            });
+                    }else{
+                        //TODO: Remove after debug
+                        console.log("Missing something:"+JSON.stringify(resultBinding,null,2));
+                    }
                 });
             } catch (err) {
                 logger.log('Failed to read query results');
