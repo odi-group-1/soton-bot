@@ -156,13 +156,11 @@ app.get('/parser/', (req, res) => {
     // Add endpoint to query
     queryString = endpoint + queryString;
 
-    console.log(queryString);
-
     let comms = require('./responses/sparqlUrlMachine/comms');
-    let queryResult = comms.get(queryString);
-
-    logger.log(queryResult);
-    res.send(queryResult);
+    comms.get(queryString, function (allOfferings) {
+        logger.log(allOfferings);
+        res.send(allOfferings);
+    });
 });
 
 let encode = (unencoded) => {
