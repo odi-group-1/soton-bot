@@ -10,11 +10,12 @@ const Logger = require('tracer');
 
 const verifyAppToken = require('./responses/webhook-verification');
 const relay = require('./responses/relay');
+const env = require('./config/staging');
 
 const app = express();
 const logger = Logger.colorConsole();
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || env.PORT));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

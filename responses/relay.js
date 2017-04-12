@@ -1,13 +1,20 @@
-const logger = require('tracer').colorConsole();
+/**
+ * The first stage of message handling pipeline. Relays to other functions based on message types - text, location etc.
+ */
+
+const Logger = require('tracer');
 const request = require('request-promise');
 
 const sendMessage = require('./send-message');
 const responseMaker = require('./responseMaker');
 const queries = require('./queries');
 const actions = require('./actions');
+const env = require('../config/staging');
+
+const logger = Logger.colorConsole();
 
 // this is a higher level function that will relay based on what type of message was sent
-var relay = (req, res) => {
+let relay = (req, res) => {
 
     let messaging_events = req.body.entry[0].messaging;
 
@@ -38,7 +45,7 @@ var relay = (req, res) => {
 
                 // the user sent coordinates
                 if (attachment.payload && attachment.payload.coordinates) {
-                    responseMaker.handleThis('got-coords--InaDeepakTomShakibStefan-hidden-key', sender, actions.switchOnAction(req, res))
+                    responseMaker.handleThis(env.API_AI_HIDDEN_KEYS.COORDINATE, sender, actions.switchOnAction(req, res))
                 } else {
                     // unrecognized attachments
                     echo(sender, "I don't recognize the attachments", req, res);
