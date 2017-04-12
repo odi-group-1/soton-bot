@@ -1,50 +1,85 @@
 /**
- * Created by shakib on 22/03/17.
+ this will take the http context and generate the closure which asks api.ai for actions and switch on that action
  */
+
 const logger = require('tracer').colorConsole();
 const queries = require('./queries');
 const sendMessage = require('./send-message');
-/*
- this is a function that will take the http context and generate the closure
- that will ask apiai for actions and switch on that action
- */
+
+function prepareIncompleteActionResponse(aiResponse){
+
+    // default response is the speech returned by api.ai
+    let response = aiResponse.result.fulfillment.speech;
+
+    // special responses. location.
+    if (response.includes('location pin')) {
+        response = {
+            text: 'Please share your location:',
+            quick_replies: [
+                {
+                    content_type: 'location',
+                }
+            ]
+        }
+    }
+    return response;
+}
+
+function createGenericMessengerTemplateAttachment(elements){
+    return {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: elements
+            }
+        }
+    }
+}
+
 function switchOnAction(req, res){
-    return function (aiResponse, sender) {
-        if (!aiResponse.result.actionIncomplete) {
+
+    // return the closure that will be the callback to api.ai handler
+    return (aiResponse, sender) => {
+
+        // action incomplete. perhaps further steps needed.
+        if (aiResponse.result.actionIncomplete) {
+
+            let response = prepareIncompleteActionResponse(aiResponse);
+            echo(sender, typeof response === 'string'? 'Incomplete. ' + response : response, req, res);
+
+        } else {
+
+            // next step is based on the intent detected by api.ai
             switch (aiResponse.result.action) {
 
                 // find a building
-                case "find-building" :
+                case 'find-building' :
                     let buildingNumber = aiResponse.result.parameters.buidingNumber;
-                    queries.findBuilding(buildingNumber, function (location) {
+                    queries.findBuilding(buildingNumber, (location) => {
 
-                        if (typeof location === 'string') {
-                            // used when actually nothing was found and an apology string was sent
-                            echo(sender, location, req, res);
-                        } else {
-                            location = {
-                                attachment: {
-                                    type: "template",
-                                    payload: {
-                                        template_type: "generic",
-                                        elements: [
-                                            {
-                                                title: aiResponse.result.fulfillment.speech,
-                                                image_url: getStaticOpenStreetMap(location.lat, location.long),
-                                                subtitle: "From Open Street Map",
-                                                default_action: {
-                                                    type: "web_url",
-                                                    url: interactiveOpenStreetMap(location.lat, location.long),
-                                                    "messenger_extensions": true,
-                                                    "webview_height_ratio" : "tall",
-                                                },
-                                            }
-                                        ]
-                                    }
+                        // location can be an apology string, or a coordinate object
+                        if (typeof location !== 'string') {
+
+                            // location not an apology string, create a card with a openstreet map
+                            let locationElements = [
+                                {
+                                    title: aiResponse.result.fulfillment.speech,
+                                    image_url: getStaticOpenStreetMap(location.lat, location.long),
+                                    subtitle: 'From Open Street Map',
+                                    default_action: {
+                                        type: 'web_url',
+                                        url: interactiveOpenStreetMap(location.lat, location.long),
+                                        messenger_extensions: true,
+                                        webview_height_ratio : 'tall',
+                                    },
                                 }
-                            };
-                            echo(sender, location, req, res);
+                            ];
+                            location = createGenericMessengerTemplateAttachment(locationElements);
                         }
+
+                        echo(sender, location, req, res);
+
                     });
                     break;
                 case "find-nearest-service" :
@@ -209,20 +244,6 @@ function switchOnAction(req, res){
                     }
                     break;
             }
-        } else {
-            // basic incomplete action response
-            let speech = aiResponse.result.fulfillment.speech;
-            if (speech.includes('location pin')) {
-                speech = {
-                    "text":"Please share your location:",
-                    "quick_replies":[
-                        {
-                            "content_type":"location",
-                        }
-                    ]
-                }
-            }
-            echo(sender, typeof speech === 'string'? "Incomplete. " + speech : speech, req, res);
         }
     }
 }
