@@ -6,6 +6,8 @@ const logger = require('tracer').colorConsole();
 const queries = require('./queries');
 const sendMessage = require('./send-message');
 
+const MAX_CARD_ELEMENTS = 5;
+
 function switchOnAction(req, res){
 
     // return the closure that will be the callback to api.ai handler
@@ -54,7 +56,8 @@ function switchOnAction(req, res){
                     });
                     break;
 
-                case "find-nearest-service" :
+                // find nearest x
+                case 'find-nearest-service' :
                     try {
                         let attachment = req.body.entry[0].messaging[0].message.attachments[0];
 
@@ -71,50 +74,45 @@ function switchOnAction(req, res){
                                 'location': location
                             };
 
-                            queries.findOffering(obj, function (services) {
-                                if (typeof services === 'string') {
-                                    echo(sender, services, req, res);
-                                } else {
-                                    let servs = {
-                                        attachment: {
-                                            type: "template",
-                                            payload: {
-                                                template_type: "generic",
-                                                elements: []
-                                            }
-                                        }
-                                    };
-                                    // fix here!
-                                    for (let i = 0; i < Math.min(5, services.length); i++) {
-                                        let service = services[i];
-                                        servs.attachment.payload.elements.push({
+                            queries.findOffering(obj, (services) => {
+
+                                // response can be an apology string or an array of services
+                                let response = services;
+
+                                if (typeof response !== 'string') {
+
+                                    // response is actually an array of services
+                                    response = createGenericMessengerTemplateAttachment([]);
+
+                                    // create an element for each of the first x services
+                                    for (let service of services.slice(0, MAX_CARD_ELEMENTS)) {
+                                        response.attachment.payload.elements.push({
                                             title: service.venue,
-                                            subtitle: "Opening Times: " + service.times.open + " " + service.times.close,
+                                            subtitle: 'Opening Times: ' + service.times.open + ' ' + service.times.close,
                                             image_url: getStaticOpenStreetMap(service.coordinates.lat, service.coordinates.long),
                                             default_action: {
-                                                type: "web_url",
+                                                type: 'web_url',
                                                 url: interactiveOpenStreetMap(service.coordinates.lat, service.coordinates.long),
-                                                "messenger_extensions": true,
-                                                "webview_height_ratio" : "tall",
+                                                messenger_extensions: true,
+                                                webview_height_ratio : 'tall',
                                             },
-                                            "buttons":[
+                                            buttons:[
                                                 {
-                                                    "type":"web_url",
-                                                    "url": service.uri,
-                                                    "title":"More details",
+                                                    type:'web_url',
+                                                    url: service.uri,
+                                                    title:'More details',
                                                 }
                                             ]
-                                        })
+                                        });
                                     }
-                                    echo(sender, servs, req, res);
-                                    // echo(sender, "HIYA", req, res);
                                 }
+                                echo(sender, response, req, res);
                             });
                         } else {
                             echo(sender, "Everything went right, but didn't get your location!", req, res);
                         }
                     } catch (error) {
-                        logger.error(error)
+                        logger.error(error);
                         echo(sender, "Something went wrong while I was reading the attachment", req, res);
                     }
                     break;
@@ -145,7 +143,7 @@ function switchOnAction(req, res){
                                     response = createGenericMessengerTemplateAttachment([]);
 
                                     // add a card for each of the food places
-                                    for (let service of foodPlaces) {
+                                    for (let service of foodPlaces.slice(0, MAX_CARD_ELEMENTS)) {
                                         response.attachment.payload.elements.push({
                                             title: service.name,
                                             subtitle: service.dist*1000 + ' metres from you',
