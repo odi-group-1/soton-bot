@@ -3,8 +3,8 @@
  */
 
 const logger = require('tracer').colorConsole();
-const queries = require('./queries');
-const sendMessage = require('./send-message');
+const queries = require('../service/queries');
+const sendMessage = require('../service/fb-messaging/send-message');
 
 const MAX_CARD_ELEMENTS = 5;
 

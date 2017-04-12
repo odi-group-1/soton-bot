@@ -8,8 +8,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Logger = require('tracer');
 
-const verifyAppToken = require('./responses/webhook-verification');
-const relay = require('./responses/relay');
+const verifyAppToken = require('./controller/webhook-verification');
+const relay = require('./controller/relay');
 const env = require('./config/staging');
 
 const app = express();
@@ -37,10 +37,10 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/parser/', (req, res) => {
-    let stored = require('./responses/sparqlUrlMachine/storedQueries');
+    let stored = require('./service/sparqlUrlMachine/storedQueries');
     let queryJson = stored.amenity('Alcohol', 'Friday');
 
-    let jqc = require('./responses/sparqlUrlMachine/jsonQueryConverter');
+    let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
     jqc.getOfferings(queryJson, function (allOfferings) {
         res.send(allOfferings);
 

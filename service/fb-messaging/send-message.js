@@ -7,7 +7,7 @@ const handleSendApiResponse = require('./handleSendApiResponse');
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
 // send message using fb graph api
-var sendMessage = (receiver, messageData, cb, errcb, req, res) => {
+let sendMessage = (receiver, messageData, cb, errcb, req, res) => {
 
     // if messagedata is just a string construct the message object
     if (typeof messageData === 'string') messageData = {text:messageData};

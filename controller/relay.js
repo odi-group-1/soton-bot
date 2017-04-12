@@ -5,10 +5,10 @@
 const Logger = require('tracer');
 const request = require('request-promise');
 
-const sendMessage = require('./send-message');
-const aiHandler = require('./ai-handler');
-const queries = require('./queries');
-const actions = require('./actions');
+const sendMessage = require('../service/fb-messaging/send-message');
+const aiHandler = require('../service/ai-handler');
+const queries = require('../service/queries');
+const actions = require('../responses/actions');
 const env = require('../config/staging');
 
 const logger = Logger.colorConsole();
