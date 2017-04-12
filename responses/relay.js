@@ -6,7 +6,7 @@ const Logger = require('tracer');
 const request = require('request-promise');
 
 const sendMessage = require('./send-message');
-const responseMaker = require('./responseMaker');
+const aiHandler = require('./ai-handler');
 const queries = require('./queries');
 const actions = require('./actions');
 const env = require('../config/staging');
@@ -31,7 +31,7 @@ let relay = (req, res) => {
             // take action based on the text sent to the bot
             logger.log("Received from " + sender + " => " + text);
 
-            responseMaker.handleThis(text, sender, actions.switchOnAction(req, res));
+            aiHandler.handleThis(text, sender, actions.switchOnAction(req, res));
 
         } else if (event.message && !event.message.text){
             // message does not have any text
@@ -45,7 +45,7 @@ let relay = (req, res) => {
 
                 // the user sent coordinates
                 if (attachment.payload && attachment.payload.coordinates) {
-                    responseMaker.handleThis(env.API_AI_HIDDEN_KEYS.COORDINATE, sender, actions.switchOnAction(req, res))
+                    aiHandler.handleThis(env.API_AI_HIDDEN_KEYS.COORDINATE, sender, actions.switchOnAction(req, res))
                 } else {
                     // unrecognized attachments
                     echo(sender, "I don't recognize the attachments", req, res);

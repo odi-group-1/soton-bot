@@ -1,3 +1,7 @@
+/**
+ * Second stage in message handling pipeline. Sends response to api.ai and makes a callback with the result
+ */
+
 const apiai = require('apiai');
 const _ = require('lodash');
 const logger = require('tracer').colorConsole();
