@@ -1,5 +1,8 @@
+/**
+ * Action for route for facebook to verify the webhook token
+ */
 
-var APP_TOKEN = 'we-will-change-student-lives-in-soton';
+const APP_TOKEN = require('../config/staging').APP_TOKEN;
 
 // simple route to verify the app token so that the webhook can be connected to fb messenger api
 const verfiyAppToken = (req, res) => {
