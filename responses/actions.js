@@ -6,37 +6,6 @@ const logger = require('tracer').colorConsole();
 const queries = require('./queries');
 const sendMessage = require('./send-message');
 
-function prepareIncompleteActionResponse(aiResponse){
-
-    // default response is the speech returned by api.ai
-    let response = aiResponse.result.fulfillment.speech;
-
-    // special responses. location.
-    if (response.includes('location pin')) {
-        response = {
-            text: 'Please share your location:',
-            quick_replies: [
-                {
-                    content_type: 'location',
-                }
-            ]
-        }
-    }
-    return response;
-}
-
-function createGenericMessengerTemplateAttachment(elements){
-    return {
-        attachment: {
-            type: 'template',
-            payload: {
-                template_type: 'generic',
-                elements: elements
-            }
-        }
-    }
-}
-
 function switchOnAction(req, res){
 
     // return the closure that will be the callback to api.ai handler
@@ -55,26 +24,28 @@ function switchOnAction(req, res){
 
                 // find a building
                 case 'find-building' :
+
                     let buildingNumber = aiResponse.result.parameters.buidingNumber;
+
+                    // first query for the building number
                     queries.findBuilding(buildingNumber, (location) => {
 
                         // location can be an apology string, or a coordinate object
                         if (typeof location !== 'string') {
 
                             // location not an apology string, create a card with a openstreet map
-                            let locationElements = [
-                                {
-                                    title: aiResponse.result.fulfillment.speech,
-                                    image_url: getStaticOpenStreetMap(location.lat, location.long),
-                                    subtitle: 'From Open Street Map',
-                                    default_action: {
-                                        type: 'web_url',
-                                        url: interactiveOpenStreetMap(location.lat, location.long),
-                                        messenger_extensions: true,
-                                        webview_height_ratio : 'tall',
-                                    },
-                                }
-                            ];
+                            let locationElements = [{
+                                title: aiResponse.result.fulfillment.speech,
+                                image_url: getStaticOpenStreetMap(location.lat, location.long),
+                                subtitle: 'From Open Street Map',
+                                default_action: {
+                                    type: 'web_url',
+                                    url: interactiveOpenStreetMap(location.lat, location.long),
+                                    messenger_extensions: true,
+                                    webview_height_ratio : 'tall',
+                                },
+                            }];
+
                             location = createGenericMessengerTemplateAttachment(locationElements);
                         }
 
@@ -82,6 +53,7 @@ function switchOnAction(req, res){
 
                     });
                     break;
+
                 case "find-nearest-service" :
                     try {
                         let attachment = req.body.entry[0].messaging[0].message.attachments[0];
@@ -146,8 +118,12 @@ function switchOnAction(req, res){
                         echo(sender, "Something went wrong while I was reading the attachment", req, res);
                     }
                     break;
+
+                // find nearest food places in uni
                 case "nearest-food":
                     try {
+
+                        // location is expected as attachment to complete the query. try to extract it
                         let attachment = req.body.entry[0].messaging[0].message.attachments[0];
 
                         // have the location to deal with nearest food
@@ -157,51 +133,49 @@ function switchOnAction(req, res){
 
                             logger.log('Received position from ' + sender + ' to find food => ' + JSON.stringify(attachment.payload.coordinates));
 
-                            // make sparql query
-                            queries.findNearestFood(location, function (foodPlaces) {
-                                if (typeof foodPlaces === 'string') {
-                                    echo(sender, foodPlaces, req, res);
-                                } else {
-                                    let servs = {
-                                        attachment: {
-                                            type: "template",
-                                            payload: {
-                                                template_type: "generic",
-                                                elements: []
-                                            }
-                                        }
-                                    };
-                                    for (let i = 0; i < Math.min(5, foodPlaces.length); i++) {
-                                        let service = foodPlaces[i];
-                                        servs.attachment.payload.elements.push({
+                            // first query for nearest food places
+                            queries.findNearestFood(location, (foodPlaces) => {
+
+                                // response could be either an apology string or an array of food place
+                                let response = foodPlaces;
+
+                                if (typeof response !== 'string') {
+
+                                    // actual food places found. create cards with open street map location and times
+                                    response = createGenericMessengerTemplateAttachment([]);
+
+                                    // add a card for each of the food places
+                                    for (let service of foodPlaces) {
+                                        response.attachment.payload.elements.push({
                                             title: service.name,
                                             subtitle: service.dist*1000 + ' metres from you',
                                             image_url: getStaticOpenStreetMap(service.lat, service.long),
                                             default_action: {
-                                                type: "web_url",
+                                                type: 'web_url',
                                                 url: interactiveOpenStreetMap(service.lat, service.long),
-                                                "messenger_extensions": true,
-                                                "webview_height_ratio" : "tall",
+                                                messenger_extensions: true,
+                                                webview_height_ratio : 'tall',
                                             },
-                                            "buttons":[
+                                            buttons:[
                                                 {
-                                                    "type":"web_url",
-                                                    "url": service.uri,
-                                                    "title":"More details",
+                                                    type:'web_url',
+                                                    url: service.uri,
+                                                    title:'More details',
                                                 }
                                             ]
-                                        })
+                                        });
                                     }
-                                    echo(sender, servs, req, res);
                                 }
+                                echo(sender, response, req, res);
                             });
                         } else {
-                            echo(sender, "Everything went right, but didn't get your location!", req, res);
+                            echo(sender, "I was expecting the attachment to be a location, but it wasn't!", req, res);
                         }
 
                     } catch (error) {
-                        logger.log(error)
-                        echo(sender, "Something went wrong while I was reading the attachment", req, res);
+                        // intention marked complete as nearest-food, but couldn't extract location
+                        logger.error(error);
+                        echo(sender, "I was expecting an attachment, but something went wrong!", req, res);
                     }
                     break;
 
@@ -250,6 +224,37 @@ function switchOnAction(req, res){
 
 function echo(sender, text, req, res) {
     sendMessage(sender, text, undefined, undefined, req, res);
+}
+
+function prepareIncompleteActionResponse(aiResponse){
+
+    // default response is the speech returned by api.ai
+    let response = aiResponse.result.fulfillment.speech;
+
+    // special responses. location.
+    if (response.includes('location pin')) {
+        response = {
+            text: 'Please share your location:',
+            quick_replies: [
+                {
+                    content_type: 'location',
+                }
+            ]
+        }
+    }
+    return response;
+}
+
+function createGenericMessengerTemplateAttachment(elements){
+    return {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'generic',
+                elements: elements
+            }
+        }
+    }
 }
 
 function getStaticOpenStreetMap(lat, long){
