@@ -5,15 +5,6 @@ const _ = require('lodash');
 const stored = require('./sparqlUrlMachine/storedQueries');
 const jqc = require('./sparqlUrlMachine/jsonQueryConverter');
 
-const weekday = new Array(7);
-weekday[0] =  "Sunday";
-weekday[1] = "Monday";
-weekday[2] = "Tuesday";
-weekday[3] = "Wednesday";
-weekday[4] = "Thursday";
-weekday[5] = "Friday";
-weekday[6] = "Saturday";
-
 let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     let R = 6371; // Radius of the earth in km
     let dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -103,7 +94,7 @@ function findOffering(obj, cb) {
 
     let result = [];
     let d = new Date();
-    let today = weekday[d.getDay()];
+    let today = new Date().toLocaleString('en-us', {  weekday: 'long' });
 
     let query = `
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
