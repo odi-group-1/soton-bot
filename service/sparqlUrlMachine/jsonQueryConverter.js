@@ -60,11 +60,7 @@ let parseJsonQuery = (queryJson) => {
 
 let getOfferings = (query, cb, errcb) => {
 
-    let queryUrl = 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=' + encoder.encode(query);
-
-    logger.log("\n\n------------------------------");
-    logger.log(queryUrl);
-    logger.log("\n\n------------------------------");
+    let queryUrl = parseJsonQuery(query);
 
     request(queryUrl, function (error, response, body) {
 
@@ -72,6 +68,7 @@ let getOfferings = (query, cb, errcb) => {
             cb(error);
             return;
         }
+
         let jsonBody = JSON.parse(body);
 
 

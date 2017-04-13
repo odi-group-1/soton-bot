@@ -96,7 +96,7 @@ function findOffering(obj, cb) {
     let d = new Date();
     let today = new Date().toLocaleString('en-us', {  weekday: 'long' });
 
-    let query = stored.amenity(obj, today);
+    let query = stored.amenity(obj.amenity, today);
 
     jqc.getOfferings(query, function (allOfferings) {
 
