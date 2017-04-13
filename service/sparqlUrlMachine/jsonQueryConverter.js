@@ -58,19 +58,28 @@ let parseJsonQuery = (queryJson) => {
     return queryJson.endpoint + queryString;
 };
 
-let getOfferings = (queryJson, cb, errcb) => {
-    let queryUrl = parseJsonQuery(queryJson);
+let getOfferings = (query, cb, errcb) => {
+
+    let queryUrl = 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=' + encoder.encode(query);
+
+    logger.log("\n\n------------------------------");
+    logger.log(queryUrl);
+    logger.log("\n\n------------------------------");
+
     request(queryUrl, function (error, response, body) {
+
         if (error) {
-            errcb(error);
+            cb(error);
             return;
         }
         let jsonBody = JSON.parse(body);
+
+
         if (jsonBody && jsonBody.results && jsonBody.results.bindings) {
             cb(jsonBody.results.bindings);
 
         }else{
-            errcb(error);
+            cb(error);
         }
     })
 };

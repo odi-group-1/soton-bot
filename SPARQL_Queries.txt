@@ -1,3 +1,33 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?shop
+	(SAMPLE (?name) AS ?shopName)
+	(SAMPLE (?lat) AS ?shopLat)
+	(SAMPLE (?long) AS ?shopLong)
+	(SAMPLE (?openTime) AS ?shopOpenTime)
+	(SAMPLE (?closeTime) AS ?shopCloseTime)
+
+WHERE {
+  ?shop a gr:LocationOfSalesOrServiceProvisioning;
+        rdfs:label ?name.
+  ?offering gr:availableAtOrFrom ?shop;
+            rdfs:label "Alcohol".
+
+  OPTIONAL {?shop geo:lat ?lat; geo:long ?long;}
+  OPTIONAL {?shop gr:hasOpeningHoursSpecification ?openingHours.
+           	?openingHours gr:hasOpeningHoursDayOfWeek gr:Monday;
+           				  gr:opens ?openTime;
+           				  gr:closes ?closeTime.
+           }
+}
+
+GROUP BY ?shop
+
+LIMIT 10
+
+
 //- Lists Products & services by Name -//
 
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

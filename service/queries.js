@@ -105,32 +105,61 @@ function findOffering(obj, cb) {
     let d = new Date();
     let today = weekday[d.getDay()];
 
-    let queryJson = stored.amenity(obj.amenity, today);
+    let query = `
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+            PREFIX gr: <http://purl.org/goodrelations/v1#> 
+            PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+            
+            SELECT ?shop 
+                (SAMPLE (?name) AS ?shopName)
+                (SAMPLE (?lat) AS ?shopLat)
+                (SAMPLE (?long) AS ?shopLong)
+                (SAMPLE (?openTime) AS ?shopOpenTime)
+                (SAMPLE (?closeTime) AS ?shopCloseTime)
+            
+            WHERE { 
+              ?shop a gr:LocationOfSalesOrServiceProvisioning;
+                    rdfs:label ?name.
+              ?offering gr:availableAtOrFrom ?shop;
+                        rdfs:label "` + obj.amenity + `".
+              
+              OPTIONAL {?shop geo:lat ?lat; geo:long ?long;}
+              OPTIONAL {?shop gr:hasOpeningHoursSpecification ?openingHours.
+                        ?openingHours gr:hasOpeningHoursDayOfWeek gr:` + today + `;
+                                      gr:opens ?openTime;
+                                      gr:closes ?closeTime.
+                       }
+            } 
+            
+            GROUP BY ?shop
+            
+            LIMIT 10
+    `;
 
-    jqc.getOfferings(queryJson, function (allOfferings) {
+    jqc.getOfferings(query, function (allOfferings) {
 
         if(allOfferings.length > 0) {
             try {
                 // Try because trying to access JSON properties that may be undefined
                 allOfferings.forEach( function(resultBinding) {
                     let distance = undefined;
-                    if (resultBinding.LocationLat && resultBinding.LocationLong) {
+                    if (resultBinding.shopLat && resultBinding.shopLong) {
                         distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long,
-                            resultBinding.LocationLat.value, resultBinding.LocationLong.value);
+                            resultBinding.shopLat.value, resultBinding.shopLong.value);
                     }
                     logger.log((distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity);
                     result.push(
                         {
-                            'venue': resultBinding.LocationShop.value,
-                            'uri': resultBinding.Location.value,
-                            'dist': (distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity,
+                            'venue': resultBinding.shopName.value,
+                            'uri': resultBinding.shop.value,
+                            'dist': distance ? Number(Math.round(distance+'e3')+'e-3') : Infinity,
                             'coordinates': {
-                                'lat': (distance) ? resultBinding.LocationLat.value : undefined,
-                                'long': (distance) ? resultBinding.LocationLong.value: undefined
+                                'lat': distance ? resultBinding.shopLat.value : undefined,
+                                'long': distance ? resultBinding.shopLong.value: undefined
                             },
                             'times': {
-                                'open': (resultBinding.LocationOpens) ? resultBinding.LocationOpens.value : undefined,
-                                'close': (resultBinding.LocationCloses) ? resultBinding.LocationCloses.value : undefined
+                                'open': resultBinding.shopOpenTime ? resultBinding.shopOpenTime.value : "",
+                                'close': resultBinding.shopCloseTime ? resultBinding.shopCloseTime.value : ""
                             }
                         });
                 });
