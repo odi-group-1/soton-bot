@@ -96,36 +96,7 @@ function findOffering(obj, cb) {
     let d = new Date();
     let today = new Date().toLocaleString('en-us', {  weekday: 'long' });
 
-    let query = `
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
-            PREFIX gr: <http://purl.org/goodrelations/v1#> 
-            PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
-            
-            SELECT ?shop 
-                (SAMPLE (?name) AS ?shopName)
-                (SAMPLE (?lat) AS ?shopLat)
-                (SAMPLE (?long) AS ?shopLong)
-                (SAMPLE (?openTime) AS ?shopOpenTime)
-                (SAMPLE (?closeTime) AS ?shopCloseTime)
-            
-            WHERE { 
-              ?shop a gr:LocationOfSalesOrServiceProvisioning;
-                    rdfs:label ?name.
-              ?offering gr:availableAtOrFrom ?shop;
-                        rdfs:label "` + obj.amenity + `".
-              
-              OPTIONAL {?shop geo:lat ?lat; geo:long ?long;}
-              OPTIONAL {?shop gr:hasOpeningHoursSpecification ?openingHours.
-                        ?openingHours gr:hasOpeningHoursDayOfWeek gr:` + today + `;
-                                      gr:opens ?openTime;
-                                      gr:closes ?closeTime.
-                       }
-            } 
-            
-            GROUP BY ?shop
-            
-            LIMIT 10
-    `;
+    let query = stored.amenity(obj, today);
 
     jqc.getOfferings(query, function (allOfferings) {
 

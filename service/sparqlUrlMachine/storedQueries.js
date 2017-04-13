@@ -15,97 +15,44 @@ let amenity = (searchCriteria, today) => {
                 at: '<http://purl.org/goodrelations/v1#>'
             },
             {
-                id: 'ns0:',
-                at: '<http://purl.org/goodrelations/v1#>'
-            },
-            {
                 id: 'geo:',
                 at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
             }
         ],
-        select: [ 'DISTINCT',
-            '?Location',
-            '(SAMPLE (?shop) AS ?LocationShop)',
-            '(SAMPLE (?name) AS ?LocationName)',
-            '(SAMPLE (?lat) AS ?LocationLat)',
-            '(SAMPLE (?long) AS ?LocationLong)',
-            '(SAMPLE (?day) AS ?LocationDay)',
-            '(SAMPLE (?opens) AS ?LocationOpens)',
-            '(SAMPLE (?closes) AS ?LocationCloses)' ],
+        select: [ '?shop',
+            '(SAMPLE (?name) AS ?shopName)',
+            '(SAMPLE (?lat) AS ?shopLat)',
+            '(SAMPLE (?long) AS ?shopLong)',
+            '(SAMPLE (?openTime) AS ?shopOpenTime)',
+            '(SAMPLE (?closeTime) AS ?shopCloseTime)' ],
         where: [
             {
                 type: 'STANDARD',
-                s: '?Offering',
-                p: 'a',
-                o: 'gr:Offering'
+                s: '?shop a gr:LocationOfSalesOrServiceProvisioning; rdfs:label ?name',
+                p: '',
+                o: ''
             },
             {
                 type: 'STANDARD',
-                s: '?Offering',
-                p: 'gr:availableAtOrFrom',
-                o: '?Location'
-            },
-            {
-                type: 'STANDARD',
-                s: '?Offering',
-                p: 'rdfs:label',
-                o: '?name'
-            },
-            {
-                type: 'STANDARD',
-                s: '?Location',
-                p: 'a',
-                o: 'ns0:LocationOfSalesOrServiceProvisioning'
+                s: '?offering gr:availableAtOrFrom ?shop; rdfs:label "'+searchCriteria+'"',
+                p: '',
+                o: ''
             },
             {
                 type: 'OPTIONAL',
-                s: '?Location',
-                p: 'rdfs:label',
-                o: '?shop'
+                s: '?shop geo:lat ?lat. ?shop geo:long ?long',
+                p: '',
+                o: ''
             },
             {
                 type: 'OPTIONAL',
-                s: '?Location',
-                p: 'geo:lat',
-                o: '?lat'
-            },
-            {
-                type: 'OPTIONAL',
-                s: '?Location',
-                p: 'geo:long',
-                o: '?long'
-            },
-            {
-                type: 'OPTIONAL',
-                s: '?Location',
-                p: 'gr:hasOpeningHoursSpecification',
-                o: '?Hours'
-            },
-            {
-                type: 'OPTIONAL',
-                s: '?Hours',
-                p: 'gr:hasOpeningHoursDayOfWeek',
-                o: '?day'
-            },
-            {
-                type: 'OPTIONAL',
-                s: '?Hours',
-                p: 'gr:opens',
-                o: '?opens'
-            },
-            {
-                type: 'OPTIONAL',
-                s: '?Hours',
-                p: 'gr:closes',
-                o: '?closes'
-            },
-            {
-                type: 'FILTER',
-                cond: '?name = \"' + searchCriteria + '\" && ?day = gr:'+today
-            },
+                s: '?shop gr:hasOpeningHoursSpecification ?openingHours. ?openingHours gr:hasOpeningHoursDayOfWeek gr:Monday; gr:opens ?openTime;',
+                p: 'gr:closes ?closeTime',
+                o: ''
+            }
         ],
-        group: '?Location',
-        limit: 100
+        group: '?shop',
+        limit: 10
     }
 };
 
