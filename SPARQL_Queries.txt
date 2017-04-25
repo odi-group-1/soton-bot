@@ -25,7 +25,7 @@ WHERE {
 
 GROUP BY ?shop
 
-LIMIT 10
+LIMIT 100
 
 
 //- Lists Products & services by Name -//
@@ -182,24 +182,44 @@ SELECT * FROM <http://id.southampton.ac.uk/dataset/southampton-food-outlets/late
 
 //--------------------------------------------------
 
-Get coordinates and open times of amenitie using two datasets (without specifying FROM)
+# Only data up until 2014-2015 available but good for demo of proposed functionality
 
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX gr: <http://purl.org/goodrelations/v1#>
-PREFIX ns0: <http://purl.org/goodrelations/v1#>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-SELECT ?Location ?shop ?name ?lat ?long ?day ?opens ?closes WHERE {
-  ?Offering a gr:Offering .
-  ?Offering gr:availableAtOrFrom ?Location .
-  ?Offering rdfs:label ?name .
-  ?Location a ns0:LocationOfSalesOrServiceProvisioning .
-  OPTIONAL {?Location rdfs:label ?shop}
-  ?Location geo:lat ?lat .
-  ?Location geo:long ?long .
-  OPTIONAL {?Location gr:hasOpeningHoursSpecification ?Hours}
-  OPTIONAL {?Hours gr:hasOpeningHoursDayOfWeek ?day}
-  OPTIONAL {?Hours gr:opens ?opens}
-  OPTIONAL {?Hours gr:closes ?closes}
-  FILTER(?name = 'ATM') .
+PREFIX soton: <http://id.southampton.ac.uk/ns/>
+PREFIX vocab: <http://purl.org/vocab/aiiso/schema#>
+PREFIX session: <http://id.southampton.ac.uk/academic-session/>
+
+SELECT ?moduleTitle ?moduleCode ?year WHERE {
+    
+  	?s vocab:name ?moduleTitle;
+       soton:bannerModuleCode ?moduleCode;
+       soton:inAcademicSession ?year.
+  	
+  	FILTER (?year = session:2014-2015).
+  
 }
-LIMIT 700
+
+//---------------------------------------------------
+
+PREFIX located: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
+PREFIX rooms: <http://vocab.deri.ie/rooms#>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX purl: <http://purl.org/openorg/>
+
+SELECT ?room
+	(SAMPLE (?building) AS ?roomBuilding)
+	(SAMPLE (?type) AS ?roomType)
+	(SAMPLE (?access) AS ?roomAccess)
+
+WHERE {
+  
+    ?room a rooms:Room;
+  	 	  located:within ?building;
+          rdf:label ?type;
+          purl:access ?access.
+  
+} 
+
+GROUP BY ?room
+
+LIMIT 10
+
