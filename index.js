@@ -49,3 +49,17 @@ app.get('/parser/', (req, res) => {
         res.send(error);
     })
 });
+
+app.get('/tom/:room', (req, res) => {
+    let stored = require('./service/sparqlUrlMachine/storedQueries');
+    let queryJson = stored.room(req.params.room);
+
+    let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
+    jqc.getOfferings(queryJson, function (allOfferings) {
+        res.send(allOfferings);
+
+    },function (error) {
+        logger.log(error);
+        res.send(error);
+    })
+});

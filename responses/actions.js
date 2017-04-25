@@ -24,6 +24,32 @@ function switchOnAction(req, res){
             // next step is based on the intent detected by api.ai
             switch (aiResponse.result.action) {
 
+                // find room details
+                case 'find-room-details' :
+
+                    let roomNumber = aiResponse.result.parameters.roomNumber;
+
+                    queries.findRoomDetails(roomNumber, (result) => {
+
+                        if (typeof result !== 'string') {
+                            let roomElements = [{
+                                title: result.name + ' - ' + result.roomType,
+                                image_url: result.imgURL,
+                                subtitle: result.URI,
+                                default_action: {
+                                    type: 'web_url',
+                                    url: result.URI,
+                                    messenger_extensions: true,
+                                    webview_height_ratio : 'tall',
+                                },
+                            }];
+                            result = createGenericMessengerTemplateAttachment(roomElements);
+                        }
+
+                        echo(sender, result, req, res);
+                    });
+                    break;
+
                 // find a building
                 case 'find-building' :
 

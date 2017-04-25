@@ -125,10 +125,97 @@ let building = (buildingId) => {
   }
 };
 
+let room = (room) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'located:',
+                at: '<http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>'
+            },
+            {
+                id: 'rooms:',
+                at: '<http://vocab.deri.ie/rooms#>'
+            },
+            {
+                id: 'rdf:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'purl:',
+                at: '<http://purl.org/openorg/>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'foaf:',
+                at: '<http://xmlns.com/foaf/0.1/>'
+            },
+            {
+                id: 'rm:',
+                at: '<http://id.southampton.ac.uk/room/>'
+            }
+        ],
+        select: [ '?room',
+            '(SAMPLE (?building) AS ?roomBuilding)',
+            '(SAMPLE (?type) AS ?roomType)',
+            '(SAMPLE (?access) AS ?roomAccess)',
+            '(SAMPLE (?notation) AS ?roomNotation)',
+            '(SAMPLE (?img) AS ?roomImage)'
+        ],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'a',
+                o: 'rooms:Room'
+            },
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'located:within',
+                o: '?building'
+            },
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'rdf:label',
+                o: '?type'
+            },
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'purl:access',
+                o: '?access'
+            },
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'skos:notation',
+                o: '?notation'
+            },
+            {
+                type: 'STANDARD',
+                s: '?img',
+                p: 'foaf:depicts',
+                o: '?room'
+            },
+            {
+                type: 'FILTER',
+                cond: '?room = rm:' + room
+            }
+        ],
+        group: '?room'
+    };
+};
+
 module.exports = {
     amenity : amenity,
     food : food,
-    building : building
+    building : building,
+    room : room
 };
 
 

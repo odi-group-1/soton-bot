@@ -280,10 +280,58 @@ let startTermDates = (passedTerm, cb, errcb) => {
     });
 };
 
+function findRoomDetails(room, cb) {
+
+    let bString = 'http://id.southampton.ac.uk/building/';
+    let fString = 'http://id.southampton.ac.uk/floor/';
+
+    let result = {  URI: undefined,
+                    name: undefined,
+                    roomType: undefined,
+                    imgURL: undefined,
+                    building: undefined,
+                    floor: undefined,
+                    accessNotes: undefined};
+
+    let query = stored.room(room);
+
+    jqc.getOfferings(query, function (roomDetails) {
+
+        if(roomDetails.length > 0) {
+            try {
+                result.URI = roomDetails[0].room.value;
+                result.name = roomDetails[0].roomNotation.value;
+                result.roomType = roomDetails[0].roomType.value;
+                result.imgURL = roomDetails[0].roomImage.value;
+                result.accessNotes = roomDetails[0].roomAccess.value;
+                let building = roomDetails[0].roomBuilding.value;
+                if (building.includes(bString)) {
+                    result.building = building.replace(bString, '');
+                }
+                if (building.includes(fString)) {
+                    result.building = building.replace(fString, '').split('-')[0];
+                    result.floor = building.replace(fString, '').split('-')[1];
+                }
+            } catch (err) {
+                logger.log('Failed to read query results');
+                logger.error(err);
+            }
+        } else {
+            result = "Sorry I couldn't find that room."
+        }
+
+        if (_.isFunction(cb)) cb(result);
+    },function (error) {
+        logger.log(error);
+        if (_.isFunction(cb)) cb("Something went wrong...");
+    });
+}
+
 module.exports = {
     findBuilding: findBuilding,
     findNearestFood: findNearestFood,
     findOffering: findOffering,
     endTermDates: endTermDates,
-    startTermDates: startTermDates
+    startTermDates: startTermDates,
+    findRoomDetails: findRoomDetails
 };
