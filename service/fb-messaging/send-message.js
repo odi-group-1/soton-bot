@@ -1,5 +1,6 @@
 const logger = require('tracer').colorConsole();
 const request = require('request-promise');
+const _ = require('lodash');
 
 const handleSendApiResponse = require('./handleSendApiResponse');
 
@@ -10,7 +11,7 @@ const token = process.env.FB_PAGE_ACCESS_TOKEN;
 let sendMessage = (receiver, messageData, cb, errcb, req, res) => {
 
     // if messagedata is just a string construct the message object
-    if (typeof messageData === 'string') messageData = {text:messageData};
+    if (_.isString(messageData)) messageData = {text:messageData};
 
     logger.log("Replying to " + receiver + " => " + JSON.stringify(messageData));
 
@@ -29,11 +30,11 @@ let sendMessage = (receiver, messageData, cb, errcb, req, res) => {
         }
     }).then((response) =>  {
         // message sent and either callback or default response to soton-bot
-        if (cb) cb(response);
+        if (_.isFunction(cb)) cb(response);
         else handleSendApiResponse.fbSuccessDefaultResponse(res);
-    }).catch( (error) => {
+    }).catch((error) => {
         // either callback or default response to soton-bot
-        if (errcb) errcb(error);
+        if (_.isFunction(errcb)) errcb(error);
         else handleSendApiResponse.fbFailedDefaultResponse(res, error);
     });
 };
