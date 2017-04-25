@@ -234,3 +234,19 @@ GROUP BY ?room
 
 LIMIT 10
 
+//---------------------------------------------------
+
+# The start of finding toilets
+
+prefix ns2: <http://purl.org/openorg/space-configuration/>
+prefix ns4: <http://id.southampton.ac.uk/location-feature/>
+
+SELECT *
+
+WHERE {
+  
+  ?config a ns2:Bathroom.
+  ?room ns2:spaceConfiguration ?config.
+  
+} 
+
