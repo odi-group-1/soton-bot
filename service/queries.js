@@ -51,14 +51,14 @@ let findNearestFood = (location, cb) => {
                 ans = "You are not close enough to UoS..."
             }
         } catch (err) {
-            logger.log(err)
+            logger.log(err);
             logger.error('Failed to read query results');
         }
-        if (cb) cb(ans);
+        if (_.isFunction(cb)) cb(ans);
 
     },function (error) {
         logger.log(error);
-        if (cb) cb(ans);
+        if (_.isFunction(cb)) cb(ans);
     });
 };
 
@@ -82,11 +82,11 @@ let findBuilding = (buildingId, cb) => {
                 logger.error('Tried to find building, failed...');
             }
         }
-        if(cb) cb(ans);
+        if(_.isFunction(cb)) cb(ans);
 
     }, function (error) {
         logger.error(error);
-        cb(ans);
+        cb(ans); //TODO: make it errcb when we've defined what errcb looks like
     });
 };
 
@@ -110,20 +110,19 @@ function findOffering(obj, cb) {
                             resultBinding.shopLat.value, resultBinding.shopLong.value);
                     }
                     logger.log((distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity);
-                    result.push(
-                        {
-                            'venue': resultBinding.shopName.value,
-                            'uri': resultBinding.shop.value,
-                            'dist': distance ? Number(Math.round(distance+'e3')+'e-3') : Infinity,
-                            'coordinates': {
-                                'lat': distance ? resultBinding.shopLat.value : undefined,
-                                'long': distance ? resultBinding.shopLong.value: undefined
-                            },
-                            'times': {
-                                'open': resultBinding.shopOpenTime ? resultBinding.shopOpenTime.value : "",
-                                'close': resultBinding.shopCloseTime ? resultBinding.shopCloseTime.value : ""
-                            }
-                        });
+                    result.push({
+                        'venue': resultBinding.shopName.value,
+                        'uri': resultBinding.shop.value,
+                        'dist': distance ? Number(Math.round(distance+'e3')+'e-3') : Infinity,
+                        'coordinates': {
+                            'lat': distance ? resultBinding.shopLat.value : undefined,
+                            'long': distance ? resultBinding.shopLong.value: undefined
+                        },
+                        'times': {
+                            'open': resultBinding.shopOpenTime ? resultBinding.shopOpenTime.value : "",
+                            'close': resultBinding.shopCloseTime ? resultBinding.shopCloseTime.value : ""
+                        }
+                    });
                 });
                 result = _.sortBy(result, 'dist');
             } catch (err) {
@@ -134,10 +133,10 @@ function findOffering(obj, cb) {
             result = "Sorry I couldn't find any results close to you :("
         }
 
-        if (cb) cb(result);
+        if (_.isFunction(cb)) cb(result);
     },function (error) {
         logger.log(error);
-        if (cb) cb("Something went wrong...");
+        if (_.isFunction(cb)) cb("Something went wrong...");
     });
 }
 
@@ -169,8 +168,6 @@ let endTermDates = (passedTerm, cb, errcb) => {
     let withinEndTerm = true;
     let dateToSendBack;
 
-
-
     sparqler.send(myquery, function(error, data){
         if(data.results.bindings.length > 0) {
             try {
@@ -189,7 +186,7 @@ let endTermDates = (passedTerm, cb, errcb) => {
                         //within term end date
                         dateToSendBack = result[i].endDate;
                         break;
-                    }else{
+                    } else{
                         withinEndTerm = false;
                     }
                 }
@@ -199,14 +196,14 @@ let endTermDates = (passedTerm, cb, errcb) => {
                     let day = dateToSendBack.getUTCDate();
                     let year = dateToSendBack.getUTCFullYear();
 
-                    if (cb) cb(day+"/"+month+"/"+year);
-                }else{
+                    if (_.isFunction(cb)) cb(day+"/"+month+"/"+year);
+                } else{
                     logger.log('Failed to retrieve date, even though query passed.');
-                    if (errcb) errcb("No dates available");
+                    if (_.isFunction(cb)) errcb("No dates available");
                 }
             } catch (err) {
                 logger.log('Failed to read query results');
-                if (errcb) errcb("No dates available");
+                if (_.isFunction(cb)) errcb("No dates available");
             }
         }
 
@@ -241,7 +238,6 @@ let startTermDates = (passedTerm, cb, errcb) => {
     let termNotStarted = true;
     let dateToSendBack;
 
-
     sparqler.send(myquery, function(error, data){
         if(data.results.bindings.length > 0) {
             try {
@@ -270,14 +266,14 @@ let startTermDates = (passedTerm, cb, errcb) => {
                     let day = dateToSendBack.getUTCDate();
                     let year = dateToSendBack.getUTCFullYear();
 
-                    if (cb) cb(day+"/"+month+"/"+year);
+                    if (_.isFunction(cb)) cb(day+"/"+month+"/"+year);
                 }else{
                     logger.log('Failed to retrieve date, even though query passed.');
-                    if (errcb) errcb("No dates available");
+                    if (_.isFunction(cb)) errcb("No dates available");
                 }
             } catch (err) {
                 logger.log('Failed to read query results');
-                if (errcb) errcb("No dates available");
+                if (_.isFunction(errcb)) errcb("No dates available");
             }
         }
 
