@@ -243,7 +243,7 @@ PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
 PREFIX timeline: <http://purl.org/NET/c4dm/timeline.owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?room ?label ?start ?end WHERE {
+SELECT ?room (group_concat(?start) as ?starts) (group_concat(?end) as ?ends) WHERE {
 
     ?event a soton:RoomBookedEvent;
        event:place ?room;
@@ -253,8 +253,8 @@ SELECT ?room ?label ?start ?end WHERE {
   	?time timeline:start ?start;
           timeline:end ?end.
 
-  	FILTER ( ?start > "2017-04-24"^^xsd:dateTime && ?start < "2017-04-27"^^xsd:dateTime )
+  	FILTER ( ?start >= "2017-04-24"^^xsd:dateTime && ?start < "2017-04-27"^^xsd:dateTime)
 
 }
-ORDER BY ?room
+GROUP BY ?room
 LIMIT 10000
