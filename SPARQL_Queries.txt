@@ -200,22 +200,33 @@ SELECT ?moduleTitle ?moduleCode ?year WHERE {
 
 //---------------------------------------------------
 
+# Room type, access note, building and floor location, room image url 
+
 PREFIX located: <http://data.ordnancesurvey.co.uk/ontology/spatialrelations/>
 PREFIX rooms: <http://vocab.deri.ie/rooms#>
 PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX purl: <http://purl.org/openorg/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
 SELECT ?room
 	(SAMPLE (?building) AS ?roomBuilding)
 	(SAMPLE (?type) AS ?roomType)
 	(SAMPLE (?access) AS ?roomAccess)
+	(SAMPLE (?notation) AS ?roomNotation)
+	(SAMPLE (?img) AS ?roomImage)
 
 WHERE {
   
     ?room a rooms:Room;
   	 	  located:within ?building;
           rdf:label ?type;
-          purl:access ?access.
+          purl:access ?access;
+          skos:notation ?notation.
+   
+    ?img foaf:depicts ?room.
+  
+  #FILTER(?room = room:27-1139)
   
 } 
 
