@@ -52,7 +52,7 @@ let amenity = (searchCriteria, today) => {
             }
         ],
         group: '?shop',
-        limit: 10
+        limit: 100
     }
 };
 
