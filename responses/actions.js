@@ -34,10 +34,10 @@ function switchOnAction(req, res){
                         if (typeof results !== 'string') {
 
                             // create an element for each of the first x services
-                            for (let result of results.slice(0, MAX_CARD_ELEMENTS)) {
+                            for (let result of results.slice(0, 10)) {
                                 response.attachment.payload.elements.push({
                                     title: result.room + ' Capacity: ' + result.capacity,
-                                    subtitle: 'Free hour slot start times: ' + result.possibleTimes,
+                                    subtitle: '1hr slots available starting at: ' + result.possibleTimes,
                                     image_url: result.img,
                                     buttons:[
                                         {

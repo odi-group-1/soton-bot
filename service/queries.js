@@ -414,11 +414,6 @@ function findBookableRoom(timeReq, cb) {
                     let min_time  = 0 + dateTimeRequest.split('T')[1].split(':')[0];
                     let range2 = range.filter(function(n){ return n != undefined && n > min_time });
 
-                    console.log("--[ Room:"+resultBinding.roomNumber.value+" ]-----------------");
-                    console.log("Start: "+start_arr);
-                    console.log("Ends: "+end_arr);
-                    console.log("Avail: "+range2);
-                    console.log("------------------------------");
                     result.push({
                         room: resultBinding.roomNumber.value,
                         uri: resultBinding.room.value,
@@ -429,6 +424,7 @@ function findBookableRoom(timeReq, cb) {
                 });
 
                 //TODO Sort by most available slots. Can only display max 10 cards so give top 10 most available
+                result = _.sortBy(result, [function(o) { return 24-o.possibleTimes.length}]);
 
             } catch (err) {
                 logger.log('Failed to read query results');
