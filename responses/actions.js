@@ -43,7 +43,12 @@ function switchOnAction(req, res){
                                         {
                                             type:'web_url',
                                             url: result.uri,
-                                            title:'More details',
+                                            title:'More details'
+                                        },
+                                        {
+                                            type:'web_url',
+                                            url: 'https://roombooking.soton.ac.uk/WebRoomBooking/default.aspx',
+                                            title:'Book A Room'
                                         }
                                     ]
                                 });
