@@ -164,7 +164,7 @@ let room = (room) => {
             '(SAMPLE (?access) AS ?roomAccess)',
             '(SAMPLE (?notation) AS ?roomNotation)',
             '(SAMPLE (?img) AS ?roomImage)',
-            '(SAMPLE (?capacity) AS ?roomCapaciy)'
+            '(SAMPLE (?capacity) AS ?roomCapacity)'
         ],
         where: [
             {

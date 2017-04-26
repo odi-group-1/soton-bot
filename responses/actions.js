@@ -27,21 +27,25 @@ function switchOnAction(req, res){
                 // find room details
                 case 'find-room-details' :
 
-                    let roomNumber = aiResponse.result.parameters.roomNumber;
+                    let b = aiResponse.result.parameters.building;
+                    let r = aiResponse.result.parameters.room;
+
+                    let roomNumber = b + '-' + r;
 
                     queries.findRoomDetails(roomNumber, (result) => {
 
                         if (typeof result !== 'string') {
                             let roomElements = [{
-                                title: result.name + ' - ' + result.roomType,
+                                title: result.name,
                                 image_url: result.imgURL,
                                 subtitle: 'Room capacity: ' + result.capacity,
-                                default_action: {
-                                    type: 'web_url',
-                                    url: result.URI,
-                                    messenger_extensions: true,
-                                    webview_height_ratio : 'tall',
-                                },
+                                buttons:[
+                                    {
+                                        type:'web_url',
+                                        url: result.URI,
+                                        title:'More details',
+                                    }
+                                ]
                             }];
                             result = createGenericMessengerTemplateAttachment(roomElements);
                         }
