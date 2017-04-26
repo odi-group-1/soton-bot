@@ -266,8 +266,11 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX semweb: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>
+PREFIX purl: <http://purl.org/openorg/>
 
-SELECT DISTINCT ?room ?roomNumber (SAMPLE (?img) as ?image) ?start ?end WHERE {
+SELECT DISTINCT ?room ?roomNumber ?img ?capacity
+(group_concat(?start) as ?starts)
+(group_concat(?end) as ?ends) WHERE {
 
     ?event a soton:RoomBookedEvent;
        event:place ?room;
@@ -282,13 +285,17 @@ SELECT DISTINCT ?room ?roomNumber (SAMPLE (?img) as ?image) ?start ?end WHERE {
             ?end > "2017-04-26T10:00:00Z"^^xsd:dateTime)
 
     GRAPH <http://id.southampton.ac.uk/dataset/room-features/latest>{
-      	?room skos:notation ?roomNumber
+      	?room skos:notation ?roomNumber;
+              purl:capacity ?capacity
     }
 
-    ?img foaf:depicts ?room;
-        semweb:width "192"^^xsd:integer;
-        semweb:height "144"^^xsd:integer .
+    GRAPH <http://id.southampton.ac.uk/dataset/photos/latest>{
+        ?img foaf:depicts ?room;
+            semweb:width "192"^^xsd:integer;
+            semweb:height "144"^^xsd:integer .
+      	FILTER regex(str(?img),'B.jpg$','i')
+    }
 
 }
-GROUP BY ?room ?roomNumber ?start ?end
+GROUP BY ?room ?img ?capacity ?roomNumber
 LIMIT 10000
