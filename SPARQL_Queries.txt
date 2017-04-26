@@ -208,6 +208,7 @@ PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX purl: <http://purl.org/openorg/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rm: <http://id.southampton.ac.uk/room/>
 
 SELECT ?room
 	(SAMPLE (?building) AS ?roomBuilding)
@@ -228,13 +229,14 @@ WHERE {
    
     ?img foaf:depicts ?room.
   
-  #FILTER(?room = room:27-1139)
+    FILTER(?room = rm:27-1139)
   
 } 
 
 GROUP BY ?room
 
 LIMIT 10
+
 
 
 //---------------------------------------------------
