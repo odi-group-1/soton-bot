@@ -218,11 +218,116 @@ let room = (room) => {
     };
 };
 
+let freeRoom = (dateSt, dateEnd, dateNow) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'event:',
+                at: '<http://purl.org/NET/c4dm/event.owl#>'
+            },
+            {
+                id: 'timeline:',
+                at: '<http://purl.org/NET/c4dm/timeline.owl#>'
+            },
+            {
+                id: 'xsd:',
+                at: '<http://www.w3.org/2001/XMLSchema#>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'foaf:',
+                at: '<http://xmlns.com/foaf/0.1/>'
+            },
+            {
+                id: 'semweb:',
+                at: '<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>'
+            },
+            {
+                id: 'purl:',
+                at: '<http://purl.org/openorg/>'
+            }
+        ],
+        select: [ 'DISTINCT', '?room', '?roomNumber', '?img', '?capacity',
+            '(group_concat(?start) as ?starts)',
+            '(group_concat(?end) as ?ends)'
+        ],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?event',
+                p: 'a',
+                o: 'soton:RoomBookedEvent'
+            },
+            {
+                type: 'STANDARD',
+                s: '?event',
+                p: 'event:place',
+                o: '?room'
+            },
+            {
+                type: 'STANDARD',
+                s: '?event',
+                p: 'rdfs:label',
+                o: '?label'
+            },
+            {
+                type: 'STANDARD',
+                s: '?event',
+                p: 'event:time',
+                o: '?time'
+            },
+            {
+                type: 'STANDARD',
+                s: '?time',
+                p: 'timeline:start',
+                o: '?start'
+            },
+            {
+                type: 'STANDARD',
+                s: '?time',
+                p: 'timeline:end',
+                o: '?end'
+            },
+            {
+                type: 'FILTER',
+                cond: "?start >= '" + dateSt + "'^^xsd:dateTime && ?start < '" + dateEnd + "'^^xsd:dateTime && ?end > '" + dateNow + "'^^xsd:dateTime"
+            },
+            {
+                type: 'STANDARD',
+                s: 'GRAPH <http://id.southampton.ac.uk/dataset/room-features/latest>{',
+                p: '?room skos:notation ?roomNumber;',
+                o: 'purl:capacity ?capacity. }'
+            },
+            {
+                type: 'STANDARD',
+                s: 'GRAPH <http://id.southampton.ac.uk/dataset/photos/latest>{',
+                p: '?img foaf:depicts ?room; semweb:width "192"^^xsd:integer; semweb:height "144"^^xsd:integer .',
+                o: "FILTER regex(str(?img),'B.jpg$','i')}"
+            }
+        ],
+        group: '?room ?img ?capacity ?roomNumber',
+        limit: 10000
+    };
+};
+
 module.exports = {
     amenity : amenity,
     food : food,
     building : building,
-    room : room
+    room : room,
+    freeRoom : freeRoom
 };
 
 

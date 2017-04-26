@@ -258,7 +258,6 @@ WHERE {
 // ---- Room bookings on a day ----------
 
 PREFIX soton: <http://id.southampton.ac.uk/ns/>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
 PREFIX timeline: <http://purl.org/NET/c4dm/timeline.owl#>
