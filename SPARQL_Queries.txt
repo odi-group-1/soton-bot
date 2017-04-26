@@ -269,7 +269,8 @@ SELECT ?room (group_concat(?start) as ?starts) (group_concat(?end) as ?ends) WHE
   	?time timeline:start ?start;
           timeline:end ?end.
 
-  	FILTER ( ?start >= "2017-04-24"^^xsd:dateTime && ?start < "2017-04-27"^^xsd:dateTime)
+  	FILTER ( ?start >= "2017-04-26T00:00:00Z"^^xsd:dateTime && 
+            ?start < "2017-04-26T23:59:59Z"^^xsd:dateTime && ?end > "2017-04-26T10:00:00Z"^^xsd:dateTime)
 
 }
 GROUP BY ?room
