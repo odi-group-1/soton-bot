@@ -258,8 +258,11 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX event: <http://purl.org/NET/c4dm/event.owl#>
 PREFIX timeline: <http://purl.org/NET/c4dm/timeline.owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX semweb: <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#>
 
-SELECT ?room (group_concat(?start) as ?starts) (group_concat(?end) as ?ends) WHERE {
+SELECT DISTINCT ?room ?roomNumber (SAMPLE (?img) as ?image) ?start ?end WHERE {
 
     ?event a soton:RoomBookedEvent;
        event:place ?room;
@@ -269,10 +272,18 @@ SELECT ?room (group_concat(?start) as ?starts) (group_concat(?end) as ?ends) WHE
   	?time timeline:start ?start;
           timeline:end ?end.
 
-  	FILTER ( ?start >= "2017-04-26T00:00:00Z"^^xsd:dateTime && 
-            ?start < "2017-04-26T23:59:59Z"^^xsd:dateTime && ?end > "2017-04-26T10:00:00Z"^^xsd:dateTime)
+  	FILTER ( ?start >= "2017-04-26T00:00:00Z"^^xsd:dateTime &&
+            ?start < "2017-04-26T23:59:59Z"^^xsd:dateTime &&
+            ?end > "2017-04-26T10:00:00Z"^^xsd:dateTime)
+
+    GRAPH <http://id.southampton.ac.uk/dataset/room-features/latest>{
+      	?room skos:notation ?roomNumber
+    }
+
+    ?img foaf:depicts ?room;
+        semweb:width "192"^^xsd:integer;
+        semweb:height "144"^^xsd:integer .
 
 }
-GROUP BY ?room
+GROUP BY ?room ?roomNumber ?start ?end
 LIMIT 10000
-
