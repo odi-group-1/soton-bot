@@ -215,6 +215,7 @@ SELECT ?room
 	(SAMPLE (?access) AS ?roomAccess)
 	(SAMPLE (?notation) AS ?roomNotation)
 	(SAMPLE (?img) AS ?roomImage)
+	(SAMPLE (?capacity) AS ?roomCapaciy)
 
 WHERE {
   
@@ -222,7 +223,8 @@ WHERE {
   	 	  located:within ?building;
           rdf:label ?type;
           purl:access ?access;
-          skos:notation ?notation.
+          skos:notation ?notation;
+  		  purl:capacity ?capacity.
    
     ?img foaf:depicts ?room.
   
@@ -233,6 +235,7 @@ WHERE {
 GROUP BY ?room
 
 LIMIT 10
+
 
 //---------------------------------------------------
 
