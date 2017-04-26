@@ -163,7 +163,8 @@ let room = (room) => {
             '(SAMPLE (?type) AS ?roomType)',
             '(SAMPLE (?access) AS ?roomAccess)',
             '(SAMPLE (?notation) AS ?roomNotation)',
-            '(SAMPLE (?img) AS ?roomImage)'
+            '(SAMPLE (?img) AS ?roomImage)',
+            '(SAMPLE (?capacity) AS ?roomCapaciy)'
         ],
         where: [
             {
@@ -195,6 +196,12 @@ let room = (room) => {
                 s: '?room',
                 p: 'skos:notation',
                 o: '?notation'
+            },
+            {
+                type: 'STANDARD',
+                s: '?room',
+                p: 'purl:capacity',
+                o: '?capacity'
             },
             {
                 type: 'STANDARD',

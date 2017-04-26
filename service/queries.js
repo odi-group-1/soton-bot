@@ -291,7 +291,8 @@ function findRoomDetails(room, cb) {
                     imgURL: undefined,
                     building: undefined,
                     floor: undefined,
-                    accessNotes: undefined};
+                    accessNotes: undefined,
+                    capacity: undefined};
 
     let query = stored.room(room);
 
@@ -304,6 +305,7 @@ function findRoomDetails(room, cb) {
                 result.roomType = roomDetails[0].roomType.value;
                 result.imgURL = roomDetails[0].roomImage.value;
                 result.accessNotes = roomDetails[0].roomAccess.value;
+                result.capacity = roomDetails[0].roomCapacity.value;
                 let building = roomDetails[0].roomBuilding.value;
                 if (building.includes(bString)) {
                     result.building = building.replace(bString, '');

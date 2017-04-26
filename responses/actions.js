@@ -35,7 +35,7 @@ function switchOnAction(req, res){
                             let roomElements = [{
                                 title: result.name + ' - ' + result.roomType,
                                 image_url: result.imgURL,
-                                subtitle: result.URI,
+                                subtitle: 'Room capacity: ' + result.capacity,
                                 default_action: {
                                     type: 'web_url',
                                     url: result.URI,
