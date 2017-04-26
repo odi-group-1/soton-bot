@@ -22,6 +22,10 @@ let deg2rad = (deg) => {
     return deg * (Math.PI/180)
 };
 
+let clean_times = (str) => {
+    return str.replace(/[0-9]{4}-[0-9]{2}-[0-9]{2}T/g, "").replace(/:00:00\+[0-9]{2}:00/g, "").split(" ");
+};
+
 let findNearestFood = (location, cb) => {
 
     let result = [];
@@ -53,6 +57,7 @@ let findNearestFood = (location, cb) => {
         } catch (err) {
             logger.log(err);
             logger.error('Failed to read query results');
+            result = "Something went wrong."
         }
         if (_.isFunction(cb)) cb(ans);
 
@@ -80,6 +85,7 @@ let findBuilding = (buildingId, cb) => {
             } catch (error) {
                 logger.error(error);
                 logger.error('Tried to find building, failed...');
+                ans = "Something went wrong."
             }
         }
         if(_.isFunction(cb)) cb(ans);
@@ -128,6 +134,7 @@ function findOffering(obj, cb) {
             } catch (err) {
                 logger.log('Failed to read query results');
                 logger.error(err);
+                result = "Something went wrong."
             }
         } else {
             result = "Sorry I couldn't find any results close to you :("
@@ -317,9 +324,119 @@ function findRoomDetails(room, cb) {
             } catch (err) {
                 logger.log('Failed to read query results');
                 logger.error(err);
+                result = "Something went wrong."
             }
         } else {
             result = "Sorry I couldn't find that room."
+        }
+
+        if (_.isFunction(cb)) cb(result);
+    },function (error) {
+        logger.log(error);
+        if (_.isFunction(cb)) cb("Something went wrong...");
+    });
+}
+
+function findBookableRoom(timeReq, cb) {
+
+    let dateSt = undefined;
+    let dateEnd = undefined;
+    let dateTimeRequest = undefined;
+
+    let early = '00:00:00Z';
+    let late = '23:59:59Z';
+
+    let d = new Date().toISOString().split('.')[0] + "Z";
+    let dat = d.split('T')[0] + 'T';
+
+    if (timeReq.match(/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/)) {
+        //00:00:00  -   Pure Time
+        dateSt = dat + early;
+        dateEnd = dat + late;
+        dateTimeRequest = dat + timeReq + 'Z';
+
+    } else if (timeReq.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
+        //yyyy-mm-dd  -  Pure Date
+        dateSt = timeReq + 'T' + early;
+        dateEnd = timeReq + 'T' + late;
+
+        //If request is for future date, use 7am onwards. Otherwise go from time now (today)
+        let now = new Date().toISOString();
+        if(now.split('T')[0] === timeReq) {
+            //Today
+            dateTimeRequest = now.split('.')[0]+"Z";
+        } else {
+            dateTimeRequest = timeReq + 'T' + '07:00:00Z';
+        }
+
+    } else if (timeReq.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$/)) {
+        //yyyy-mm-ddT00:00:00Z  -  DateTime
+        let trimD = timeReq.split('T')[0];
+        let trimT = timeReq.split('T')[1];
+        dateSt = trimD + 'T' + early;
+        dateEnd = trimD + 'T' + late;
+        dateTimeRequest = timeReq;
+
+    } else if (timeReq.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}\/[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
+        //yyyy-mm-dd/yyyy-mm-dd  - Date Range
+        console.log('NOT YET IMPLEMENTED');
+
+    } else {
+        //BAD
+        console.log('NOT YET IMPLEMENTED');
+    }
+
+    let result = 'NOT YET IMPLEMENTED';
+
+    let query = stored.freeRoom(dateSt,dateEnd,dateTimeRequest);
+
+    jqc.getOfferings(query, function (availableRooms) {
+
+        if(availableRooms.length > 0) {
+            result = [];
+            try {
+                availableRooms.forEach( function(resultBinding) {
+                    let range = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
+                    let start_arr = clean_times(resultBinding.starts.value);
+                    let end_arr   = clean_times(resultBinding.ends.value);
+
+                    // Iterate through all bookings
+                    for (let i = 0; i < start_arr.length; i++) {
+
+                        //iterate over every 'starting' hour that is used by the bookings
+                        for (let time = start_arr[i]; time < end_arr[i]; time++){
+                            delete range[time-7]
+                        }
+                    }
+
+                    //Clean the 'range' variable from undefined's
+                    //  and ensure that no entries before 'min_time' are included
+                    let min_time  = 0 + dateTimeRequest.split('T')[1].split(':')[0];
+                    let range2 = range.filter(function(n){ return n != undefined && n > min_time });
+
+                    console.log("--[ Room:"+resultBinding.roomNumber.value+" ]-----------------");
+                    console.log("Start: "+start_arr);
+                    console.log("Ends: "+end_arr);
+                    console.log("Avail: "+range2);
+                    console.log("------------------------------");
+                    result.push({
+                        room: resultBinding.roomNumber.value,
+                        uri: resultBinding.room.value,
+                        possibleTimes: range2,
+                        img: resultBinding.img.value,
+                        capacity: resultBinding.capacity.value
+                    });
+                });
+
+                //TODO Sort by most available slots. Can only display max 10 cards so give top 10 most available
+
+            } catch (err) {
+                logger.log('Failed to read query results');
+                logger.error(err);
+                result = "Something went wrong."
+            }
+        } else {
+            result = "Sorry I couldn't find anything."
         }
 
         if (_.isFunction(cb)) cb(result);
@@ -335,5 +452,6 @@ module.exports = {
     findOffering: findOffering,
     endTermDates: endTermDates,
     startTermDates: startTermDates,
-    findRoomDetails: findRoomDetails
+    findRoomDetails: findRoomDetails,
+    findBookableRoom: findBookableRoom
 };

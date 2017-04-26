@@ -24,6 +24,38 @@ function switchOnAction(req, res){
             // next step is based on the intent detected by api.ai
             switch (aiResponse.result.action) {
 
+                // find room booking times
+                case 'find-bookable-rooms' :
+
+                    queries.findBookableRoom(aiResponse.result.parameters.bookingTime, (results) => {
+
+                        let response = createGenericMessengerTemplateAttachment([]);
+
+                        if (typeof results !== 'string') {
+
+                            // create an element for each of the first x services
+                            for (let result of results.slice(0, MAX_CARD_ELEMENTS)) {
+                                response.attachment.payload.elements.push({
+                                    title: result.room + ' Capacity: ' + result.capacity,
+                                    subtitle: 'Free hour slot start times: ' + result.possibleTimes,
+                                    image_url: result.img,
+                                    buttons:[
+                                        {
+                                            type:'web_url',
+                                            url: result.uri,
+                                            title:'More details',
+                                        }
+                                    ]
+                                });
+                            }
+                        } else {
+                            response = results;
+                        }
+
+                        echo(sender, response, req, res);
+                    });
+                    break;
+
                 // find room details
                 case 'find-room-details' :
 
