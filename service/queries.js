@@ -645,6 +645,16 @@ function findBookableRoom(timeReq, cb) {
         logger.log(error);
         if (_.isFunction(cb)) cb("Something went wrong...");
     });
+
+    //When's next bus from "X"
+    //When's the next "A" from "X"
+    //Can I take a bus to "X" (needs user location)
+    //Which bus goes to "X" (needs user location)
+    //How can I go from "X" to "Y" (needs user location)
+    //What stops are nearby (needs user location) - already done?
+    //Where can I take "A" (needs user location)
+
+
 }
 
 module.exports = {
