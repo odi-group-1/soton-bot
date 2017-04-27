@@ -57,10 +57,18 @@ app.get('/tom/', (req, res) => {
     let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
     jqc.getOfferings(queryJson, function (allOfferings) {
 
+        let result = [];
 
-        console.log("hey hey hey ");
+        allOfferings.forEach( function(resultBinding) {
+            result.push({
+                'bus': resultBinding.busName.value,
+                'route': resultBinding.routeName.value,
+            });
+        });
 
-        res.send(allOfferings);
+        console.log(result);
+
+        res.send(result);
 
     },function (error) {
         logger.log(error);
