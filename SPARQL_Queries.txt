@@ -255,7 +255,9 @@ WHERE {
   
 } 
 
-// ---- Room bookings on a day ----------
+// --------------------------------------------------
+
+# Room bookings on a day
 
 PREFIX soton: <http://id.southampton.ac.uk/ns/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -299,7 +301,16 @@ SELECT DISTINCT ?room ?roomNumber ?img ?capacity
 GROUP BY ?room ?img ?capacity ?roomNumber
 LIMIT 10000
 
-// ---- Bus name, route, stop, lat and long  ----------
+# Findings - Returns rooms that are 'not centrally bookable' but cannot get
+#            data on which are/aren't bookable. Some rdf:labels say bookable
+#            or not but no sensible uniform way to tell. Also 45-1015 says 
+#            not centrally bookable on its URI but we booked that room through
+#            sussed.
+
+// ---------------------------------------------------------
+
+# Bus name, route, stop, lat and long
+
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX transit: <http://vocab.org/transit/terms/>
@@ -326,7 +337,10 @@ SELECT DISTINCT ?busName ?route ?stopName ?lat ?long WHERE {
      }
 }
 
-//--- Bus Routes based on start and stop ---//
+//-----------------------------------------------
+
+# Bus Routes based on start and stop
+
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX transit: <http://vocab.org/transit/terms/>
