@@ -7,6 +7,17 @@ const env = require('../config/staging');
 const stored = require('./sparqlUrlMachine/storedQueries');
 const jqc = require('./sparqlUrlMachine/jsonQueryConverter');
 
+/**
+ * getDistanceFromLatLonInKm takes the lat/long from point A and the lat/long from
+ * point B and returns the distance in Km between the two points taking into account
+ * the curvature of the earth!
+ *
+ * @param lat1 - Latitude of point A
+ * @param lon1 - Longitude of point A
+ * @param lat2 - Latitude of point B
+ * @param lon2 - Longitude of point B
+ * @returns {number} - Distance in Km between points A and B
+ */
 let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     let R = 6371; // Radius of the earth in km
     let dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -20,6 +31,12 @@ let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     return R * c;
 };
 
+/**
+ * Convert degrees to radians to assist distance function
+ *
+ * @param deg - Degrees input
+ * @returns {number} - Radians output
+ */
 let deg2rad = (deg) => {
     return deg * (Math.PI/180)
 };
@@ -49,23 +66,13 @@ let getNearestBusAtco = (coordinates) => {
         }));
     }
 
-    return Promise.all(promises)
-        .then((result) => {
+    return Promise.all(promises).then(result => {
 
+            // extract the stops for each location
             let nearestStops = [];
+            result.forEach(data => nearestStops.push(data.stops));
 
-            result.forEach(function (data) {
-
-                nearestStops.push(data.stops);
-
-            });
-
-            return new Promise((resolve) => {
-                resolve(nearestStops);
-            });
-        })
-        .catch((error) => {
-            console.log(error);
+            return new Promise(resolve => resolve(nearestStops));
         });
 };
 // let coord = [{
@@ -76,18 +83,30 @@ let getNearestBusAtco = (coordinates) => {
 //     long: '-1.39554'
 // }];
 // getNearestBusAtco(coord).then((stop)=> console.log(stop));
-
+/**
+ * clean_times is a helper function for the findBookableRoom query that returns the hour from
+ * an ISO format date time string.
+ *
+ * @param str - Input date
+ * @returns {Array} - Output hour
+ */
 let clean_times = (str) => {
     return str.replace(/[0-9]{4}-[0-9]{2}-[0-9]{2}T/g, "").replace(/:00:00\+[0-9]{2}:00/g, "").split(" ");
 };
 
+/**
+ * findNearestFood is a query that aims to return several options of places to eat within 250m
+ * of the user's location when they're close to the university campus.
+ *
+ * @param location - lat/long of user's position
+ * @param cb
+ */
 let findNearestFood = (location, cb) => {
 
     let result = [];
-    let ans = "Something went wrong.";
 
+    // Generate, encode and execute food query
     let queryJson = stored.food();
-
     jqc.getOfferings(queryJson, function (allOfferings) {
         try {
             // Try because trying to access JSON properties that may be undefined
@@ -103,74 +122,100 @@ let findNearestFood = (location, cb) => {
                     });
                 }
             });
+
+            // Sort venues by increasing distance from user
             result = _.sortBy(result, 'dist');
-            if (result.length > 0) {
-                ans = result;
-            } else {
-                ans = "You are not close enough to UoS..."
+
+            // Only finds results close to campus
+            if (result.length = 0) {
+                result = "You are not close enough to UoS..."
             }
         } catch (err) {
             logger.log(err);
             logger.error('Failed to read query results');
             result = "Something went wrong."
         }
-        if (_.isFunction(cb)) cb(ans);
+        if (_.isFunction(cb)) cb(result);
 
     },function (error) {
         logger.log(error);
-        if (_.isFunction(cb)) cb(ans);
+        if (_.isFunction(cb)) cb(result);
     });
 };
 
+/**
+ * findBuilding is a query that aims to show where a particular university building is on
+ * a map.
+ *
+ * @param buildingId - The university building number
+ * @param cb
+ */
 let findBuilding = (buildingId, cb) => {
-    let ans = "Sorry, I don't know where that is...";
+    let result = "Sorry, I don't know where that is...";
 
+    // Generate query using buildingId arg
     let queryJson = stored.building(buildingId);
 
+    // Convert and execute query
     jqc.getOfferings(queryJson, function (buildingAttrList) {
         if(buildingAttrList.length > 0) {
             try {
-                // Try because trying to access JSON properties that may be undefined
-                let lat = buildingAttrList[0].o.value;
-                let lng = buildingAttrList[1].o.value;
-                ans = {
-                    lat: lat,
-                    long: lng
+                // Store lat/long of found building
+                result = {
+                    lat: buildingAttrList[0].o.value,
+                    long: buildingAttrList[1].o.value
                 };
+
             } catch (error) {
                 logger.error(error);
                 logger.error('Tried to find building, failed...');
-                ans = "Something went wrong."
+                result = "Something went wrong..."
             }
         }
-        if(_.isFunction(cb)) cb(ans);
+        if(_.isFunction(cb)) cb(result);
 
     }, function (error) {
         logger.error(error);
-        cb(ans); //TODO: make it errcb when we've defined what errcb looks like
+        cb(result); //TODO @Shakib: make it errcb when we've defined what errcb looks like
     });
 };
 
+/**
+ * findOffering is a query that aims to find required amenities close to the user.
+ * Todays date is also passed to the query to find open/close times where available.
+ *
+ * @param obj - JSON object containing the amenity required and lat/long position
+ *              of the user.
+ * @param cb
+ */
 function findOffering(obj, cb) {
 
-    let result = [];
+    // Get today's date
     let d = new Date();
     let today = new Date().toLocaleString('en-us', {  weekday: 'long' });
 
+    // Generate 'amenity' query with desired amenity and today's date
     let query = stored.amenity(obj.amenity, today);
 
+    let result = [];
+
+    // Convert and execute the query
     jqc.getOfferings(query, function (allOfferings) {
 
         if(allOfferings.length > 0) {
             try {
-                // Try because trying to access JSON properties that may be undefined
                 allOfferings.forEach( function(resultBinding) {
+
+                    // Reset distance on each iteration
                     let distance = undefined;
+
+                    // If a lat/long location is available for this result, calculate the distance from user
                     if (resultBinding.shopLat && resultBinding.shopLong) {
                         distance = getDistanceFromLatLonInKm(obj.location.lat, obj.location.long,
                             resultBinding.shopLat.value, resultBinding.shopLong.value);
                     }
-                    logger.log((distance) ? Number(Math.round(distance+'e3')+'e-3') : Infinity);
+
+                    // Add the details of the located amenity to results array
                     result.push({
                         'venue': resultBinding.shopName.value,
                         'uri': resultBinding.shop.value,
@@ -185,7 +230,10 @@ function findOffering(obj, cb) {
                         }
                     });
                 });
+
+                // Return results sorted by distance in ascending order
                 result = _.sortBy(result, 'dist');
+
             } catch (err) {
                 logger.log('Failed to read query results');
                 logger.error(err);
