@@ -321,6 +321,104 @@ let freeRoom = (dateSt, dateEnd, dateNow) => {
         limit: 10000
     };
 };
+    let busRoutesPlaceNames = (stopName1, stopName2) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'rdf:',
+                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
+            },
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'transit:',
+                at: '<http://vocab.org/transit/terms/>'
+            },
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'geo:',
+                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
+            }
+        ],
+        select: [ 'DISTINCT', '?busName', '?routeName'],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdf:type',
+                o: 'soton:BusRoute'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdfs:label',
+                o: '?routeName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'skos:notation',
+                o: '?busName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: '?busOperator'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:sequence',
+                o: '?n1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:stop/rdfs:label',
+                o: "'"+stopName1+"'"
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:sequence',
+                o: '?n2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:stop/rdfs:label',
+                o: "'"+stopName2+"'"
+            },
+            {
+                type: 'FILTER',
+                cond: '?n1 < ?n2'
+            }
+        ]
+    }
+};
 
 let busRoutes = (atcoCode1, atcoCode2) => {
     return {
@@ -380,14 +478,42 @@ let busRoutes = (atcoCode1, atcoCode2) => {
             {
                 type: 'STANDARD',
                 s: '?busRoute',
-                p: 'transit:routeStop/transit:stop',
+                p: 'transit:routeStop',
+                o: '?rs1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:sequence',
+                o: '?n1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:stop/rdfs:label',
                 o: "[ skos:notation '"+atcoCode1+"'^^soton:bus-stop-id-scheme]"
             },
             {
                 type: 'STANDARD',
                 s: '?busRoute',
-                p: 'transit:routeStop/transit:stop',
+                p: 'transit:routeStop',
+                o: '?rs2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:sequence',
+                o: '?n2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:stop/rdfs:label',
                 o: "[ skos:notation '"+atcoCode2+"'^^soton:bus-stop-id-scheme]"
+            },
+            {
+                type: 'FILTER',
+                cond: '?n1 < ?n2'
             }
         ]
     }
@@ -399,7 +525,8 @@ module.exports = {
     building : building,
     room : room,
     freeRoom : freeRoom,
-    busRoutes : busRoutes
+    busRoutes : busRoutes,
+    busRoutesPlaceNames : busRoutesPlaceNames
 };
 
 
