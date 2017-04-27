@@ -39,9 +39,9 @@ function switchOnAction(req, res){
                             logger.log('Received position from ' + sender + ' to find bus stops => ' + JSON.stringify(attachment.payload.coordinates));
 
                             queries.getNearestBusStops([location]).then(response => {
-                                echo(sender, response.stringify(), req, res);
+                                echo(sender, response.toString(), req, res);
                             }).catch(error => {
-                                echo(sender, error.stringify(), req, res);
+                                echo(sender, error.message, req, res);
                             });
                         } else {
                             echo(sender, "I was expecting the attachment to be a location, but it wasn't!", req, res);
