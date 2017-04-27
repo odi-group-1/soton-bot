@@ -1,7 +1,9 @@
 const sparqls = require('sparqling-star');
 const logger = require('tracer').colorConsole();
 const _ = require('lodash');
+const request = require('request-promise');
 
+const env = require('../config/staging');
 const stored = require('./sparqlUrlMachine/storedQueries');
 const jqc = require('./sparqlUrlMachine/jsonQueryConverter');
 
@@ -21,6 +23,59 @@ let getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
 let deg2rad = (deg) => {
     return deg * (Math.PI/180)
 };
+
+/**
+ * Uses transportapi.com to retrieve the nearest bus stop from the coordinates
+ *
+ * @param coordinates = [{lat: Float, long: Float}]
+ * @returns promise that resolves to [ [bus stop nearest to first location] [bus stops nearest to second location] ... ]
+ */
+let getNearestBusAtco = (coordinates) => {
+
+    // create asynchronous promises for each of the location
+    let promises = [];
+
+    for (let coordinate of coordinates) {
+        promises.push(request({
+            uri: env.TRANSPORT_API_NEAR_ENDPOINT,
+            qs: {
+                app_id: env.TRANSPORT_API_APP_ID,
+                app_key: env.TRANSPORT_API_APP_KEY,
+                lat: coordinate.lat,
+                lon: coordinate.long,
+                rpp: 1 // TODO: how many nearest bus stops do I really want
+            },
+            json: true
+        }));
+    }
+
+    return Promise.all(promises)
+        .then((result) => {
+
+            let nearestStops = [];
+
+            result.forEach(function (data) {
+
+                nearestStops.push(data.stops);
+
+            });
+
+            return new Promise((resolve) => {
+                resolve(nearestStops);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+// let coord = [{
+//     lat: '50.8933543852',
+//     long: '-1.3954026789'
+// },{
+//     lat: '50.93612',
+//     long: '-1.39554'
+// }];
+// getNearestBusAtco(coord).then((stop)=> console.log(stop));
 
 let clean_times = (str) => {
     return str.replace(/[0-9]{4}-[0-9]{2}-[0-9]{2}T/g, "").replace(/:00:00\+[0-9]{2}:00/g, "").split(" ");
