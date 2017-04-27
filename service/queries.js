@@ -47,7 +47,7 @@ let deg2rad = (deg) => {
  * @param coordinates = [{lat: Float, long: Float}]
  * @returns promise that resolves to [ [bus stop nearest to first location] [bus stops nearest to second location] ... ]
  */
-let getNearestBusAtco = (coordinates) => {
+let getNearestBusStops = (coordinates) => {
 
     // create asynchronous promises for each of the location
     let promises = [];
@@ -68,21 +68,72 @@ let getNearestBusAtco = (coordinates) => {
 
     return Promise.all(promises).then(result => {
 
-            // extract the stops for each location
-            let nearestStops = [];
-            result.forEach(data => nearestStops.push(data.stops));
+        // extract the stops for each location
+        let nearestStops = [];
+        result.forEach(data => nearestStops.push(data.stops));
 
-            return new Promise(resolve => resolve(nearestStops));
+        return Promise.resolve(nearestStops);
+    });
+};
+
+/**
+ * Given two stops, finds routes that goes through those stops
+ * @param stops [start, end]
+ * @returns Promise that resolves with routes if any were found, else rejects
+ */
+let getRoutesForStops = stops => {
+
+    // get the start and the stop
+    let start = stops[0], stop = stops[1];
+
+    return jqc.query(stored.busRoutes(start, stop))
+        .then(routes => {
+
+            // extract the bus name and route names
+            let routesFound = [];
+            routes.forEach(route => routesFound.push({
+                bus: route.busName.value,
+                route: route.routeName.value
+            }));
+
+            // if routes were found, resolve, else reject
+            if (routesFound.length > 0) return Promise.resolve(routesFound);
+            else return Promise.reject(new Error("Sorry, couldn't find any routes that uses these stops"));
+        })
+
+};
+
+/**
+ *
+ * @param coord
+ * @returns Promise that resolves to bus routes if any found, else
+ */
+let getRoutesBetweenLocations = (coord) => {
+    return getNearestBusStops(coord)
+        .then(stopsArray => {
+
+            // take the first nearest stop for each of the location's nearest n stops
+            let nearestStops = [];
+            stopsArray.forEach(stops => nearestStops.push(_.first(stops)));
+
+            return Promise.resolve(nearestStops);
+        }).then(stops => {
+
+            let stopAtcos = stops.map(stop => {
+                return stop.atcocode;
+            });
+            return getRoutesForStops(stopAtcos);
         });
 };
-// let coord = [{
-//     lat: '50.8933543852',
-//     long: '-1.3954026789'
-// },{
-//     lat: '50.93612',
-//     long: '-1.39554'
-// }];
-// getNearestBusAtco(coord).then((stop)=> console.log(stop));
+
+let coord = [{
+    lat: '50.8933543852',
+    long: '-1.3954026789'
+},{
+    lat: '50.9385778142',
+    long: '-1.3868379947'
+}];
+
 /**
  * clean_times is a helper function for the findBookableRoom query that returns the hour from
  * an ISO format date time string.
@@ -603,5 +654,6 @@ module.exports = {
     endTermDates: endTermDates,
     startTermDates: startTermDates,
     findRoomDetails: findRoomDetails,
-    findBookableRoom: findBookableRoom
+    findBookableRoom: findBookableRoom,
+    getNearestBusStops: getNearestBusStops
 };

@@ -24,6 +24,36 @@ function switchOnAction(req, res){
             // next step is based on the intent detected by api.ai
             switch (aiResponse.result.action) {
 
+                case 'find-nearest-bus-stop' :
+
+                    try {
+
+                        // location is expected as attachment to complete the query. try to extract it
+                        let attachment = req.body.entry[0].messaging[0].message.attachments[0];
+
+                        // have the location to deal with nearest food
+                        if (attachment && attachment.type === 'location') {
+
+                            let location = attachment.payload.coordinates;
+
+                            logger.log('Received position from ' + sender + ' to find bus stops => ' + JSON.stringify(attachment.payload.coordinates));
+
+                            queries.getNearestBusStops([location]).then(response => {
+                                echo(sender, response.stringify(), req, res);
+                            }).catch(error => {
+                                echo(sender, error.stringify(), req, res);
+                            });
+                        } else {
+                            echo(sender, "I was expecting the attachment to be a location, but it wasn't!", req, res);
+                        }
+
+                    } catch (error) {
+                        // intention marked complete as nearest-food, but couldn't extract location
+                        logger.error(error);
+                        echo(sender, "I was expecting an attachment, but something went wrong!", req, res);
+                    }
+                    break;
+
                 // find room booking times
                 case 'find-bookable-rooms' :
 
