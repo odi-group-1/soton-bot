@@ -326,21 +326,45 @@ SELECT DISTINCT ?busName ?route ?stopName ?lat ?long WHERE {
      }
 }
 
-//--- Bus Routes based on start and stop ---//
+//--- Bus Routes based on start and stop ids---//
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX transit: <http://vocab.org/transit/terms/>
-PREFIX soton: <http://id.southampton.ac.uk/ns/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ PREFIX transit: <http://vocab.org/transit/terms/>
+ PREFIX soton: <http://id.southampton.ac.uk/ns/>
+ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 
-SELECT DISTINCT ?busName ?routeName WHERE {
-  GRAPH <http://id.southampton.ac.uk/dataset/bus-info/latest> {
-        ?s rdf:type soton:BusRoute.
-        ?s rdfs:label ?routeName.
-        ?s skos:notation ?busName.
-        ?s soton:busRouteOperator/rdfs:label ?busOperator.
-        ?s transit:routeStop/transit:stop [ skos:notation '1980SN120415'^^soton:bus-stop-id-scheme].
-        ?s transit:routeStop/transit:stop [ skos:notation '1980SN120415'^^soton:bus-stop-id-scheme];
-     }
-}
+ SELECT DISTINCT ?busName ?routeName WHERE {
+   GRAPH <http://id.southampton.ac.uk/dataset/bus-info/latest> {
+         ?s rdf:type soton:BusRoute.
+         ?s rdfs:label ?routeName.
+         ?s skos:notation ?busName.
+         ?s soton:busRouteOperator/rdfs:label ?busOperator.
+         ?s transit:routeStop/transit:stop [ skos:notation '1980SN120415'^^soton:bus-stop-id-scheme].
+         ?s transit:routeStop/transit:stop [ skos:notation '1980SN120415'^^soton:bus-stop-id-scheme];
+      }
+ }
+
+ //--Bus Routes with order fix (takes nameso stops) --//
+ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+ PREFIX transit: <http://vocab.org/transit/terms/>
+ PREFIX soton: <http://id.southampton.ac.uk/ns/>
+ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+ PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+ SELECT DISTINCT ?busName ?routeName WHERE {
+   GRAPH <http://id.southampton.ac.uk/dataset/bus-info/latest> {
+         ?s rdf:type soton:BusRoute.
+         ?s rdfs:label ?routeName.
+         ?s skos:notation ?busName.
+         ?s soton:busRouteOperator/rdfs:label ?busOperator.
+     	?s transit:routeStop ?rs1 .
+         ?rs1 transit:sequence ?n1 .
+         ?rs1 transit:stop/rdfs:label 'Civic Centre'.
+         ?s transit:routeStop ?rs2 .
+         ?rs2 transit:sequence ?n2 .
+         ?rs2 transit:stop/rdfs:label 'Giddy Bridge'.
+         FILTER( ?n1 < ?n2 )
+      }.
+ }
