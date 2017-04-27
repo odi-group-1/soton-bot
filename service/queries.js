@@ -147,6 +147,13 @@ function findOffering(obj, cb) {
     });
 }
 
+/**
+ * TODO @Deepak - comment this function
+ * TODO @Tom - convert this function to use JQC
+ * @param passedTerm
+ * @param cb
+ * @param errcb
+ */
 let endTermDates = (passedTerm, cb, errcb) => {
 
     let myquery = new sparqls.Query();
@@ -217,6 +224,14 @@ let endTermDates = (passedTerm, cb, errcb) => {
     });
 };
 
+/**
+ * TODO @Deepak - comment this function
+ * TODO @Tom - convert this function to use JQC
+ *
+ * @param passedTerm
+ * @param cb
+ * @param errcb
+ */
 let startTermDates = (passedTerm, cb, errcb) => {
 
     let myquery = new sparqls.Query();
@@ -283,15 +298,24 @@ let startTermDates = (passedTerm, cb, errcb) => {
                 if (_.isFunction(errcb)) errcb("No dates available");
             }
         }
-
     });
 };
 
+/**
+ * findRoomDetails is a query that aims to find information about a specific university room
+ * such as its open data URI, capacity and base building. Also returns an image of the room.
+ *
+ * @param room - University room in the form bb-rrrr where bb is the building number
+ *               and rrrr the room number
+ * @param cb
+ */
 function findRoomDetails(room, cb) {
 
+    // Constants used in string operation
     let bString = 'http://id.southampton.ac.uk/building/';
     let fString = 'http://id.southampton.ac.uk/floor/';
 
+    // Initialization of the result object returned on success
     let result = {  URI: undefined,
                     name: undefined,
                     roomType: undefined,
@@ -301,11 +325,14 @@ function findRoomDetails(room, cb) {
                     accessNotes: undefined,
                     capacity: undefined};
 
+    // Build query to find room info using room parameter
     let query = stored.room(room);
 
+    // Convert and execute query
     jqc.getOfferings(query, function (roomDetails) {
 
         if(roomDetails.length > 0) {
+            // Parse result
             try {
                 result.URI = roomDetails[0].room.value;
                 result.name = roomDetails[0].roomNotation.value;
@@ -313,6 +340,8 @@ function findRoomDetails(room, cb) {
                 result.imgURL = roomDetails[0].roomImage.value;
                 result.accessNotes = roomDetails[0].roomAccess.value;
                 result.capacity = roomDetails[0].roomCapacity.value;
+
+                // Some rooms provide a floor attribute, others just provide building
                 let building = roomDetails[0].roomBuilding.value;
                 if (building.includes(bString)) {
                     result.building = building.replace(bString, '');
@@ -321,6 +350,7 @@ function findRoomDetails(room, cb) {
                     result.building = building.replace(fString, '').split('-')[0];
                     result.floor = building.replace(fString, '').split('-')[1];
                 }
+
             } catch (err) {
                 logger.log('Failed to read query results');
                 logger.error(err);
@@ -337,8 +367,18 @@ function findRoomDetails(room, cb) {
     });
 }
 
+/**
+ * findBookableRoom is a query that aims to find university rooms available at a specified
+ * time. api.ai allows the question to be asked in several ways resulting in a few different
+ * forms of the resulting argument 'timeReq' as detailed below.
+ *
+ * @param timeReq - Sent from api.ai, can take several forms:
+ *                  00:00:00, yyyy-mm-dd, yyyy-mm-ddT00:00:00Z, yyyy-mm-dd/yyyy-mm-dd
+ * @param cb
+ */
 function findBookableRoom(timeReq, cb) {
 
+    // Initialize date-time parameters used in sparql query
     let dateSt = undefined;
     let dateEnd = undefined;
     let dateTimeRequest = undefined;
@@ -346,9 +386,15 @@ function findBookableRoom(timeReq, cb) {
     let early = '00:00:00Z';
     let late = '23:59:59Z';
 
+    // Get todays date in ISO format for 'today' queries
     let d = new Date().toISOString().split('.')[0] + "Z";
     let dat = d.split('T')[0] + 'T';
 
+    /**
+     * The timeReq requirement can take several forms, each of which require different values
+     * of the three query parameters. Regex used to determine which type of value as been
+     * provided for timeReq.
+     */
     if (timeReq.match(/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/)) {
         //00:00:00  -   Pure Time
         dateSt = dat + early;
@@ -379,21 +425,23 @@ function findBookableRoom(timeReq, cb) {
 
     } else if (timeReq.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}\/[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
         //yyyy-mm-dd/yyyy-mm-dd  - Date Range
-        console.log('NOT YET IMPLEMENTED');
+        logger.log('Date range not supported - consider changing output from AI API');
 
     } else {
         //BAD
-        console.log('NOT YET IMPLEMENTED');
+        logger.log('Bad output from AI API: ' + timeReq);
     }
 
-    let result = 'NOT YET IMPLEMENTED';
+    // Result is either a string upon error or an array of JSON objects holding parsed results
+    let result = [];
 
+    // Build query 'freeRoom' using above params
     let query = stored.freeRoom(dateSt,dateEnd,dateTimeRequest);
 
+    // Convert and execute query
     jqc.getOfferings(query, function (availableRooms) {
 
         if(availableRooms.length > 0) {
-            result = [];
             try {
                 availableRooms.forEach( function(resultBinding) {
                     let range = [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
@@ -409,11 +457,12 @@ function findBookableRoom(timeReq, cb) {
                         }
                     }
 
-                    //Clean the 'range' variable from undefined's
-                    //  and ensure that no entries before 'min_time' are included
+                    // Clean the 'range' variable from undefined's
+                    // and ensure that no entries before 'min_time' are included
                     let min_time  = 0 + dateTimeRequest.split('T')[1].split(':')[0];
                     let range2 = range.filter(function(n){ return n != undefined && n > min_time });
 
+                    // Add parsed data to results array
                     result.push({
                         room: resultBinding.roomNumber.value,
                         uri: resultBinding.room.value,
@@ -423,18 +472,20 @@ function findBookableRoom(timeReq, cb) {
                     });
                 });
 
-                //TODO Sort by most available slots. Can only display max 10 cards so give top 10 most available
+                // Sort results by most available to least available
                 result = _.sortBy(result, [function(o) { return 24-o.possibleTimes.length}]);
 
             } catch (err) {
+                // Usually when an expected object property was not found
                 logger.log('Failed to read query results');
                 logger.error(err);
-                result = "Something went wrong."
+                result = "Something went wrong..."
             }
         } else {
-            result = "Sorry I couldn't find anything."
+            result = "Sorry I couldn't find anything matching your criteria."
         }
 
+        // Successful return of results
         if (_.isFunction(cb)) cb(result);
     },function (error) {
         logger.log(error);
