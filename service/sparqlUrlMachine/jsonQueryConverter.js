@@ -2,6 +2,8 @@
  * Created by stefan on 24/03/17.
  */
 const request = require('request');
+const requestPromise = require('request-promise');
+const _ = require('lodash');
 const encoder = require('./htmlEncoder');
 const logger = require('tracer').colorConsole();
 
@@ -81,6 +83,26 @@ let getOfferings = (query, cb, errcb) => {
     })
 };
 
+/**
+ *  Run the sparql query and extract the bindings
+ *
+ * @param query
+ * @returns Promise that resolves if bindings were found, rejects if no bindings were found
+ */
+let query = query => {
+
+    let queryUrl = parseJsonQuery(query);
+
+    return requestPromise(queryUrl)
+        .then(res => {
+            let response = JSON.parse(res);
+            if (_.has(response, 'results.bindings')) return Promise.resolve(response.results.bindings);
+            else return Promise.reject(new Error("No bindings found"))
+        });
+
+};
+
 module.exports = {
-    getOfferings : getOfferings
+    getOfferings : getOfferings,
+    query : query
 };
