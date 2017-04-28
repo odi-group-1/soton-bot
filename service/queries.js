@@ -153,14 +153,6 @@ let getRoutesBetweenLocations = (coord) => {
         });
 };
 
-let coord = [{
-    lat: '50.8933543852',
-    long: '-1.3954026789'
-},{
-    lat: '50.9385778142',
-    long: '-1.3868379947'
-}];
-
 /**
  * clean_times is a helper function for the findBookableRoom query that returns the hour from
  * an ISO format date time string.
