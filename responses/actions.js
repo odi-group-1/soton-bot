@@ -37,15 +37,38 @@ function switchOnAction(req, res){
 
                             let location = attachment.payload.coordinates;
 
+                            let firstStop = {};
                             let finalStop = aiResponse.result.parameters.busStopDest;
 
                             logger.log('Received position from ' + sender + ' to find bus stops => ' + JSON.stringify(attachment.payload.coordinates));
 
                             queries.getNearestBusStops([location]).then(resp => {
-                                let firstStop = _.head(_.head(resp)).stop_name;
+                                firstStop = _.head(_.head(resp));
 
-                                return queries.canITakeBusToX(firstStop, finalStop);
-                            }).then(response => {
+                                return queries.canITakeBusToX(firstStop.stop_name, finalStop);
+                            }).then(buses => {
+                                // response is actually an array of services
+                                let response = createGenericMessengerTemplateAttachment([]);
+
+                                // create an element for each of the first x services
+                                response.attachment.payload.elements.push({
+                                    title: 'Take ' + buses + ' from ' + firstStop.stop_name,
+                                    subtitle: firstStop.distance + ' meters from you.',
+                                    image_url: getStaticOpenStreetMap(firstStop.latitude, firstStop.longitude),
+                                    default_action: {
+                                        type: 'web_url',
+                                        url: interactiveOpenStreetMap(firstStop.latitude, firstStop.longitude),
+                                        messenger_extensions: true,
+                                        webview_height_ratio : 'tall',
+                                    },
+                                    buttons:[
+                                        {
+                                            type:'web_url',
+                                            url: getBusStopPublicDisplay(firstStop.atcocode),
+                                            title:'Live Times',
+                                        }
+                                    ]
+                                });
                                 echo(sender, response, req, res);
                             }).catch(error => {
                                 echo(sender, error.message, req, res);
@@ -77,7 +100,6 @@ function switchOnAction(req, res){
 
                             queries.getNearestBusStops([location]).then(resp => {
                                 let nearestStops = _.head(resp);
-                                console.log(nearestStops);
                                 // response is actually an array of services
                                 let response = createGenericMessengerTemplateAttachment([]);
 

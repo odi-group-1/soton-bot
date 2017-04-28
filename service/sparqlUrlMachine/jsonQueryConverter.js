@@ -104,5 +104,6 @@ let query = query => {
 
 module.exports = {
     getOfferings : getOfferings,
-    query : query
+    query : query,
+    parseJsonQuery : parseJsonQuery
 };
