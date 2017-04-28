@@ -711,13 +711,13 @@ let busRoutesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
             },
             {
                 type: 'FILTER',
-                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"'))"
+                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"')"
             }
         ]
     }
 };
 
-let busesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
+let busesStartNameStopNameSimilar = (startName, stopNameSimilar) => {
     return {
         endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
         prefix: [
@@ -788,7 +788,7 @@ let busesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
                 type: 'STANDARD',
                 s: '?rs1',
                 p: 'transit:stop/rdfs:label',
-                o: "[ skos:notation '"+stopActoCode+"'^^soton:bus-stop-id-scheme]"
+                o: "'"+startName+"'"
             },
             {
                 type: 'STANDARD',
@@ -810,7 +810,7 @@ let busesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
             },
             {
                 type: 'FILTER',
-                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"'))"
+                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"')"
             }
         ]
     }
@@ -826,7 +826,7 @@ module.exports = {
     busRoutesPlaceNames : busRoutesPlaceNames,
     busRoutesActoCodeStopName: busRoutesActoCodeStopName,
     busRoutesActoCodeStopNameSimilar: busRoutesActoCodeStopNameSimilar,
-    busesActoCodeStopNameSimilar: busesActoCodeStopNameSimilar
+    busesStartNameStopNameSimilar: busesStartNameStopNameSimilar
 
 
 };
