@@ -182,9 +182,10 @@ let clean_times = (str) => {
 let findNearestFood = (location, cb) => {
 
     let result = [];
+    let ans = "Something went wrong.";
 
-    // Generate, encode and execute food query
     let queryJson = stored.food();
+
     jqc.getOfferings(queryJson, function (allOfferings) {
         try {
             // Try because trying to access JSON properties that may be undefined
@@ -200,24 +201,21 @@ let findNearestFood = (location, cb) => {
                     });
                 }
             });
-
-            // Sort venues by increasing distance from user
             result = _.sortBy(result, 'dist');
-
-            // Only finds results close to campus
-            if (result.length = 0) {
-                result = "You are not close enough to UoS..."
+            if (result.length > 0) {
+                ans = result;
+            } else {
+                ans = "You are not close enough to UoS..."
             }
         } catch (err) {
             logger.log(err);
             logger.error('Failed to read query results');
-            result = "Something went wrong."
         }
-        if (_.isFunction(cb)) cb(result);
+        if (_.isFunction(cb)) cb(ans);
 
     },function (error) {
         logger.log(error);
-        if (_.isFunction(cb)) cb(result);
+        if (_.isFunction(cb)) cb(ans);
     });
 };
 

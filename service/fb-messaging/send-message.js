@@ -17,7 +17,7 @@ let sendMessage = (receiver, messageData, cb, errcb, req, res) => {
 
     // POST to fb send api
     request({
-        url: 'https://graph.facebook.com/v2.8/me/messages',
+        url: 'https://graph.facebook.com/v2.9/me/messages',
         qs: {
             access_token:token
         },
