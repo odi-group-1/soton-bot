@@ -665,10 +665,10 @@ function findBookableRoom(timeReq, cb) {
 
 //1 When's next bus from "X"
 //2 When's the next "A" from "X"
-//3 Can I take a bus to "X" (needs user location)
+//3 Can I take a bus to "X" (needs user location) - DONE
 //4 Which bus goes to "X" (needs user location)
 //5 How can I go from "X" to "Y" (needs user location)
-//6 What stops are nearby (needs user location) - already done via getNearestBusStops?
+//6 What stops are nearby (needs user location) - DONE
 //7 Where can I take "A" (needs user location)
 
 //3 Can I take a bus to "X" (needs user location)
@@ -682,7 +682,7 @@ function findBookableRoom(timeReq, cb) {
 function canITakeBusToX(firstStopString, finalStopString) {
 
     // Build query to find possible routes
-    let query = stored.busesStartNameStopNameSimilar(firstStopString, _.startCase(_.toLower(finalStopString)));
+    let query = stored.busesStartNameStopName(firstStopString, _.startCase(_.toLower(finalStopString)));
 
     // Convert and execute query
     return jqc.query(query).then(routes => {
@@ -706,6 +706,59 @@ function canITakeBusToX(firstStopString, finalStopString) {
 
 }
 
+//7 Where can I take "A" (needs user location)
+/**
+ *
+ * @param desiredBus - name of bus user wants to take
+ * @return Promise
+ */
+function whereCanITakeThisBus(userCoordinates,desiredBus) {
+
+    // Build query to find possible routes
+    let query = stored.stopsForGivenBus(desiredBus);
+
+    // Convert and execute query
+    return jqc.query(query).then(stops => {
+
+        let stopsArray = [];
+
+        if(stops.length > 0) {
+            // Parse result
+            try {
+
+                //get the nearest stops
+                stops.forEach(function(stopBinding){
+                    //distance between user and stop
+                    let distBetween = getDistanceFromLatLonInKm(userCoordinates.lat,userCoordinates.long,stopBinding.lat.value,stopBinding.long.value);
+                    if(distBetween<=0.250){ //check if stop is within 250m of user
+                        stopsArray.push({
+                            'stopName': stopBinding.stopName.value,
+                            'distanceFromUserInKm': distBetween,
+                            'lat':stopBinding.lat.value,
+                            'long':stopBinding.long.value
+                        });
+                    }
+
+                });
+
+                //order by ascending distance
+                _.sortBy(stopsArray, 'distanceFromUserInKm');
+
+
+                return Promise.resolve(stopsArray);
+            } catch (err) {
+                logger.error(err);
+                return Promise.reject(new Error("Something went wrong."));
+            }
+        } else {
+            return Promise.reject(new Error("Sorry no stops for that bus."));
+        }
+
+    })
+
+}
+
+
 module.exports = {
     findBuilding: findBuilding,
     findNearestFood: findNearestFood,
@@ -715,5 +768,6 @@ module.exports = {
     findRoomDetails: findRoomDetails,
     findBookableRoom: findBookableRoom,
     getNearestBusStops: getNearestBusStops,
-    canITakeBusToX: canITakeBusToX
+    canITakeBusToX: canITakeBusToX,
+    whereCanITakeThisBus: whereCanITakeThisBus
 };
