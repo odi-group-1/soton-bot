@@ -7,6 +7,8 @@ const queries = require('../service/queries');
 const sendMessage = require('../service/fb-messaging/send-message');
 const _ = require('lodash');
 
+const skills = require('./bot-skills').skills;
+
 const MAX_CARD_ELEMENTS = 5;
 
 function switchOnAction(req, res){
@@ -24,6 +26,14 @@ function switchOnAction(req, res){
 
             // next step is based on the intent detected by api.ai
             switch (aiResponse.result.action) {
+
+                case 'bot-skills' :
+
+                    let skillsResponse = createGenericMessengerTemplateAttachment(skills);
+
+                    echo(sender, skillsResponse, req, res);
+
+                    break;
 
                 case 'find-bus-from-and-to' :
 
