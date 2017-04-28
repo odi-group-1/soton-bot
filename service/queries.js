@@ -690,7 +690,7 @@ function findBookableRoom(timeReq, cb) {
 function canITakeBusToX(firstStopString, finalStopString) {
 
     // Build query to find possible routes
-    let query = stored.busesActoCodeStopNameSimilar(firstStopString, _.startCase(_.toLower(finalStopString)));
+    let query = stored.busesStartNameStopNameSimilar(firstStopString, _.startCase(_.toLower(finalStopString)));
 
     // Convert and execute query
     return jqc.query(query).then(routes => {
