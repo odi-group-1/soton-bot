@@ -496,13 +496,13 @@ function findRoomDetails(room, cb) {
 
     // Initialization of the result object returned on success
     let result = {  URI: undefined,
-                    name: undefined,
-                    roomType: undefined,
-                    imgURL: undefined,
-                    building: undefined,
-                    floor: undefined,
-                    accessNotes: undefined,
-                    capacity: undefined};
+        name: undefined,
+        roomType: undefined,
+        imgURL: undefined,
+        building: undefined,
+        floor: undefined,
+        accessNotes: undefined,
+        capacity: undefined};
 
     // Build query to find room info using room parameter
     let query = stored.room(room);
@@ -671,72 +671,48 @@ function findBookableRoom(timeReq, cb) {
         if (_.isFunction(cb)) cb("Something went wrong...");
     })};
 
-    //1 When's next bus from "X"
-    //2 When's the next "A" from "X"
-    //3 Can I take a bus to "X" (needs user location)
-    //4 Which bus goes to "X" (needs user location)
-    //5 How can I go from "X" to "Y" (needs user location)
-    //6 What stops are nearby (needs user location) - already done via getNearestBusStops?
-    //7 Where can I take "A" (needs user location)
+//1 When's next bus from "X"
+//2 When's the next "A" from "X"
+//3 Can I take a bus to "X" (needs user location)
+//4 Which bus goes to "X" (needs user location)
+//5 How can I go from "X" to "Y" (needs user location)
+//6 What stops are nearby (needs user location) - already done via getNearestBusStops?
+//7 Where can I take "A" (needs user location)
 
-    //3 Can I take a bus to "X" (needs user location)
-    //nearestStopCo-ordinates, finalStopString, cb
-    function canITakeBusToX(nearestStopCoordinates, finalStopString, cb) {
+//3 Can I take a bus to "X" (needs user location)
+//nearestStopCo-ordinates, finalStopString, cb
+/**
+ *
+ * @param firstStopString [{lat: Float, long: Float}] for start point
+ * @param finalStopString for the end stop
+ * @return Promise
+ */
+function canITakeBusToX(firstStopString, finalStopString) {
 
-        //find the name of closest busstop to person
-        getNearestBusStops([{lat:'50.8587955880',long:'-0.9834486016'}]).then(function(nearestStops){
+    // Build query to find possible routes
+    let query = stored.busesActoCodeStopNameSimilar(firstStopString, _.startCase(_.toLower(finalStopString)));
 
-            //get the routes  with those stop names
-            let nearestStopName = nearestStops[0][0].name;
-            let routesArray = [];
-            console.log("nearest stop: "+nearestStopName);
+    // Convert and execute query
+    return jqc.query(query).then(routes => {
 
-            // Build query to find possible routes
-            let query = stored.busesActoCodeStopNameSimilar(nearestStopName, _.startCase(_.toLower(finalStopString)));
+        let result = '';
 
-            // Convert and execute query
-            jqc.getOfferings(query, function (routes) {
+        if(routes.length > 0) {
+            // Parse result
+            try {
+                routes.forEach(resultBinding => result = result + ' ' + resultBinding.busName.value);
+                return Promise.resolve(result);
+            } catch (err) {
+                logger.error(err);
+                return Promise.reject(new Error("Something went wrong."));
+            }
+        } else {
+            return Promise.reject(new Error("Sorry no buses go there."));
+        }
 
-                if(routes.length > 0) {
-                    // Parse result
-                    try {
-                        routes.forEach( function(resultBinding) {
-                            routesArray.push({
-                                'bus': resultBinding.busName.value
-                            });
-                        });
+    })
 
-                            let result = "You can take:";
-                        routesArray.forEach(function(busName){
-                            result = result +" "+ busName;
-                        })
-
-
-
-
-                    console.log("routes array: "+routesArray);
-                    } catch (err) {
-                        logger.log('Failed to read query results');
-                        logger.error(err);
-                        result = "Something went wrong."
-                    }
-                } else {
-                    result = "Sorry no buses go there."
-                }
-
-                if (_.isFunction(cb)) cb(result);
-            },function (error) {
-                logger.log(error);
-                if (_.isFunction(cb)) cb("Something went wrong...");
-            });
-
-        });
-
-    };
-
-
-
-
+}
 
 module.exports = {
     findBuilding: findBuilding,
