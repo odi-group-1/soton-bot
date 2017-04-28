@@ -53,14 +53,22 @@ app.get('/parser/', (req, res) => {
 app.get('/tom/', (req, res) => {
 
     let stored = require('./service/sparqlUrlMachine/storedQueries');
-    let queryJson = stored.busRoutes('1980SN120415','1980SN120415');
+    let queryJson = stored.busRoutesPlaceNames('Civic Centre','Giddy Bridge');
     let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
     jqc.getOfferings(queryJson, function (allOfferings) {
 
+        let result = [];
 
-        console.log("hey hey hey ");
+        allOfferings.forEach( function(resultBinding) {
+            result.push({
+                'bus': resultBinding.busName.value,
+                'route': resultBinding.routeName.value,
+            });
+        });
 
-        res.send(allOfferings);
+        console.log(result);
+
+        res.send(result);
 
     },function (error) {
         logger.log(error);
