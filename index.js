@@ -52,26 +52,31 @@ app.get('/parser/', (req, res) => {
 
 app.get('/tom/', (req, res) => {
 
-    let stored = require('./service/sparqlUrlMachine/storedQueries');
-    let queryJson = stored.busRoutesPlaceNames('Civic Centre','Giddy Bridge');
-    let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
-    jqc.getOfferings(queryJson, function (allOfferings) {
+    //let stored = require('./service/sparqlUrlMachine/storedQueries');
+    //let queryJson = stored.busRoutesPlaceNames('Civic Centre','Giddy Bridge');
+    //let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
+    //jqc.getOfferings(queryJson, function (allOfferings) {
 
-        let result = [];
+        // let result = [];
+        //
+        // allOfferings.forEach( function(resultBinding) {
+        //     result.push({
+        //         'bus': resultBinding.busName.value,
+        //         'route': resultBinding.routeName.value,
+        //     });
+        // });
 
-        allOfferings.forEach( function(resultBinding) {
-            result.push({
-                'bus': resultBinding.busName.value,
-                'route': resultBinding.routeName.value,
-            });
-        });
+        //console.log(result);
 
-        console.log(result);
+        //res.send(result);
 
-        res.send(result);
+    let temp = require('./service/queries.js');
 
-    },function (error) {
-        logger.log(error);
-        res.send(error);
-    })
+    temp.canITakeBusToX();
+    res.send([]);
+
+    // },function (error) {
+    //     logger.log(error);
+    //     res.send(error);
+    // })
 });

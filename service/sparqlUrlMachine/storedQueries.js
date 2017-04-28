@@ -519,6 +519,303 @@ let busRoutes = (atcoCode1, atcoCode2) => {
     }
 };
 
+let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'rdf:',
+                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
+            },
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'transit:',
+                at: '<http://vocab.org/transit/terms/>'
+            },
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'geo:',
+                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
+            }
+        ],
+        select: [ 'DISTINCT', '?busName', '?routeName'],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdf:type',
+                o: 'soton:BusRoute'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdfs:label',
+                o: '?routeName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'skos:notation',
+                o: '?busName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: '?busOperator'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:sequence',
+                o: '?n1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:stop/rdfs:label',
+                o: "[ skos:notation '"+stopActoCode+"'^^soton:bus-stop-id-scheme]"
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:sequence',
+                o: '?n2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:stop/rdfs:label',
+                o: "'"+stopName+"'"
+            },
+            {
+                type: 'FILTER',
+                cond: '?n1 < ?n2'
+            }
+        ]
+    }
+};
+
+let busRoutesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'rdf:',
+                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
+            },
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'transit:',
+                at: '<http://vocab.org/transit/terms/>'
+            },
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'geo:',
+                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
+            }
+        ],
+        select: [ 'DISTINCT', '?busName', '?routeName'],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdf:type',
+                o: 'soton:BusRoute'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdfs:label',
+                o: '?routeName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'skos:notation',
+                o: '?busName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: '?busOperator'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:sequence',
+                o: '?n1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:stop/rdfs:label',
+                o: "[ skos:notation '"+stopActoCode+"'^^soton:bus-stop-id-scheme]"
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:sequence',
+                o: '?n2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:stop/rdfs:label',
+                o: '?stopName2'
+            },
+            {
+                type: 'FILTER',
+                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"'))"
+            }
+        ]
+    }
+};
+
+let busesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
+    return {
+        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        prefix: [
+            {
+                id: 'rdf:',
+                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
+            },
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'transit:',
+                at: '<http://vocab.org/transit/terms/>'
+            },
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'skos:',
+                at: '<http://www.w3.org/2004/02/skos/core#>'
+            },
+            {
+                id: 'geo:',
+                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
+            }
+        ],
+        select: [ 'DISTINCT', '?busName'],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdf:type',
+                o: 'soton:BusRoute'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'rdfs:label',
+                o: '?routeName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'skos:notation',
+                o: '?busName'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: '?busOperator'
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:sequence',
+                o: '?n1'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs1',
+                p: 'transit:stop/rdfs:label',
+                o: "[ skos:notation '"+stopActoCode+"'^^soton:bus-stop-id-scheme]"
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'transit:routeStop',
+                o: '?rs2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:sequence',
+                o: '?n2'
+            },
+            {
+                type: 'STANDARD',
+                s: '?rs2',
+                p: 'transit:stop/rdfs:label',
+                o: '?stopName2'
+            },
+            {
+                type: 'FILTER',
+                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"'))"
+            }
+        ]
+    }
+};
+
 module.exports = {
     amenity : amenity,
     food : food,
@@ -526,7 +823,12 @@ module.exports = {
     room : room,
     freeRoom : freeRoom,
     busRoutes : busRoutes,
-    busRoutesPlaceNames : busRoutesPlaceNames
+    busRoutesPlaceNames : busRoutesPlaceNames,
+    busRoutesActoCodeStopName: busRoutesActoCodeStopName,
+    busRoutesActoCodeStopNameSimilar: busRoutesActoCodeStopNameSimilar,
+    busesActoCodeStopNameSimilar: busesActoCodeStopNameSimilar
+
+
 };
 
 
