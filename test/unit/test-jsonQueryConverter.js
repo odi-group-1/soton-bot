@@ -1,5 +1,5 @@
 let expect = require('chai').expect;
-let jqc = require('../service/sparqlUrlMachine/jsonQueryConverter');
+let jqc = require('../../service/sparqlUrlMachine/jsonQueryConverter');
 
 describe('Test JSON query parser', function () {
 

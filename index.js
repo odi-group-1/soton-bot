@@ -52,10 +52,14 @@ app.get('/parser/', (req, res) => {
 
 app.get('/tom/', (req, res) => {
 
-    //let stored = require('./service/sparqlUrlMachine/storedQueries');
-    //let queryJson = stored.busRoutesPlaceNames('Civic Centre','Giddy Bridge');
-    //let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
-    //jqc.getOfferings(queryJson, function (allOfferings) {
+
+
+    let stored = require('./service/sparqlUrlMachine/storedQueries');
+    let queryJson = stored.building('32');
+    let jqc = require('./service/sparqlUrlMachine/jsonQueryConverter');
+    jqc.getOfferings(queryJson, function (allOfferings) {
+      res.send(allOfferings);
+    });
 
         // let result = [];
         //
@@ -70,10 +74,10 @@ app.get('/tom/', (req, res) => {
 
         //res.send(result);
 
-    let temp = require('./service/queries.js');
-
-    temp.canITakeBusToX();
-    res.send([]);
+    // let temp = require('./service/queries.js');
+    //
+    // temp.canITakeBusToX();
+    // res.send([]);
 
     // },function (error) {
     //     logger.log(error);

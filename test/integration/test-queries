@@ -1,0 +1,24 @@
+let expect = require('chai').expect;
+let jqc = require('../../service/sparqlUrlMachine/jsonQueryConverter');
+let stored = require('../../service/sparqlUrlMachine/storedQueries');
+
+describe('Test generated queries', function () {
+
+    describe('Test building query results', function () {
+
+        it('Should return building 32 info', function(done) {
+
+            let query = stored.building('32');
+
+            jqc.getOfferings(query, function (results) {
+                expect(results[0].s.value).to.be.equal('http://id.southampton.ac.uk/building/32');
+                expect(results[1].s.value).to.be.equal('http://id.southampton.ac.uk/building/32');
+                expect(results[0].p.value).to.be.equal('http://www.w3.org/2003/01/geo/wgs84_pos#lat');
+                expect(results[1].p.value).to.be.equal('http://www.w3.org/2003/01/geo/wgs84_pos#long');
+                done();
+            });
+        });
+
+    });
+
+});
