@@ -5,7 +5,6 @@
 const logger = require('tracer').colorConsole();
 const queries = require('../service/queries');
 const sendMessage = require('../service/fb-messaging/send-message');
-const _ = require('lodash');
 
 const MAX_CARD_ELEMENTS = 5;
 
@@ -39,34 +38,8 @@ function switchOnAction(req, res){
 
                             logger.log('Received position from ' + sender + ' to find bus stops => ' + JSON.stringify(attachment.payload.coordinates));
 
-                            queries.getNearestBusStops([location]).then(res => {
-                                let nearestStops = _.head(res);
-                                console.log(nearestStops);
-                                // response is actually an array of services
-                                let response = createGenericMessengerTemplateAttachment([]);
-
-                                // create an element for each of the first x services
-                                for (let stop of nearestStops.slice(0, MAX_CARD_ELEMENTS)) {
-                                    response.attachment.payload.elements.push({
-                                        title: stop.stop_name,
-                                        subtitle: stop.distance + ' meters from you.',
-                                        image_url: getStaticOpenStreetMap(stop.latitude, stop.longitude),
-                                        default_action: {
-                                            type: 'web_url',
-                                            url: interactiveOpenStreetMap(stop.latitude, stop.longitude),
-                                            messenger_extensions: true,
-                                            webview_height_ratio : 'tall',
-                                        },
-                                        buttons:[
-                                            {
-                                                type:'web_url',
-                                                url: getBusStopPublicDisplay(stop.atcocode),
-                                                title:'Live Times',
-                                            }
-                                        ]
-                                    });
-                                }
-                                echo(sender, response, req, res);
+                            queries.getNearestBusStops([location]).then(response => {
+                                echo(sender, response.toString(), req, res);
                             }).catch(error => {
                                 echo(sender, error.message, req, res);
                             });
@@ -385,10 +358,6 @@ function getStaticOpenStreetMap(lat, long){
 
 function interactiveOpenStreetMap(lat, long) {
     return "https://www.openstreetmap.org/?mlat="+lat+"&mlon="+long+"4#map=19/"+lat+"/"+long+"&layers=N";
-}
-
-function getBusStopPublicDisplay(atco) {
-    return 'http://bus.southampton.ac.uk/bus-stop-publicdisplay/' + atco + '.html';
 }
 
 module.exports = {
