@@ -666,10 +666,10 @@ function findBookableRoom(timeReq, cb) {
 //1 When's next bus from "X"
 //2 When's the next "A" from "X"
 //3 Can I take a bus to "X" (needs user location) - DONE
-//4 Which bus goes to "X" (needs user location)
-//5 How can I go from "X" to "Y" (needs user location)
+//4 Which bus goes to "X" (needs user location) - DONE
+//5 How can I go from "X" to "Y" (needs user location) - DONE
 //6 What stops are nearby (needs user location) - DONE
-//7 Where can I take "A" (needs user location)
+//7 Where can I take "A" (needs user location) - DONE
 
 //3 Can I take a bus to "X" (needs user location)
 //nearestStopCo-ordinates, finalStopString, cb
