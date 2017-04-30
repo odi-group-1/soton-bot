@@ -849,7 +849,7 @@ let stopsForGivenBus = (busName) => {
                 at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
             }
         ],
-        select: [ 'DISTINCT', '?stopName', '?lat', '?long'],
+        select: [ 'DISTINCT', '?stopName', '?lat', '?long', '?atcoCode'],
         where: [
             {
                 type: 'STANDARD',
@@ -898,6 +898,12 @@ let stopsForGivenBus = (busName) => {
                 s: '?stopId',
                 p: 'geo:long',
                 o: '?long'
+            },
+            {
+                type:'STANDARD',
+                s:'?stopId',
+                p:'skos:notation',
+                o:'?atcoCode'
             }
         ]
     }
