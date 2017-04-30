@@ -820,7 +820,7 @@ let busesStartNameStopName = (startName, stopName) => {
 };
 
 
-let stopsForGivenBus = (busName) => {
+let stopsForGivenBus = (busName, operatorName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
@@ -873,9 +873,15 @@ let stopsForGivenBus = (busName) => {
                 type: 'STANDARD',
                 s: '?busRoute',
                 p: 'skos:notation',
-                o: "[ skos:notation '"+busName+"'^^soton:bus-route-id-scheme]"
+                o: "'"+busName+"'^^soton:bus-route-id-scheme"
             },
             {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: "'"+operatorName+"'"
+            },
+            ,{
                 type: 'STANDARD',
                 s: '?stop',
                 p: 'transit:stop',

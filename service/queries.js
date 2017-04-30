@@ -713,10 +713,10 @@ function canITakeBusToX(firstStopString, finalStopString) {
  * @param desiredBus - name of bus user wants to take, e.g. U1C
  * @return Promise
  */
-function whereCanITakeThisBus(userCoordinates,desiredBus) {
+function whereCanITakeThisBus(userCoordinates,desiredBus,operatorName) {
 
     // Build query to find possible routes
-    let query = stored.stopsForGivenBus(desiredBus.toUpperCase());
+    let query = stored.stopsForGivenBus(desiredBus.toUpperCase(),operatorName);
 
     // Convert and execute query
     return jqc.query(query).then(stops => {
