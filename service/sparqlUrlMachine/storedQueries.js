@@ -2,9 +2,11 @@
  * Created by stefan on 24/03/17.
  */
 
+const SOTON_DATA_ENDPOINT = 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=';
+
 let amenity = (searchCriteria, today) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdfs:',
@@ -58,7 +60,7 @@ let amenity = (searchCriteria, today) => {
 
 let food = () => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdfs:',
@@ -106,7 +108,7 @@ let food = () => {
 
 let building = (buildingId) => {
   return {
-      endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+      endpoint: SOTON_DATA_ENDPOINT,
       select: [ '*' ],
       where: [
           {
@@ -127,7 +129,7 @@ let building = (buildingId) => {
 
 let room = (room) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'located:',
@@ -220,7 +222,7 @@ let room = (room) => {
 
 let freeRoom = (dateSt, dateEnd, dateNow) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'soton:',
@@ -323,7 +325,7 @@ let freeRoom = (dateSt, dateEnd, dateNow) => {
 };
     let busRoutesPlaceNames = (stopName1, stopName2) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
@@ -422,7 +424,7 @@ let freeRoom = (dateSt, dateEnd, dateNow) => {
 
 let busRoutes = (atcoCode1, atcoCode2) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
@@ -521,7 +523,7 @@ let busRoutes = (atcoCode1, atcoCode2) => {
 
 let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
@@ -620,7 +622,7 @@ let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
 
 let busRoutesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
@@ -720,7 +722,7 @@ let busRoutesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
 //Had to get rid of the pattern matching in filter due to time out issues
 let busesStartNameStopName = (startName, stopName) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
@@ -820,7 +822,7 @@ let busesStartNameStopName = (startName, stopName) => {
 
 let stopsForGivenBus = (busName) => {
     return {
-        endpoint: 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=',
+        endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
             {
                 id: 'rdf:',
