@@ -709,13 +709,14 @@ function canITakeBusToX(firstStopString, finalStopString) {
 //7 Where can I take "A" (needs user location)
 /**
  *
- * @param desiredBus - name of bus user wants to take
+ * @param userCoordinates {lat: Float, long: Float}
+ * @param desiredBus - name of bus user wants to take, e.g. U1C
  * @return Promise
  */
 function whereCanITakeThisBus(userCoordinates,desiredBus) {
 
     // Build query to find possible routes
-    let query = stored.stopsForGivenBus(desiredBus);
+    let query = stored.stopsForGivenBus(desiredBus.toUpperCase());
 
     // Convert and execute query
     return jqc.query(query).then(stops => {
@@ -727,15 +728,17 @@ function whereCanITakeThisBus(userCoordinates,desiredBus) {
             try {
 
                 //get the nearest stops
-                stops.forEach(function(stopBinding){
+                stops.forEach(stopBinding => {
+
                     //distance between user and stop
                     let distBetween = getDistanceFromLatLonInKm(userCoordinates.lat,userCoordinates.long,stopBinding.lat.value,stopBinding.long.value);
                     if(distBetween<=0.250){ //check if stop is within 250m of user
                         stopsArray.push({
-                            'stopName': stopBinding.stopName.value,
-                            'distanceFromUserInKm': distBetween,
-                            'lat':stopBinding.lat.value,
-                            'long':stopBinding.long.value
+                            stopName: stopBinding.stopName.value,
+                            distanceFromUserInKm: distBetween,
+                            lat: stopBinding.lat.value,
+                            long: stopBinding.long.value,
+                            atcoCode: stopBinding.atcoCode.value
                         });
                     }
 
@@ -743,7 +746,6 @@ function whereCanITakeThisBus(userCoordinates,desiredBus) {
 
                 //order by ascending distance
                 _.sortBy(stopsArray, 'distanceFromUserInKm');
-
 
                 return Promise.resolve(stopsArray);
             } catch (err) {
@@ -753,9 +755,7 @@ function whereCanITakeThisBus(userCoordinates,desiredBus) {
         } else {
             return Promise.reject(new Error("Sorry no stops for that bus."));
         }
-
     })
-
 }
 
 
