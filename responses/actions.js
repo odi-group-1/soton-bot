@@ -52,7 +52,37 @@ function switchOnAction(req, res){
 
                             logger.log('Received position from ' + sender + ' to find bus stops for ' + route + '=> ' + JSON.stringify(attachment.payload.coordinates));
 
+                            queries.whereCanITakeThisBus(location, route, operator).then(stops => {
 
+                                // response is actually an array of services
+                                let response = createGenericMessengerTemplateAttachment([]);
+
+                                stops.forEach(stop => {
+                                    // create an element for each of the first x services
+                                    response.attachment.payload.elements.push({
+                                        title: 'Take ' + operator + ' ' + route + ' from ' + stop.stopName,
+                                        subtitle: stop.distanceFromUserInKm * 1000 + ' meters from you.',
+                                        image_url: getStaticOpenStreetMap(stop.lat, stop.long),
+                                        default_action: {
+                                            type: 'web_url',
+                                            url: interactiveOpenStreetMap(stop.lat, stop.long),
+                                            messenger_extensions: true,
+                                            webview_height_ratio : 'tall',
+                                        },
+                                        buttons:[
+                                            {
+                                                type:'web_url',
+                                                url: getBusStopPublicDisplay(stop.atcoCode),
+                                                title:'Live Times',
+                                            }
+                                        ]
+                                    });
+                                });
+
+                                echo(sender, response, req, res);
+                            }).catch(error => {
+                                echo(sender, error.message, req, res);
+                            });
                         } else {
                             echo(sender, "I was expecting the attachment to be a location, but it wasn't!", req, res);
                         }
