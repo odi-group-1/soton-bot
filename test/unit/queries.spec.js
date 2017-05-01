@@ -61,7 +61,7 @@ describe('Test queries.js', function () {
 
     describe('Test findNearestFood', function () {
 
-        it.only("Should", function (done) {
+        it("Should", function (done) {
 
             let location = { lat: 0, long: 0 };
 
