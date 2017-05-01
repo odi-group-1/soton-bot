@@ -151,6 +151,24 @@ let tests = [
             }
         }
     },{
-
+        message: 'When does term end?',
+        sessionId: '1500',
+        result: {
+            'action': 'when-term-start',
+            'actionIncomplete': false,
+            'parameters': {
+                'term': 'Summer'
+            },
+        }
+    },{
+        message: 'When does winter term start?',
+        sessionId: '1501',
+        result: {
+            'action': 'when-term-start',
+            'actionIncomplete': false,
+            'parameters': {
+                'term': 'Autumn'
+            },
+        }
     }
 ];
