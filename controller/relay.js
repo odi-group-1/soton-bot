@@ -5,7 +5,7 @@
 const Logger = require('tracer');
 const request = require('request-promise');
 
-const sendMessage = require('../service/fb-messaging/send-message');
+const sendMessage = require('../service/fb-messaging/send-message').sendMessage;
 const aiHandler = require('../service/ai-handler');
 const queries = require('../service/queries');
 const actions = require('../responses/actions');
@@ -52,11 +52,11 @@ let relay = (req, res) => {
                     aiHandler.handleThis(env.API_AI_HIDDEN_KEYS.COORDINATE, sender, actions.switchOnAction(req, res))
                 } else {
                     // unrecognized attachments
-                    echo(sender, "I don't recognize the attachments", req, res);
+                    relayExport.echo(sender, "I don't recognize the attachments", req, res);
                 }
             } else {
                 // message without text or attachments!
-                echo(sender, "I was expecting some attachments.", req, res);
+                relayExport.echo(sender, "I was expecting some attachments", req, res);
             }
 
         } else {
@@ -74,8 +74,13 @@ let relay = (req, res) => {
  * @param req
  * @param res
  */
-function echo(sender, text, req, res) {
+let echo = (sender, text, req, res) => {
     sendMessage(sender, text, undefined, undefined, req, res);
-}
+};
 
-module.exports = relay;
+let relayExport = {
+    relay: relay,
+    echo: echo
+};
+
+module.exports = relayExport;

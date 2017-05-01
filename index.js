@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const Logger = require('tracer');
 
 const verifyAppToken = require('./controller/webhook-verification');
-const relay = require('./controller/relay');
+const relay = require('./controller/relay').relay;
 const env = require('./config/staging');
 
 const app = express();

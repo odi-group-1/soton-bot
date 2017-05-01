@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node_modules/.bin/nodemon index.js",
-    "test": "node_modules/.bin/mocha test/*/* --timeout 10000"
+    "test": "node_modules/.bin/mocha test/**/*.spec.js --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/odi-group-1/soton-bot#readme",
   "dependencies": {
     "apiai": "^4.0.1",
+    "apiai-promise": "^1.0.0",
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
     "express": "^4.15.2",
@@ -26,6 +27,7 @@
     "mocha": "^3.3.0",
     "request": "^2.81.0",
     "request-promise": "^4.1.1",
+    "sinon": "^2.1.0",
     "sparqling-star": "^1.1.0",
     "tracer": "^0.8.7"
   },
