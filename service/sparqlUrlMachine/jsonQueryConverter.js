@@ -7,6 +7,11 @@ const _ = require('lodash');
 const encoder = require('./htmlEncoder');
 const logger = require('tracer').colorConsole();
 
+/**
+ * TODO comment
+ * @param queryJson
+ * @returns {string}
+ */
 let parseJsonQuery = (queryJson) => {
     let queryString = "";
 
@@ -55,11 +60,17 @@ let parseJsonQuery = (queryJson) => {
 
     logger.log("sending query => ##" + queryString+"##");
 
+    //TODO encoding and prepending of endpoint should be done outside of this method
     queryString = encoder.encode(queryString);
-
     return queryJson.endpoint + queryString;
 };
 
+/**
+ * TODO comment
+ * @param query
+ * @param cb
+ * @param errcb
+ */
 let getOfferings = (query, cb, errcb) => {
 
     let queryUrl = parseJsonQuery(query);
