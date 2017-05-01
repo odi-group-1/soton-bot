@@ -118,13 +118,13 @@ describe('Test stored queries', function () {
 
         it('Should add start date, end date and current date to query', function() {
 
-            let startDate = "";
-            let endDate = "";
-            let currentDate = "";
+            let dateSt = "2017-04-26T00:00:00Z";
+            let dateEnd = "2017-04-26T10:00:00Z";
+            let dateNow = "2017-04-25T00:00:00Z";
 
             let result = "?start >= '" + dateSt + "'^^xsd:dateTime && ?start < '" + dateEnd + "'^^xsd:dateTime && ?end > '" + dateNow + "'^^xsd:dateTime";
 
-            expect(stored.freeRoom(room).where[7].cond).to.be.equal(result);
+            expect(stored.freeRoom(dateSt,dateEnd,dateNow).where[6].cond).to.be.equal(result);
 
         });
 
