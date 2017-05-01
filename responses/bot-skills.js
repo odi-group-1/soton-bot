@@ -4,7 +4,7 @@ let skills = [{
     image_url: 'http://imgur.com/5nc6azi.gif',
     default_action: {
         type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -14,7 +14,7 @@ let skills = [{
     image_url: 'http://imgur.com/edMFqDQ.png',
     default_action: {
     type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -25,7 +25,7 @@ let skills = [{
     image_url: 'http://imgur.com/htosxDU.png',
     default_action: {
         type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -35,7 +35,7 @@ let skills = [{
     image_url: 'http://imgur.com/lIdew9J.png',
     default_action: {
         type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -45,7 +45,7 @@ let skills = [{
     image_url: 'http://imgur.com/KTGer6F.png',
     default_action: {
         type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -55,7 +55,7 @@ let skills = [{
     image_url: 'http://imgur.com/VGEbOwI.png',
     default_action: {
         type: 'web_url',
-        url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
+        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
