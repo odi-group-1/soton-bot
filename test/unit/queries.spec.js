@@ -28,7 +28,7 @@ describe('Test queries.js', function () {
 
         });
 
-        it('Should return string on failure', function (done) {
+        it("Should return 'Something went wrong...' on failure", function (done) {
 
             let stubStored = sinon.stub(stored, 'building').returns(undefined);
             let stubJQC = sinon.stub(jqc, 'getOfferings');
@@ -43,6 +43,20 @@ describe('Test queries.js', function () {
 
         });
 
+        it("Should return 'Sorry, I don't know where that is...' when a bad building id is provided", function (done) {
+
+            let stubStored = sinon.stub(stored, 'building').returns(undefined);
+            let stubJQC = sinon.stub(jqc, 'getOfferings');
+            stubJQC.yields([]);
+
+            queries.findBuilding('BAD_VALUE', function (result) {
+                stubStored.restore();
+                stubJQC.restore();
+                expect(result).to.be.equal("Sorry, I don't know where that is...");
+                done();
+            })
+
+        });
     });
 
 });
