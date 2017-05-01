@@ -1,5 +1,6 @@
 /**
- * TODO comment
+ * Test suite for relay.js
+ * @author Tom Aley
  */
 
 let sinon = require('sinon');
