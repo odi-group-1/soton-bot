@@ -39,7 +39,7 @@ describe('Test relay.js', function () {
             let stub = sinon.stub(aihandler, 'handleThis');
             stub.yields();
 
-            relay(req, res);
+            relay.relay(req, res);
             stub.restore();
             stub2.restore();
             sinon.assert.calledOnce(stub2);
@@ -73,7 +73,7 @@ describe('Test relay.js', function () {
             let stub = sinon.stub(aihandler, 'handleThis');
             stub.yields();
 
-            relay(req, res);
+            relay.relay(req, res);
             stub.restore();
             stub2.restore();
             sinon.assert.calledOnce(stub2);
@@ -92,7 +92,7 @@ describe('Test relay.js', function () {
                         { messaging: [
                             {
                                 sender: {id: 'test'},
-                                message: {attachments: undefined }
+                                message: {attachments: [{}] }
                             }
                         ]
                         }
@@ -102,13 +102,69 @@ describe('Test relay.js', function () {
 
             let res = 'FAKE RES';
 
-            let stub = sinon.stub(sendMessage, 'sendMessage');
-            stub.yields();
+            let stub = sinon.stub(relay, 'echo').returns(function() {});
 
-            relay(req, res);
+            relay.relay(req, res);
             stub.restore();
             sinon.assert.calledOnce(stub);
-            sinon.assert.calledWith(stub, 'test', "I don't recognize the attachments", undefined, undefined, req, res);
+            sinon.assert.calledWith(stub, 'test', "I don't recognize the attachments", req, res);
+
+        });
+
+        it("Should call echo with string 'I was expecting some attachments'", function() {
+
+            // Setup req
+            let req = {
+                body: {
+                    entry: [
+                        { messaging: [
+                            {
+                                sender: {id: 'test'},
+                                message: {}
+                            }
+                        ]
+                        }
+                    ]
+                }
+            };
+
+            let res = 'FAKE RES';
+
+            let stub = sinon.stub(relay, 'echo').returns(function() {});
+
+            relay.relay(req, res);
+            stub.restore();
+            sinon.assert.calledOnce(stub);
+            sinon.assert.calledWith(stub, 'test', "I was expecting some attachments", req, res);
+
+        });
+
+        it("Should res.sendStatus(200) on miscellaneous message", function() {
+
+            // Setup req
+            let req = {
+                body: {
+                    entry: [
+                        { messaging: [
+                            {
+                                sender: {id: 'test'},
+                            }
+                        ]
+                        }
+                    ]
+                }
+            };
+
+            // Setup res
+            let res = {sendStatus: function (){
+                console.log('This should not print');
+            }};
+
+            let stub = sinon.stub(res, 'sendStatus').returns(function() {});
+
+            relay.relay(req, res);
+            stub.restore();
+            sinon.assert.calledOnce(stub);
 
         });
 
