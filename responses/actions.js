@@ -35,6 +35,66 @@ function switchOnAction(req, res){
 
                     break;
 
+                case 'find-bus-stop-for-route' :
+
+                    try {
+
+                        // location is expected as attachment to complete the query. try to extract it
+                        let attachment = req.body.entry[0].messaging[0].message.attachments[0];
+
+                        // have the location to deal with nearest food
+                        if (attachment && attachment.type === 'location') {
+
+                            let location = attachment.payload.coordinates;
+
+                            let operator = aiResponse.result.parameters.busCompany;
+                            let route = aiResponse.result.parameters.busRoute;
+
+                            logger.log('Received position from ' + sender + ' to find bus stops for ' + route + '=> ' + JSON.stringify(attachment.payload.coordinates));
+
+                            queries.whereCanITakeThisBus(location, route, operator).then(stops => {
+
+                                // response is actually an array of services
+                                let response = createGenericMessengerTemplateAttachment([]);
+
+                                stops.forEach(stop => {
+                                    // create an element for each of the first x services
+                                    response.attachment.payload.elements.push({
+                                        title: 'Take ' + operator + ' ' + route + ' from ' + stop.stopName,
+                                        subtitle: stop.distanceFromUserInKm * 1000 + ' meters from you.',
+                                        image_url: getStaticOpenStreetMap(stop.lat, stop.long),
+                                        default_action: {
+                                            type: 'web_url',
+                                            url: interactiveOpenStreetMap(stop.lat, stop.long),
+                                            messenger_extensions: true,
+                                            webview_height_ratio : 'tall',
+                                        },
+                                        buttons:[
+                                            {
+                                                type:'web_url',
+                                                url: getBusStopPublicDisplay(stop.atcoCode),
+                                                title:'Live Times',
+                                            }
+                                        ]
+                                    });
+                                });
+
+                                echo(sender, response, req, res);
+                            }).catch(error => {
+                                echo(sender, error.message, req, res);
+                            });
+                        } else {
+                            echo(sender, "I was expecting the attachment to be a location, but it wasn't!", req, res);
+                        }
+
+                    } catch (error) {
+                        // intention marked complete as nearest-food, but couldn't extract location
+                        logger.error(error);
+                        echo(sender, "I was expecting an attachment, but something went wrong!", req, res);
+                    }
+
+                    break;
+
                 case 'find-bus-from-and-to' :
 
                     try {
