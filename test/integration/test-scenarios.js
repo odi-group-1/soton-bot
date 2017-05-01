@@ -208,9 +208,129 @@ let tests = [
             message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             result: {
                 'action': 'find-bus-from-and-to',
-                'actionIncomplete': true,
+                'actionIncomplete': false,
                 'parameters': {
                     'busStopDest': 'Civic Centre',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
+    },{
+        message: 'Where is the nearest U1C',
+        sessionId: '1700',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'Unilink',
+                'busRoute': 'U1C',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-stop-for-route',
+                'actionIncomplete': false,
+                'parameters': {
+                    'busCompany': 'Unilink',
+                    'busRoute': 'U1C',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
+    },{
+        message: 'Where is the nearest T3',
+        sessionId: '1701',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': 'T3',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-stop-for-route',
+                'actionIncomplete': false,
+                'parameters': {
+                    'busCompany': 'Bluestar',
+                    'busRoute': 'T3',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
+    },{
+        message: 'Where is the nearest 7C',
+        sessionId: '1702',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'First in Hampshire',
+                'busRoute': '7C',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-stop-for-route',
+                'actionIncomplete': false,
+                'parameters': {
+                    'busCompany': 'First in Hampshire',
+                    'busRoute': '7C',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
+    },{
+        message: 'Where is the nearest bluestar 1 bus',
+        sessionId: '1703',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': '1',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-stop-for-route',
+                'actionIncomplete': false,
+                'parameters': {
+                    'busCompany': 'Bluestar',
+                    'busRoute': '1',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
+    },{
+        message: 'Where is the nearest bluestar 1 bus',
+        sessionId: '1703',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': '1',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-stop-for-route',
+                'actionIncomplete': false,
+                'parameters': {
+                    'busCompany': 'Bluestar',
+                    'busRoute': '1',
                     'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
                 }
             }
