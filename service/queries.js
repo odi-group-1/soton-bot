@@ -320,44 +320,29 @@ function findOffering(obj, cb) {
 
 /**
  * TODO @Deepak - comment this function
- * TODO @Tom - convert this function to use JQC
  * @param passedTerm
  * @param cb
  * @param errcb
  */
-let endTermDates = (passedTerm, cb, errcb) => {
+let endTermDates = (passedTerm) => {
 
-    let myquery = new sparqls.Query();
-
-    myquery.registerPrefix('rdfs','<http://www.w3.org/2000/01/rdf-schema#>');
-    myquery.registerPrefix('ns','<http://id.southampton.ac.uk/ns/>');
-    myquery.registerPrefix('tl','<http://purl.org/NET/c4dm/timeline.owl#>');
-
-    let terms = {
-        'type':'ns:AcademicSessionTerm',
-        'rdfs:label' : '?name',
-        'tl:beginsAtDateTime' : '?start',
-        'tl:endsAtDateTime' : '?end'
-    };
     let currentYear = new Date().getFullYear();
     let currentDate = new Date();
 
-    myquery.registerVariable('terms', terms);
-    myquery.filter("regex(?name, \'" + currentYear +"\')");
-    myquery.filter("regex(?name, \'" + passedTerm +"\')");
-
-    logger.log(myquery.sparqlQuery);
-
-    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
     let result = [];
     let withinEndTerm = true;
     let dateToSendBack;
 
-    sparqler.send(myquery, function(error, data){
-        if(data.results.bindings.length > 0) {
+    // Build query to find terms
+    let query = stored.termDates(currentYear, passedTerm);
+
+    // Convert and execute query
+    return jqc.query(query).then(terms => {
+
+        if(terms.length > 0) {
             try {
 
-                data.results.bindings.forEach( function(resultBinding) {
+                terms.forEach( function(resultBinding) {
                     result.push({
                         'name': resultBinding.name.value,
                         'startDate': new Date(resultBinding.start.value),
@@ -381,15 +366,18 @@ let endTermDates = (passedTerm, cb, errcb) => {
                     let day = dateToSendBack.getUTCDate();
                     let year = dateToSendBack.getUTCFullYear();
 
-                    if (_.isFunction(cb)) cb(day+"/"+month+"/"+year);
+                    return Promise.resolve(day+"/"+month+"/"+year);
+
                 } else{
                     logger.log('Failed to retrieve date, even though query passed.');
-                    if (_.isFunction(cb)) errcb("No dates available");
+                    Promise.reject(new Error("Sorry dates for that term."));
                 }
             } catch (err) {
-                logger.log('Failed to read query results');
-                if (_.isFunction(cb)) errcb("No dates available");
+                logger.error(err);
+                return Promise.reject(new Error("Something went wrong."));
             }
+        }else {
+            return Promise.reject(new Error("Sorry terms for that criteria."));
         }
 
     });
@@ -397,45 +385,30 @@ let endTermDates = (passedTerm, cb, errcb) => {
 
 /**
  * TODO @Deepak - comment this function
- * TODO @Tom - convert this function to use JQC
  *
  * @param passedTerm
  * @param cb
  * @param errcb
  */
-let startTermDates = (passedTerm, cb, errcb) => {
+let startTermDates = (passedTerm) => {
 
-    let myquery = new sparqls.Query();
-
-    myquery.registerPrefix('rdfs','<http://www.w3.org/2000/01/rdf-schema#>');
-    myquery.registerPrefix('ns','<http://id.southampton.ac.uk/ns/>');
-    myquery.registerPrefix('tl','<http://purl.org/NET/c4dm/timeline.owl#>');
-
-    let terms = {
-        'type':'ns:AcademicSessionTerm',
-        'rdfs:label' : '?name',
-        'tl:beginsAtDateTime' : '?start',
-        'tl:endsAtDateTime' : '?end'
-    };
     let currentYear = new Date().getFullYear();
     let currentDate = new Date();
 
-    myquery.registerVariable('terms', terms);
-    myquery.filter("regex(?name, \'" + currentYear +"\')");
-    myquery.filter("regex(?name, \'" + passedTerm +"\')");
-
-    logger.log(myquery.sparqlQuery);
-
-    let sparqler = new sparqls.Client("http://sparql.data.southampton.ac.uk/");
     let result = [];
     let termNotStarted = true;
     let dateToSendBack;
 
-    sparqler.send(myquery, function(error, data){
-        if(data.results.bindings.length > 0) {
+    // Build query to find terms
+    let query = stored.termDates(currentYear, passedTerm);
+
+    // Convert and execute query
+    return jqc.query(query).then(terms => {
+
+        if(terms.length > 0) {
             try {
 
-                data.results.bindings.forEach( function(resultBinding) {
+                terms.forEach( function(resultBinding) {
                     result.push({
                         'name': resultBinding.name.value,
                         'startDate': new Date(resultBinding.start.value),
@@ -459,16 +432,20 @@ let startTermDates = (passedTerm, cb, errcb) => {
                     let day = dateToSendBack.getUTCDate();
                     let year = dateToSendBack.getUTCFullYear();
 
-                    if (_.isFunction(cb)) cb(day+"/"+month+"/"+year);
-                }else{
+                    return Promise.resolve(day+"/"+month+"/"+year);
+
+                } else{
                     logger.log('Failed to retrieve date, even though query passed.');
-                    if (_.isFunction(cb)) errcb("No dates available");
+                    Promise.reject(new Error("Sorry dates for that term."));
                 }
             } catch (err) {
-                logger.log('Failed to read query results');
-                if (_.isFunction(errcb)) errcb("No dates available");
+                logger.error(err);
+                return Promise.reject(new Error("Something went wrong."));
             }
+        }else {
+            return Promise.reject(new Error("Sorry terms for that criteria."));
         }
+
     });
 };
 
@@ -713,10 +690,10 @@ function canITakeBusToX(firstStopString, finalStopString) {
  * @param desiredBus - name of bus user wants to take, e.g. U1C
  * @return Promise
  */
-function whereCanITakeThisBus(userCoordinates,desiredBus) {
+function whereCanITakeThisBus(userCoordinates,desiredBus,operatorName) {
 
     // Build query to find possible routes
-    let query = stored.stopsForGivenBus(desiredBus.toUpperCase());
+    let query = stored.stopsForGivenBus(desiredBus.toUpperCase(),operatorName);
 
     // Convert and execute query
     return jqc.query(query).then(stops => {

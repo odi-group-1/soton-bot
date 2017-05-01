@@ -820,7 +820,7 @@ let busesStartNameStopName = (startName, stopName) => {
 };
 
 
-let stopsForGivenBus = (busName) => {
+let stopsForGivenBus = (busName, operatorName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
         prefix: [
@@ -873,7 +873,13 @@ let stopsForGivenBus = (busName) => {
                 type: 'STANDARD',
                 s: '?busRoute',
                 p: 'skos:notation',
-                o: "[ skos:notation '"+busName+"'^^soton:bus-route-id-scheme]"
+                o: "'"+busName+"'^^soton:bus-route-id-scheme"
+            },
+            {
+                type: 'STANDARD',
+                s: '?busRoute',
+                p: 'soton:busRouteOperator/rdfs:label',
+                o: "'"+operatorName+"'"
             },
             {
                 type: 'STANDARD',
@@ -909,6 +915,58 @@ let stopsForGivenBus = (busName) => {
     }
 };
 
+let termDates = (passedYear, passedTerm) => {
+    return {
+        endpoint: SOTON_DATA_ENDPOINT,
+        prefix: [
+            {
+                id: 'rdfs:',
+                at: '<http://www.w3.org/2000/01/rdf-schema#>'
+            },
+            {
+                id: 'soton:',
+                at: '<http://id.southampton.ac.uk/ns/>'
+            },
+            {
+                id: 'timeLine:',
+                at: '<http://purl.org/NET/c4dm/timeline.owl#>'
+            }
+        ],
+        select: [ 'DISTINCT', '?name', '?startDate', '?endDate'],
+        where: [
+            {
+                type: 'STANDARD',
+                s: '?term',
+                p: 'rdf:type',
+                o: 'ns:AcademicSessionTerm'
+            },
+            {
+                type: 'STANDARD',
+                s: '?term',
+                p: 'rdfs:label',
+                o: '?name'
+            },
+            {
+                type: 'STANDARD',
+                    s: '?term',
+                p: 'tl:beginsAtDateTime',
+                o: '?startDate'
+            },
+            {
+                type: 'STANDARD',
+                    s: '?term',
+                p: 'tl:endsAtDateTime',
+                o: '?endDate'
+            },
+            {
+                type: 'FILTER',
+                cond: "regex(str(?name) , '"+passedYear+"') && regex(str(?name) , '"+passedTerm+"')"
+            }
+
+        ]
+    }
+};
+
 module.exports = {
     amenity : amenity,
     food : food,
@@ -920,5 +978,6 @@ module.exports = {
     busRoutesActoCodeStopName: busRoutesActoCodeStopName,
     busRoutesActoCodeStopNameSimilar: busRoutesActoCodeStopNameSimilar,
     busesStartNameStopName: busesStartNameStopName,
-    stopsForGivenBus: stopsForGivenBus
+    stopsForGivenBus: stopsForGivenBus,
+    termDates: termDates
 };

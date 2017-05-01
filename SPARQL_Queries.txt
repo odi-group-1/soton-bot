@@ -410,3 +410,18 @@ SELECT DISTINCT ?stopName ?lat ?long WHERE {
                 geo:long ?long
      }
 }
+
+//-------------------------------------------------
+#Terms based on passed year and term
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ns: <http://id.southampton.ac.uk/ns/>
+PREFIX tl: <http://purl.org/NET/c4dm/timeline.owl#>
+
+SELECT ?name ?start ?end
+WHERE {
+  ?term rdf:type ns:AcademicSessionTerm.
+  ?term rdfs:label ?name.
+  ?term tl:beginsAtDateTime ?start.
+  ?term tl:endsAtDateTime ?end.
+  FILTER( regex(?name, '2017') && regex(?name, 'Autumn'))
+}
