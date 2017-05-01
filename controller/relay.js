@@ -13,7 +13,11 @@ const env = require('../config/staging');
 
 const logger = Logger.colorConsole();
 
-// this is a higher level function that will relay based on what type of message was sent
+/**
+ * This is a higher level function that will relay based on what type of message was sent
+ * @param req
+ * @param res
+ */
 let relay = (req, res) => {
 
     let messaging_events = req.body.entry[0].messaging;
@@ -63,6 +67,13 @@ let relay = (req, res) => {
     }
 };
 
+/**
+ * TODO comment
+ * @param sender
+ * @param text
+ * @param req
+ * @param res
+ */
 function echo(sender, text, req, res) {
     sendMessage(sender, text, undefined, undefined, req, res);
 }
