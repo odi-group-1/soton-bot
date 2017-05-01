@@ -97,4 +97,39 @@ describe('Test generated queries', function () {
 
     });
 
+    describe('Test findOffering query results', function () {
+
+        it('Should return places where desired item can be procured', function(done) {
+
+            let day = "Monday";
+            let amenityNeeded = "Alcohol";
+            let query = stored.amenity(amenityNeeded, day);
+
+            jqc.getOfferings(query, function (offerings) {
+                expect(offerings[0].shopName.value).to.be.equal('Highfield Hall Bar');
+                done();
+            });
+
+        });
+
+    });
+
+    describe('Test findRoomDetails query results', function () {
+
+        it('Should return details of desired room', function(done) {
+
+            let room = "27-1139";
+            let query = stored.room(room);
+
+            jqc.getOfferings(query, function (rooms) {
+                expect(rooms[0].roomType.value).to.be.equal("27 / 1139");
+                done();
+            });
+
+        });
+
+    });
+
+
+
 });
