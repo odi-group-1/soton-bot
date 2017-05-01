@@ -796,7 +796,7 @@ let termDates = (passedYear, passedTerm) => {
                 type: 'STANDARD',
                 s: '?term',
                 p: 'rdf:type',
-                o: 'ns:AcademicSessionTerm'
+                o: 'soton:AcademicSessionTerm'
             },
             {
                 type: 'STANDARD',
@@ -807,13 +807,13 @@ let termDates = (passedYear, passedTerm) => {
             {
                 type: 'STANDARD',
                     s: '?term',
-                p: 'tl:beginsAtDateTime',
+                p: 'timeLine:beginsAtDateTime',
                 o: '?startDate'
             },
             {
                 type: 'STANDARD',
                     s: '?term',
-                p: 'tl:endsAtDateTime',
+                p: 'timeLine:endsAtDateTime',
                 o: '?endDate'
             },
             {
