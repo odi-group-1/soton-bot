@@ -4,7 +4,7 @@
 
 const logger = require('tracer').colorConsole();
 const queries = require('../service/queries');
-const sendMessage = require('../service/fb-messaging/send-message');
+const sendMessage = require('../service/fb-messaging/send-message').sendMessage;
 const _ = require('lodash');
 
 const skills = require('./bot-skills').skills;

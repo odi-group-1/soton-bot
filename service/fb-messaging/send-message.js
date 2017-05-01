@@ -39,4 +39,6 @@ let sendMessage = (receiver, messageData, cb, errcb, req, res) => {
     });
 };
 
-module.exports = sendMessage;
+module.exports = {
+    sendMessage: sendMessage
+};

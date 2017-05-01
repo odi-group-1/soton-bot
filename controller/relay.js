@@ -5,7 +5,7 @@
 const Logger = require('tracer');
 const request = require('request-promise');
 
-const sendMessage = require('../service/fb-messaging/send-message');
+const sendMessage = require('../service/fb-messaging/send-message').sendMessage;
 const aiHandler = require('../service/ai-handler');
 const queries = require('../service/queries');
 const actions = require('../responses/actions');
