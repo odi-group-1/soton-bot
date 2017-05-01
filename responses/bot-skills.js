@@ -1,7 +1,7 @@
 let skills = [{
    title: 'Discover Campus Buildings',
     subtitle: 'I know where all the buildings on campus are located. I can help you find them.',
-    image_url: 'http://i.imgur.com/I353pXy.png',
+    image_url: 'http://i.imgur.com/OPxqvQy.gif',
     default_action: {
         type: 'web_url',
         url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
