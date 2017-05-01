@@ -695,6 +695,8 @@ function whereCanITakeThisBus(userCoordinates,desiredBus,operatorName) {
     // Build query to find possible routes
     let query = stored.stopsForGivenBus(desiredBus.toUpperCase(),operatorName);
 
+    let MAX_BUS_STOP_DISTANCE = 0.250;
+
     // Convert and execute query
     return jqc.query(query).then(stops => {
 
@@ -709,10 +711,10 @@ function whereCanITakeThisBus(userCoordinates,desiredBus,operatorName) {
 
                     //distance between user and stop
                     let distBetween = getDistanceFromLatLonInKm(userCoordinates.lat,userCoordinates.long,stopBinding.lat.value,stopBinding.long.value);
-                    if(distBetween<=0.250){ //check if stop is within 250m of user
+                    if(distBetween<=MAX_BUS_STOP_DISTANCE){ //check if stop is within 250m of user
                         stopsArray.push({
                             stopName: stopBinding.stopName.value,
-                            distanceFromUserInKm: distBetween,
+                            distanceFromUserInKm: Number(Math.round(distBetween+'e3')+'e-3') ,
                             lat: stopBinding.lat.value,
                             long: stopBinding.long.value,
                             atcoCode: stopBinding.atcoCode.value
@@ -721,10 +723,15 @@ function whereCanITakeThisBus(userCoordinates,desiredBus,operatorName) {
 
                 });
 
-                //order by ascending distance
-                _.sortBy(stopsArray, 'distanceFromUserInKm');
+                if (stopsArray.length > 0) {
+                    //order by ascending distance
+                    _.sortBy(stopsArray, 'distanceFromUserInKm');
 
-                return Promise.resolve(stopsArray);
+                    return Promise.resolve(stopsArray);
+                } else {
+                    return Promise.reject(new Error(operatorName + ' ' + desiredBus + " doesn't stop within " + MAX_BUS_STOP_DISTANCE*1000 + " meters within you :(" ))
+                }
+
             } catch (err) {
                 logger.error(err);
                 return Promise.reject(new Error("Something went wrong."));
