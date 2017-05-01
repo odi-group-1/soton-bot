@@ -1,9 +1,15 @@
 /**
- * Created by stefan on 24/03/17.
+ * TODO comment
  */
 
 const SOTON_DATA_ENDPOINT = 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=';
 
+/**
+ * TODO comment
+ * @param searchCriteria
+ * @param today
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string, limit: number}}
+ */
 let amenity = (searchCriteria, today) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -58,6 +64,10 @@ let amenity = (searchCriteria, today) => {
     }
 };
 
+/**
+ * TODO comment
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], limit: number}}
+ */
 let food = () => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -106,6 +116,11 @@ let food = () => {
     };
 };
 
+/**
+ * TODO comment
+ * @param buildingId
+ * @returns {{endpoint: string, select: string[], where: *[]}}
+ */
 let building = (buildingId) => {
   return {
       endpoint: SOTON_DATA_ENDPOINT,
@@ -127,6 +142,11 @@ let building = (buildingId) => {
   }
 };
 
+/**
+ * TODO comment
+ * @param room
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string}}
+ */
 let room = (room) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -220,6 +240,13 @@ let room = (room) => {
     };
 };
 
+/**
+ * TODO comment
+ * @param dateSt
+ * @param dateEnd
+ * @param dateNow
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string, limit: number}}
+ */
 let freeRoom = (dateSt, dateEnd, dateNow) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -323,105 +350,13 @@ let freeRoom = (dateSt, dateEnd, dateNow) => {
         limit: 10000
     };
 };
-    let busRoutesPlaceNames = (stopName1, stopName2) => {
-    return {
-        endpoint: SOTON_DATA_ENDPOINT,
-        prefix: [
-            {
-                id: 'rdf:',
-                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
-            },
-            {
-                id: 'rdfs:',
-                at: '<http://www.w3.org/2000/01/rdf-schema#>'
-            },
-            {
-                id: 'transit:',
-                at: '<http://vocab.org/transit/terms/>'
-            },
-            {
-                id: 'soton:',
-                at: '<http://id.southampton.ac.uk/ns/>'
-            },
-            {
-                id: 'skos:',
-                at: '<http://www.w3.org/2004/02/skos/core#>'
-            },
-            {
-                id: 'geo:',
-                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
-            }
-        ],
-        select: [ 'DISTINCT', '?busName', '?routeName'],
-        where: [
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'rdf:type',
-                o: 'soton:BusRoute'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'rdfs:label',
-                o: '?routeName'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'skos:notation',
-                o: '?busName'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'soton:busRouteOperator/rdfs:label',
-                o: '?busOperator'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'transit:routeStop',
-                o: '?rs1'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs1',
-                p: 'transit:sequence',
-                o: '?n1'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs1',
-                p: 'transit:stop/rdfs:label',
-                o: "'"+stopName1+"'"
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'transit:routeStop',
-                o: '?rs2'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs2',
-                p: 'transit:sequence',
-                o: '?n2'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs2',
-                p: 'transit:stop/rdfs:label',
-                o: "'"+stopName2+"'"
-            },
-            {
-                type: 'FILTER',
-                cond: '?n1 < ?n2'
-            }
-        ]
-    }
-};
 
+/**
+ * TODO comment
+ * @param atcoCode1
+ * @param atcoCode2
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busRoutes = (atcoCode1, atcoCode2) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -521,6 +456,12 @@ let busRoutes = (atcoCode1, atcoCode2) => {
     }
 };
 
+/**
+ * TODO comment
+ * @param stopActoCode
+ * @param stopName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -620,106 +561,12 @@ let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
     }
 };
 
-let busRoutesActoCodeStopNameSimilar = (stopActoCode, stopNameSimilar) => {
-    return {
-        endpoint: SOTON_DATA_ENDPOINT,
-        prefix: [
-            {
-                id: 'rdf:',
-                at: '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'
-            },
-            {
-                id: 'rdfs:',
-                at: '<http://www.w3.org/2000/01/rdf-schema#>'
-            },
-            {
-                id: 'transit:',
-                at: '<http://vocab.org/transit/terms/>'
-            },
-            {
-                id: 'soton:',
-                at: '<http://id.southampton.ac.uk/ns/>'
-            },
-            {
-                id: 'skos:',
-                at: '<http://www.w3.org/2004/02/skos/core#>'
-            },
-            {
-                id: 'geo:',
-                at: '<http://www.w3.org/2003/01/geo/wgs84_pos#>'
-            }
-        ],
-        select: [ 'DISTINCT', '?busName', '?routeName'],
-        where: [
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'rdf:type',
-                o: 'soton:BusRoute'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'rdfs:label',
-                o: '?routeName'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'skos:notation',
-                o: '?busName'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'soton:busRouteOperator/rdfs:label',
-                o: '?busOperator'
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'transit:routeStop',
-                o: '?rs1'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs1',
-                p: 'transit:sequence',
-                o: '?n1'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs1',
-                p: 'transit:stop/rdfs:label',
-                o: "[ skos:notation '"+stopActoCode+"'^^soton:bus-stop-id-scheme]"
-            },
-            {
-                type: 'STANDARD',
-                s: '?busRoute',
-                p: 'transit:routeStop',
-                o: '?rs2'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs2',
-                p: 'transit:sequence',
-                o: '?n2'
-            },
-            {
-                type: 'STANDARD',
-                s: '?rs2',
-                p: 'transit:stop/rdfs:label',
-                o: '?stopName2'
-            },
-            {
-                type: 'FILTER',
-                cond: "?n1 < ?n2 && regex(str(?stopName2) , '"+stopNameSimilar+"')"
-            }
-        ]
-    }
-};
-
-//Had to get rid of the pattern matching in filter due to time out issues
+/**
+ * TODO comment
+ * @param startName
+ * @param stopName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busesStartNameStopName = (startName, stopName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -819,7 +666,12 @@ let busesStartNameStopName = (startName, stopName) => {
     }
 };
 
-
+/**
+ * TODO comment
+ * @param busName
+ * @param operatorName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let stopsForGivenBus = (busName, operatorName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -915,6 +767,12 @@ let stopsForGivenBus = (busName, operatorName) => {
     }
 };
 
+/**
+ * TODO comment
+ * @param passedYear
+ * @param passedTerm
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let termDates = (passedYear, passedTerm) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -974,9 +832,7 @@ module.exports = {
     room : room,
     freeRoom : freeRoom,
     busRoutes : busRoutes,
-    busRoutesPlaceNames : busRoutesPlaceNames,
     busRoutesActoCodeStopName: busRoutesActoCodeStopName,
-    busRoutesActoCodeStopNameSimilar: busRoutesActoCodeStopNameSimilar,
     busesStartNameStopName: busesStartNameStopName,
     stopsForGivenBus: stopsForGivenBus,
     termDates: termDates
