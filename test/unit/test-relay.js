@@ -102,7 +102,7 @@ describe('Test relay.js', function () {
 
             let res = 'FAKE RES';
 
-            let stub = sinon.stub(sendMsg, sendMessage); //TODO problem because sendMessage is a module...
+            let stub = sinon.stub(sendMessage, 'sendMessage');
             stub.yields();
 
             relay(req, res);
