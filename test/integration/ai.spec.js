@@ -49,6 +49,7 @@ function buildTest(test){
                 }
 
             }).catch(error => {
+                resetContext(session, i);
                 done(error);
             })
 
