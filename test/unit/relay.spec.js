@@ -10,163 +10,110 @@ let aihandler = require('../../service/ai-handler');
 let env = require('../../config/staging');
 let sendMessage = require('../../service/fb-messaging/send-message');
 
+let req = {};
 
 describe('Test relay.js', function () {
 
-    describe('Test text message', function () {
-
-        it('Should send text to ai-handler with callback of actions.switchOnAction', function() {
-
-            // Setup req
-            let req = {
-                body: {
-                    entry: [
-                        { messaging: [
-                            {
-                                sender: {id: 'test'},
-                                message: {text: 'HI'}
-                            }
-                            ]
-                        }
-                        ]
-                }
-            };
-
-            let res = 'FAKE RES';
-
-            let stub2 = sinon.stub(actions, 'switchOnAction').returns(function() {});
-
-            let stub = sinon.stub(aihandler, 'handleThis');
-            stub.yields();
-
-            relay.relay(req, res);
-            stub.restore();
-            stub2.restore();
-            sinon.assert.calledOnce(stub2);
-            sinon.assert.calledWith(stub2, req, res);
-            sinon.assert.calledOnce(stub);
-            sinon.assert.calledWith(stub, 'HI', 'test');
-
-        });
-
-        it('Should send location payload to ai-handler with callback of actions.switchOnAction', function() {
-
-            // Setup req
-            let req = {
-                body: {
-                    entry: [
-                        { messaging: [
-                            {
-                                sender: {id: 'test'},
-                                message: {attachments: [{payload: {coordinates: { lat: '', long: ''}}}]}
-                            }
-                        ]
+    beforeEach(function(){
+        // Reset request object
+        req = {
+            body: {
+                entry: [
+                    { messaging: [
+                        {
+                            sender: {id: 'test'}
                         }
                     ]
-                }
-            };
+                    }
+                ]
+            }
+        };
+    });
 
-            let res = 'FAKE RES';
+    it('Should send text to ai-handler with callback of actions.switchOnAction', function() {
 
-            let stub2 = sinon.stub(actions, 'switchOnAction').returns(function() {});
+        req.body.entry[0].messaging[0].message = {text: 'HI'};
 
-            let stub = sinon.stub(aihandler, 'handleThis');
-            stub.yields();
+        let res = 'FAKE RES';
 
-            relay.relay(req, res);
-            stub.restore();
-            stub2.restore();
-            sinon.assert.calledOnce(stub2);
-            sinon.assert.calledWith(stub2, req, res);
-            sinon.assert.calledOnce(stub);
-            sinon.assert.calledWith(stub, env.API_AI_HIDDEN_KEYS.COORDINATE, 'test');
+        let stub2 = sinon.stub(actions, 'switchOnAction').returns(function() {});
 
-        });
+        let stub = sinon.stub(aihandler, 'handleThis');
+        stub.yields();
 
-        it("Should call echo with string 'I don't recognize the attachments'", function() {
+        relay.relay(req, res);
+        stub.restore();
+        stub2.restore();
+        sinon.assert.calledOnce(stub2);
+        sinon.assert.calledWith(stub2, req, res);
+        sinon.assert.calledOnce(stub);
+        sinon.assert.calledWith(stub, 'HI', 'test');
 
-            // Setup req
-            let req = {
-                body: {
-                    entry: [
-                        { messaging: [
-                            {
-                                sender: {id: 'test'},
-                                message: {attachments: [{}] }
-                            }
-                        ]
-                        }
-                    ]
-                }
-            };
+    });
 
-            let res = 'FAKE RES';
+    it('Should send location payload to ai-handler with callback of actions.switchOnAction', function() {
 
-            let stub = sinon.stub(relay, 'echo').returns(function() {});
+        req.body.entry[0].messaging[0].message = {attachments: [{payload: {coordinates: { lat: '', long: ''}}}]};
 
-            relay.relay(req, res);
-            stub.restore();
-            sinon.assert.calledOnce(stub);
-            sinon.assert.calledWith(stub, 'test', "I don't recognize the attachments", req, res);
+        let res = 'FAKE RES';
 
-        });
+        let stub2 = sinon.stub(actions, 'switchOnAction').returns(function() {});
 
-        it("Should call echo with string 'I was expecting some attachments'", function() {
+        let stub = sinon.stub(aihandler, 'handleThis');
+        stub.yields();
 
-            // Setup req
-            let req = {
-                body: {
-                    entry: [
-                        { messaging: [
-                            {
-                                sender: {id: 'test'},
-                                message: {}
-                            }
-                        ]
-                        }
-                    ]
-                }
-            };
+        relay.relay(req, res);
+        stub.restore();
+        stub2.restore();
+        sinon.assert.calledOnce(stub2);
+        sinon.assert.calledWith(stub2, req, res);
+        sinon.assert.calledOnce(stub);
+        sinon.assert.calledWith(stub, env.API_AI_HIDDEN_KEYS.COORDINATE, 'test');
 
-            let res = 'FAKE RES';
+    });
 
-            let stub = sinon.stub(relay, 'echo').returns(function() {});
+    it("Should call echo with string 'I don't recognize the attachments'", function() {
 
-            relay.relay(req, res);
-            stub.restore();
-            sinon.assert.calledOnce(stub);
-            sinon.assert.calledWith(stub, 'test', "I was expecting some attachments", req, res);
+        req.body.entry[0].messaging[0].message = {attachments: [{}] };
 
-        });
+        let res = 'FAKE RES';
 
-        it("Should res.sendStatus(200) on miscellaneous message", function() {
+        let stub = sinon.stub(relay, 'echo').returns(function() {});
 
-            // Setup req
-            let req = {
-                body: {
-                    entry: [
-                        { messaging: [
-                            {
-                                sender: {id: 'test'},
-                            }
-                        ]
-                        }
-                    ]
-                }
-            };
+        relay.relay(req, res);
+        stub.restore();
+        sinon.assert.calledOnce(stub);
+        sinon.assert.calledWith(stub, 'test', "I don't recognize the attachments", req, res);
 
-            // Setup res
-            let res = {sendStatus: function (){
-                console.log('This should not print');
-            }};
+    });
 
-            let stub = sinon.stub(res, 'sendStatus').returns(function() {});
+    it("Should call echo with string 'I was expecting some attachments'", function() {
 
-            relay.relay(req, res);
-            stub.restore();
-            sinon.assert.calledOnce(stub);
+        req.body.entry[0].messaging[0].message = {};
 
-        });
+        let res = 'FAKE RES';
+
+        let stub = sinon.stub(relay, 'echo').returns(function() {});
+
+        relay.relay(req, res);
+        stub.restore();
+        sinon.assert.calledOnce(stub);
+        sinon.assert.calledWith(stub, 'test', "I was expecting some attachments", req, res);
+
+    });
+
+    it("Should res.sendStatus(200) on miscellaneous message", function() {
+
+        // Setup res
+        let res = {sendStatus: function (){
+            console.log('This should not print');
+        }};
+
+        let stub = sinon.stub(res, 'sendStatus').returns(function() {});
+
+        relay.relay(req, res);
+        stub.restore();
+        sinon.assert.calledOnce(stub);
 
     });
 
