@@ -61,7 +61,7 @@ describe('Test generated queries', function () {
 
     describe('Test endTermDates and startTermDates query results', function () {
 
-        it('Should terms matching searched year and term', function(done) {
+        it('Should return terms matching searched year and term', function(done) {
 
             let query = stored.termDates("2017", "Summer");
 
