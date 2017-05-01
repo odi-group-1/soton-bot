@@ -170,5 +170,50 @@ let tests = [
                 'term': 'Autumn'
             },
         }
+    },{
+        message: 'Get me to jesters',
+        sessionId: '1600',
+        result: {
+            'action': 'find-bus-from-and-to',
+            'actionIncomplete': true,
+            'parameters': {
+                'busStopDest': 'Aldi Store',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-from-and-to',
+                'actionIncomplete': true,
+                'parameters': {
+                    'busStopDest': 'Aldi Store',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+
+        }
+    },{
+        message: 'How can I get to the civic centre',
+        sessionId: '1601',
+        result: {
+            'action': 'find-bus-from-and-to',
+            'actionIncomplete': true,
+            'parameters': {
+                'busStopDest': 'Civic Centre',
+                'hidden-found-location-key': ''
+            }
+        },
+        followUp: {
+            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            result: {
+                'action': 'find-bus-from-and-to',
+                'actionIncomplete': true,
+                'parameters': {
+                    'busStopDest': 'Civic Centre',
+                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                }
+            }
+        }
     }
 ];
