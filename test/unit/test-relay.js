@@ -4,14 +4,16 @@
 
 let expect = require('chai').expect;
 let relay = require('../../controller/relay');
+let actions = require('../../responses/actions');
 let aihandler = require('../../service/ai-handler');
+let sinon = require('sinon');
 
 
-describe('Test', function () {
+describe('Test relay.js', function () {
 
-    describe('Test', function () {
+    describe('Test text message', function () {
 
-        it('Should', function(done) {
+        it('Should send text to ai-handler with callback of actions.switchOnAction', function() {
 
             // Setup req
             let req = {
@@ -30,10 +32,17 @@ describe('Test', function () {
 
             let res = {};
 
-            relay(req, res, function() {
+            let stub2 = sinon.stub(actions, 'switchOnAction').returns(function() {});
 
-                done();
-            });
+            let stub = sinon.stub(aihandler, 'handleThis');
+            stub.yields();
+
+            relay(req, res);
+            stub.restore();
+            stub2.restore();
+            sinon.assert.calledOnce(stub2);
+            sinon.assert.calledOnce(stub);
+            sinon.assert.calledWith(stub, 'HI', 'test');
 
         });
 
