@@ -82,4 +82,19 @@ describe('Test generated queries', function () {
 
     });
 
+    describe('Test findNearestFood query results', function () {
+
+        it('Should return places where food can be purchased', function(done) {
+
+            let query = stored.food();
+
+            jqc.getOfferings(query, function (foodPlaces) {
+                expect(foodPlaces[0].name.value).to.be.equal('7 Bone Burger Co');
+                done();
+            });
+
+        });
+
+    });
+
 });
