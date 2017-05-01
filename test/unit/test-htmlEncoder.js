@@ -1,3 +1,7 @@
+/**
+ * Tests for the HTML encoder. N.B. no need to test 'encodeURIComponent' as it is built in and already tested
+ */
+
 let expect = require('chai').expect;
 let encoder = require('../../service/sparqlUrlMachine/htmlEncoder');
 
