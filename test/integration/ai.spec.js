@@ -13,15 +13,24 @@ let ai = apiai(env.API_AI_CLIENT_ID);
 
 let tests = require('./test-scenarios');
 
+function resetContext(sessionId, done){
+    ai.textRequest('stop', {sessionId: sessionId})
+        .then(response => done())
+        .catch(error => done(error));
+}
+
 
 function buildTest(test){
 
-    test.forEach(step => {
+    let session = Math.floor(Math.random()*90000) + 10000;
+
+    for ( let i = 0; i < test.length; i++){
+        let step = test[i];
 
         it(step.message, (done) => {
 
             ai.textRequest(step.message, {
-                sessionId: step.sessionId
+                sessionId: session
             }).then(response => {
 
                 let properties = Object.keys(step.result);
@@ -33,14 +42,19 @@ function buildTest(test){
                     expect(actualVal).to.deep.equal(expectVal);
                 }
 
-                done();
+                if (i === step.length - 1) {
+                    resetContext(session, i);
+                } else {
+                    done();
+                }
 
             }).catch(error => {
                 done(error);
             })
 
         });
-    });
+
+    }
 }
 
 describe('API AI Test', () => {

@@ -59,7 +59,7 @@ let tests = [
             'action': 'find-nearest-service',
             'actionIncomplete': false,
             'parameters': {
-                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
                 'offering': 'Contraception'
             }
 
@@ -74,18 +74,18 @@ let tests = [
                 'hidden-found-location-key': '',
                 'offering': 'Alcohol'
             },
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-nearest-service',
-                'actionIncomplete': false,
-                'parameters': {
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                    'offering': 'Alcohol'
-                }
-
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1201',
+        result: {
+            'action': 'find-nearest-service',
+            'actionIncomplete': false,
+            'parameters': {
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+                'offering': 'Alcohol'
             }
+
         }
     }],[{
         message: 'Where can I get coffee?',
@@ -97,16 +97,16 @@ let tests = [
                 'hidden-found-location-key': '',
                 'offering': 'Caffeine'
             },
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-nearest-service',
-                'actionIncomplete': false,
-                'parameters': {
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                    'offering': 'Caffeine'
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1202',
+        result: {
+            'action': 'find-nearest-service',
+            'actionIncomplete': false,
+            'parameters': {
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+                'offering': 'Caffeine'
             }
         }
     }],[{
@@ -139,22 +139,22 @@ let tests = [
             'parameters': {
                 'bookingTime': ''
             },
-        },
-        followUp: {
-            message: '21st July 2018?',
-            result: {
-                'action': 'find-bookable-rooms',
-                'actionIncomplete': false,
-                'parameters': {
-                    'bookingTime': '2018-07-21'
-                },
-            }
+        }
+    }, {
+        message: '21st July 2018?',
+        sessionId: '1401',
+        result: {
+            'action': 'find-bookable-rooms',
+            'actionIncomplete': false,
+            'parameters': {
+                'bookingTime': '2018-07-21'
+            },
         }
     }],[{
         message: 'When does term end?',
         sessionId: '1500',
         result: {
-            'action': 'when-term-start',
+            'action': 'when-term-end',
             'actionIncomplete': false,
             'parameters': {
                 'term': 'Summer'
@@ -180,18 +180,17 @@ let tests = [
                 'busStopDest': 'Aldi Store',
                 'hidden-found-location-key': ''
             }
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-from-and-to',
-                'actionIncomplete': true,
-                'parameters': {
-                    'busStopDest': 'Aldi Store',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1600',
+        result: {
+            'action': 'find-bus-from-and-to',
+            'actionIncomplete': false,
+            'parameters': {
+                'busStopDest': 'Aldi Store',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
-
         }
     }],[{
         message: 'How can I get to the civic centre',
@@ -204,15 +203,15 @@ let tests = [
                 'hidden-found-location-key': ''
             }
         },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-from-and-to',
-                'actionIncomplete': false,
-                'parameters': {
-                    'busStopDest': 'Civic Centre',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        essionId: '1601',
+        result: {
+            'action': 'find-bus-from-and-to',
+            'actionIncomplete': false,
+            'parameters': {
+                'busStopDest': 'Civic Centre',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
         }
     }],[{
@@ -226,17 +225,17 @@ let tests = [
                 'busRoute': 'U1C',
                 'hidden-found-location-key': ''
             }
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-stop-for-route',
-                'actionIncomplete': false,
-                'parameters': {
-                    'busCompany': 'Unilink',
-                    'busRoute': 'U1C',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1700',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': false,
+            'parameters': {
+                'busCompany': 'Unilink',
+                'busRoute': 'U1C',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
         }
     }],[{
@@ -250,17 +249,17 @@ let tests = [
                 'busRoute': 'T3',
                 'hidden-found-location-key': ''
             }
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-stop-for-route',
-                'actionIncomplete': false,
-                'parameters': {
-                    'busCompany': 'Bluestar',
-                    'busRoute': 'T3',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1701',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': false,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': 'T3',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
         }
     }],[{
@@ -274,17 +273,17 @@ let tests = [
                 'busRoute': '7C',
                 'hidden-found-location-key': ''
             }
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-stop-for-route',
-                'actionIncomplete': false,
-                'parameters': {
-                    'busCompany': 'First in Hampshire',
-                    'busRoute': '7C',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1702',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': false,
+            'parameters': {
+                'busCompany': 'First in Hampshire',
+                'busRoute': '7C',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
         }
     }],[{
@@ -296,19 +295,21 @@ let tests = [
             'parameters': {
                 'busCompany': 'Bluestar',
                 'busRoute': '1',
-                'hidden-found-location-key': ''
+                'hidden-found-location-key': '',
+                'key-bus': 'bus'
             }
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-bus-stop-for-route',
-                'actionIncomplete': false,
-                'parameters': {
-                    'busCompany': 'Bluestar',
-                    'busRoute': '1',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1703',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': false,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': '1',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+                'key-bus': 'bus'
             }
         }
     }],[{
@@ -322,30 +323,29 @@ let tests = [
                 'busRoute': '1',
                 'hidden-found-location-key': ''
             }
-        },
-        followUp: {
-            message: 'bluestar',
-            sessionId: '1703',
-            result: {
-                'action': 'find-bus-stop-for-route',
-                'actionIncomplete': true,
-                'parameters': {
-                    'busCompany': 'Bluestar',
-                    'busRoute': '1',
-                    'hidden-found-location-key': ''
-                }
-            },
-            followUp: {
-                message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-                result: {
-                    'action': 'find-bus-stop-for-route',
-                    'actionIncomplete': false,
-                    'parameters': {
-                        'busCompany': 'Bluestar',
-                        'busRoute': '1',
-                        'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                    }
-                }
+        }
+    }, {
+        message: 'bluestar',
+        sessionId: '1703',
+        result: {
+            'action': 'find-bus-stop-for-route',
+            'actionIncomplete': true,
+            'parameters': {
+                'busCompany': 'Bluestar',
+                'busRoute': '1',
+                'hidden-found-location-key': ''
+            }
+        }
+    }, {
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1703',
+        result: {
+        'action': 'find-bus-stop-for-route',
+            'actionIncomplete': false,
+            'parameters': {
+            'busCompany': 'Bluestar',
+                'busRoute': '1',
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan-hidden-key',
             }
         }
     }]
