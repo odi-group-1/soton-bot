@@ -11,7 +11,7 @@ let skills = [{
 },{
     title: 'Find Essentials',
     subtitle: 'Need condoms, an ATM, Pub, Petrol, any service. I will find it for you!',
-    image_url: 'https://docs.oracle.com/cd/E21454_01/html/821-2584/figures/HTTPS_Collab_Sample.png',
+    image_url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
     default_action: {
     type: 'web_url',
         url: 'https://www.openstreetmap.org/?mlat=50.93643&mlon=-1.395894#map=19/50.93643/-1.39589&layers=N',
