@@ -21,7 +21,7 @@ let tests = [
         }
     },{
         message: 'Where is building?',
-        sessionId: '1100',
+        sessionId: '1101',
         result: {
             'action': 'find-building',
             'actionIncomplete': true,
@@ -312,26 +312,39 @@ let tests = [
             }
         }
     },{
-        message: 'Where is the nearest bluestar 1 bus',
-        sessionId: '1703',
+        message: 'Where is the nearest 1 bus',
+        sessionId: '1704',
         result: {
             'action': 'find-bus-stop-for-route',
             'actionIncomplete': true,
             'parameters': {
-                'busCompany': 'Bluestar',
+                'busCompany': '',
                 'busRoute': '1',
                 'hidden-found-location-key': ''
             }
         },
         followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+            message: 'bluestar',
+            sessionId: '1703',
             result: {
                 'action': 'find-bus-stop-for-route',
-                'actionIncomplete': false,
+                'actionIncomplete': true,
                 'parameters': {
                     'busCompany': 'Bluestar',
                     'busRoute': '1',
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                    'hidden-found-location-key': ''
+                }
+            },
+            followUp: {
+                message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+                result: {
+                    'action': 'find-bus-stop-for-route',
+                    'actionIncomplete': false,
+                    'parameters': {
+                        'busCompany': 'Bluestar',
+                        'busRoute': '1',
+                        'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                    }
                 }
             }
         }
