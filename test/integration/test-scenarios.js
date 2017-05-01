@@ -3,12 +3,12 @@
  */
 
 let tests = [
-    {   message: 'Hi',
+    [{   message: 'Hi',
         sessionId: '1000',
         result: {
            'action': 'input.welcome'
         }
-    },{
+    }],[{
         message: 'Where is building 32?',
         sessionId: '1100',
         result: {
@@ -19,29 +19,29 @@ let tests = [
                 'key-building': 'building'
             },
         }
-    },{
+    }],[{
         message: 'Where is building?',
         sessionId: '1101',
         result: {
             'action': 'find-building',
             'actionIncomplete': true,
-            'parameters' : {
+            'parameters': {
                 'buidingNumber': '',
                 'key-building': 'building'
             },
-        },
-        followUp: {
-            message: '32',
-            result: {
-                'action': 'find-building',
-                'actionIncomplete': false,
-                'parameters': {
-                    'buidingNumber': '32',
-                    'key-building': 'building'
-                },
-            }
         }
-    },{
+    }, {
+        message: '32',
+        sessionId: '1002',
+        result: {
+            'action': 'find-building',
+            'actionIncomplete': false,
+            'parameters': {
+                'buidingNumber': '32',
+                'key-building': 'building'
+            },
+        }
+    }],[{
         message: 'Where can I get condoms?',
         sessionId: '1200',
         result: {
@@ -51,20 +51,20 @@ let tests = [
                 'hidden-found-location-key': '',
                 'offering': 'Contraception'
             },
-        },
-        followUp: {
-            message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
-            result: {
-                'action': 'find-nearest-service',
-                'actionIncomplete': false,
-                'parameters': {
-                    'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
-                    'offering': 'Contraception'
-                }
-
-            }
         }
     },{
+        message: 'got-coords--InaDeepakTomShakibStefan-hidden-key',
+        sessionId: '1003',
+        result: {
+            'action': 'find-nearest-service',
+            'actionIncomplete': false,
+            'parameters': {
+                'hidden-found-location-key': 'got-coords--InaDeepakTomShakibStefan',
+                'offering': 'Contraception'
+            }
+
+        }
+    }],[{
         message: 'Where can I get booze?',
         sessionId: '1201',
         result: {
@@ -87,7 +87,7 @@ let tests = [
 
             }
         }
-    },{
+    }],[{
         message: 'Where can I get coffee?',
         sessionId: '1202',
         result: {
@@ -109,7 +109,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Tell me about building 32 room 3001?',
         sessionId: '1300',
         result: {
@@ -120,7 +120,7 @@ let tests = [
                 'room': '3001'
             },
         }
-    },{
+    }],[{
         message: 'Where can I grab a room on 21st July 2018?',
         sessionId: '1400',
         result: {
@@ -130,7 +130,7 @@ let tests = [
                 'bookingTime': '2018-07-21'
             },
         }
-    },{
+    }],[{
         message: 'Where can I grab a room?',
         sessionId: '1401',
         result: {
@@ -150,7 +150,7 @@ let tests = [
                 },
             }
         }
-    },{
+    }],[{
         message: 'When does term end?',
         sessionId: '1500',
         result: {
@@ -160,7 +160,7 @@ let tests = [
                 'term': 'Summer'
             },
         }
-    },{
+    }],[{
         message: 'When does winter term start?',
         sessionId: '1501',
         result: {
@@ -170,7 +170,7 @@ let tests = [
                 'term': 'Autumn'
             },
         }
-    },{
+    }],[{
         message: 'Get me to jesters',
         sessionId: '1600',
         result: {
@@ -193,7 +193,7 @@ let tests = [
             }
 
         }
-    },{
+    }],[{
         message: 'How can I get to the civic centre',
         sessionId: '1601',
         result: {
@@ -215,7 +215,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Where is the nearest U1C',
         sessionId: '1700',
         result: {
@@ -239,7 +239,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Where is the nearest T3',
         sessionId: '1701',
         result: {
@@ -263,7 +263,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Where is the nearest 7C',
         sessionId: '1702',
         result: {
@@ -287,7 +287,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Where is the nearest bluestar 1 bus',
         sessionId: '1703',
         result: {
@@ -311,7 +311,7 @@ let tests = [
                 }
             }
         }
-    },{
+    }],[{
         message: 'Where is the nearest 1 bus',
         sessionId: '1704',
         result: {
@@ -348,5 +348,7 @@ let tests = [
                 }
             }
         }
-    }
+    }]
 ];
+
+module.exports = tests;
