@@ -172,7 +172,7 @@ let clean_times = (str) => {
  * @param cb
  */
 let findNearestFood = (location, cb) => {
-
+//TODO error handling in this method sucks, can crash the app!
     let result = [];
     let ans = "Something went wrong.";
 

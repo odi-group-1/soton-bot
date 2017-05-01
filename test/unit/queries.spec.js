@@ -32,7 +32,7 @@ describe('Test queries.js', function () {
 
             let stubStored = sinon.stub(stored, 'building').returns(undefined);
             let stubJQC = sinon.stub(jqc, 'getOfferings');
-            stubJQC.yields([{}]);
+            stubJQC.yields([{bad: 'BAD_RESULT'}]);
 
             queries.findBuilding('BAD_VALUE', function (result) {
                 stubStored.restore();
@@ -59,4 +59,29 @@ describe('Test queries.js', function () {
         });
     });
 
+    describe('Test findNearestFood', function () {
+
+        it.only("Should", function (done) {
+
+            let location = { lat: 0, long: 0 };
+
+            let stubStored = sinon.stub(stored, 'food').returns(undefined);
+            let stubJQC = sinon.stub(jqc, 'getOfferings');
+            stubJQC.yields( [ { lat: {value: 0},
+                                long: {value: 0},
+                                Business: {value: ' '},
+                                name: {value: ' '}
+                              }
+                            ] );
+
+            queries.findNearestFood(location, function (result) {
+                stubJQC.restore();
+                stubStored.restore();
+                expect(result[0]).to.be.deep.equal({ uri: ' ', lat: 0, long: 0, name: ' ', dist: 0 });
+                done();
+            })
+
+        });
+
+    });
 });
