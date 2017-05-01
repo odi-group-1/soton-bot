@@ -1,9 +1,15 @@
 /**
- * Created by stefan on 24/03/17.
+ * TODO comment
  */
 
 const SOTON_DATA_ENDPOINT = 'http://sparql.data.southampton.ac.uk?output=json&show_inline=0&query=';
 
+/**
+ * TODO comment
+ * @param searchCriteria
+ * @param today
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string, limit: number}}
+ */
 let amenity = (searchCriteria, today) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -58,6 +64,10 @@ let amenity = (searchCriteria, today) => {
     }
 };
 
+/**
+ * TODO comment
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], limit: number}}
+ */
 let food = () => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -106,6 +116,11 @@ let food = () => {
     };
 };
 
+/**
+ * TODO comment
+ * @param buildingId
+ * @returns {{endpoint: string, select: string[], where: *[]}}
+ */
 let building = (buildingId) => {
   return {
       endpoint: SOTON_DATA_ENDPOINT,
@@ -127,6 +142,11 @@ let building = (buildingId) => {
   }
 };
 
+/**
+ * TODO comment
+ * @param room
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string}}
+ */
 let room = (room) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -220,6 +240,13 @@ let room = (room) => {
     };
 };
 
+/**
+ * TODO comment
+ * @param dateSt
+ * @param dateEnd
+ * @param dateNow
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[], group: string, limit: number}}
+ */
 let freeRoom = (dateSt, dateEnd, dateNow) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -324,6 +351,12 @@ let freeRoom = (dateSt, dateEnd, dateNow) => {
     };
 };
 
+/**
+ * TODO comment
+ * @param atcoCode1
+ * @param atcoCode2
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busRoutes = (atcoCode1, atcoCode2) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -423,6 +456,12 @@ let busRoutes = (atcoCode1, atcoCode2) => {
     }
 };
 
+/**
+ * TODO comment
+ * @param stopActoCode
+ * @param stopName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -522,7 +561,12 @@ let busRoutesActoCodeStopName = (stopActoCode, stopName) => {
     }
 };
 
-//Had to get rid of the pattern matching in filter due to time out issues
+/**
+ * TODO comment
+ * @param startName
+ * @param stopName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let busesStartNameStopName = (startName, stopName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -622,7 +666,12 @@ let busesStartNameStopName = (startName, stopName) => {
     }
 };
 
-
+/**
+ * TODO comment
+ * @param busName
+ * @param operatorName
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let stopsForGivenBus = (busName, operatorName) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
@@ -718,6 +767,12 @@ let stopsForGivenBus = (busName, operatorName) => {
     }
 };
 
+/**
+ * TODO comment
+ * @param passedYear
+ * @param passedTerm
+ * @returns {{endpoint: string, prefix: *[], select: string[], where: *[]}}
+ */
 let termDates = (passedYear, passedTerm) => {
     return {
         endpoint: SOTON_DATA_ENDPOINT,
