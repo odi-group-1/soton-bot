@@ -21,7 +21,7 @@ let tests = [
         }
     },{
         message: 'Where is building?',
-        sessionId: '1100',
+        sessionId: '1101',
         result: {
             'action': 'find-building',
             'actionIncomplete': true,
