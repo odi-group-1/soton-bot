@@ -14,7 +14,7 @@ let skills =
             {
                 "type":"postback",
                 "title":"Show Me",
-                "payload":"PAYLOAD-BUILDINGS"
+                "payload":"SKILLS:PAYLOAD-BUILDINGS"
             }       
         ]
     },
@@ -33,7 +33,7 @@ let skills =
             {
                 "type":"postback",
                 "title":"Show Me",
-                "payload":"PAYLOAD-ESSENTIALS"
+                "payload":"SKILLS:PAYLOAD-ESSENTIALS"
             }       
         ]
     },
@@ -52,7 +52,7 @@ let skills =
             {
                 "type":"postback",
                 "title":"Show Me",
-                "payload":"PAYLOAD-EAT"
+                "payload":"SKILLS:PAYLOAD-EAT"
             }       
         ]
     },
@@ -71,7 +71,7 @@ let skills =
             {
                 "type":"postback",
                 "title":"Show Me",
-                "payload":"PAYLOAD-ROOM"
+                "payload":"SKILLS:PAYLOAD-ROOM"
             }       
         ]
     },
@@ -90,7 +90,7 @@ let skills =
             {
                 "type":"postback",
                 "title":"Show Me",
-                "payload":"PAYLOAD-BUS"
+                "payload":"SKILLS:PAYLOAD-BUS"
             }       
         ]
     }
