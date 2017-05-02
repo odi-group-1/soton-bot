@@ -7,7 +7,14 @@ let skills = [{
         url: 'https://media.giphy.com/media/3o7bufy1oZb88O1fOg/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
-    }
+    },
+    buttons:[
+    {
+        "type":"postback",
+        "title":"Start Chatting",
+        "payload":"PAYLOAD-BUILDINGS"
+    }       
+    ]
 },{
     title: 'Find Essentials',
     subtitle: 'Need condoms, an ATM, Pub, Petrol, any service. I will find it for you!',
@@ -17,7 +24,14 @@ let skills = [{
         url: 'https://media.giphy.com/media/l0Iy0B0IqK78EGVSo/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
-    }
+    },
+    buttons:[
+    {
+        "type":"postback",
+        "title":"Start Chatting",
+        "payload":"PAYLOAD-ESSENTIALS"
+    }       
+    ]
 }, {
  
     title: 'Locate Places To Eat',
@@ -28,7 +42,14 @@ let skills = [{
         url: 'https://media.giphy.com/media/l0Iy4RVheMJFwXbLG/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
-    }
+    },
+    buttons:[
+    {
+        "type":"postback",
+        "title":"Start Chatting",
+        "payload":"PAYLOAD-EAT"
+    }       
+    ]
 },{
     title: 'Access Room Details',
     subtitle: 'Need a room, I can find you a room at any time you need and the details about the room.',
@@ -38,7 +59,15 @@ let skills = [{
         url: 'https://media.giphy.com/media/l0Iyc5vgh0kar4UjS/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
-    }
+    },
+    ,
+    buttons:[
+    {
+        "type":"postback",
+        "title":"Start Chatting",
+        "payload":"PAYLOAD-ROOM"
+    }       
+    ]
 },{
     title: 'Help You Get Around',
     subtitle: 'We can help you find your way around Southampton via the expansive bus network.',
@@ -48,7 +77,14 @@ let skills = [{
         url: 'https://media.giphy.com/media/3o7bu0eDBm2WGPFy1i/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
-    }
+    },
+    buttons:[
+    {
+        "type":"postback",
+        "title":"Start Chatting",
+        "payload":"PAYLOAD-BUS"
+    }       
+    ]
 }];
 
 module.exports = {
