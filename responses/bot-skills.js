@@ -30,16 +30,6 @@ let skills = [{
         webview_height_ratio : 'tall',
     }
 },{
-    title: 'Determine Term Times',
-    subtitle: 'Need to know when you get to go home, ask me, I\'ll help remind you when to pack up.', 
-    image_url: 'http://imgur.com/lIdew9J.png',
-    default_action: {
-        type: 'web_url',
-        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
-        messenger_extensions: true,
-        webview_height_ratio : 'tall',
-    }
-},{
     title: 'Access Room Details',
     subtitle: 'Need a room, I can find you a room at any time you need and the details about the room.',
     image_url: 'http://imgur.com/KTGer6F.png',
