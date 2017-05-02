@@ -10,6 +10,7 @@ const aiHandler = require('../service/ai-handler');
 const queries = require('../service/queries');
 const actions = require('../responses/actions');
 const env = require('../config/staging');
+const skills = require('../responses/bot-skills');
 
 const logger = Logger.colorConsole();
 
@@ -43,6 +44,7 @@ let relay = (req, res) => {
 
             // does the message have attachments
             let attachments = event.message.attachments;
+            let postback = event.message.postback;
 
             if (attachments) {
                 let attachment = attachments[0];
@@ -54,6 +56,18 @@ let relay = (req, res) => {
                     // unrecognized attachments
                     relayExport.echo(sender, "I don't recognize the attachments", req, res);
                 }
+            } else if (postback) {
+                let postbackAction = postback.payload.split(':')[0];
+
+                if (postbackAction === 'SKILLS') {
+
+                    let skillGifUrl = skills.skills[postback.payload].default_action.url;
+
+                    relayExport.echo(sender, skillGifUrl, req, res);
+                } else {
+                    relayExport.echo(sender, 'Cannot work with this postback!', req, res);
+                }
+
             } else {
                 // message without text or attachments!
                 relayExport.echo(sender, "I was expecting some attachments", req, res);
