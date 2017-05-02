@@ -13,7 +13,7 @@ let skills =
         buttons:[
             {
                 "type":"postback",
-                "title":"Show Me How",
+                "title":"Show Me",
                 "payload":"PAYLOAD-BUILDINGS"
             }       
         ]
@@ -32,7 +32,7 @@ let skills =
         buttons:[
             {
                 "type":"postback",
-                "title":"Show Me How",
+                "title":"Show Me",
                 "payload":"PAYLOAD-ESSENTIALS"
             }       
         ]
@@ -51,7 +51,7 @@ let skills =
         buttons:[
             {
                 "type":"postback",
-                "title":"Show Me How",
+                "title":"Show Me",
                 "payload":"PAYLOAD-EAT"
             }       
         ]
@@ -70,7 +70,7 @@ let skills =
         buttons:[
             {
                 "type":"postback",
-                "title":"Show Me How",
+                "title":"Show Me",
                 "payload":"PAYLOAD-ROOM"
             }       
         ]
@@ -89,7 +89,7 @@ let skills =
         buttons:[
             {
                 "type":"postback",
-                "title":"Show Me How",
+                "title":"Show Me",
                 "payload":"PAYLOAD-BUS"
             }       
         ]

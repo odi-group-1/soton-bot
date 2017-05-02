@@ -10,7 +10,7 @@ const aiHandler = require('../service/ai-handler');
 const queries = require('../service/queries');
 const actions = require('../responses/actions');
 const env = require('../config/staging');
-const skills = require('../responses/bot-skills');
+const skills = require('../responses/bot-skills').skills;
 
 const logger = Logger.colorConsole();
 
@@ -61,7 +61,7 @@ let relay = (req, res) => {
 
                 if (postbackAction === 'SKILLS') {
 
-                    let skillGifUrl = skills.skills[postback.payload].default_action.url;
+                    let skillGifUrl = skills[postback.payload].default_action.url;
 
                     relayExport.echo(sender, skillGifUrl, req, res);
                 } else {
