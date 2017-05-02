@@ -61,23 +61,36 @@ let relay = (req, res) => {
             }
 
         } else {
-            // not a message, probably a delivery or sent message, reply yes anyway
-            logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
-
             let postback = event.postback;
 
             if (postback) {
+
+                // not a message, probably a delivery or sent message, reply yes anyway
+                logger.log("Received Postback => " + postback.payload);
+
                 let postbackAction = postback.payload.split(':')[0];
 
                 if (postbackAction === 'SKILLS') {
 
                     let skillGifUrl = skills[postback.payload].default_action.url;
+                    let skillGif = {
+                        attachment:{
+                            type: 'image',
+                            payload: {
+                                url:skillGifUrl
+                            }
+                        }
+                    };
 
-                    relayExport.echo(sender, skillGifUrl, req, res);
+                    relayExport.echo(sender, skillGif, req, res);
                 } else {
                     relayExport.echo(sender, 'Developers have not build this feature yet!', req, res);
                 }
             } else {
+
+                // not a message, probably a delivery or sent message, reply yes anyway
+                logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
+
                 res.sendStatus(200);
             }
         }
