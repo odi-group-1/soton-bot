@@ -345,8 +345,8 @@ let endTermDates = (passedTerm) => {
                 terms.forEach( function(resultBinding) {
                     result.push({
                         'name': resultBinding.name.value,
-                        'startDate': new Date(resultBinding.start.value),
-                        'endDate':  new Date(resultBinding.end.value)
+                        'startDate': new Date(resultBinding.startDate.value),
+                        'endDate':  new Date(resultBinding.endDate.value)
                     });
                 });
 
@@ -411,8 +411,8 @@ let startTermDates = (passedTerm) => {
                 terms.forEach( function(resultBinding) {
                     result.push({
                         'name': resultBinding.name.value,
-                        'startDate': new Date(resultBinding.start.value),
-                        'endDate':  new Date(resultBinding.end.value)
+                        'startDate': new Date(resultBinding.startDate.value),
+                        'endDate':  new Date(resultBinding.endDate.value)
                     });
                 });
 
