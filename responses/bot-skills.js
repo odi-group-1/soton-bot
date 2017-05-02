@@ -45,14 +45,14 @@ let skills = [{
     image_url: 'http://imgur.com/KTGer6F.png',
     default_action: {
         type: 'web_url',
-        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
+        url: 'https://media.giphy.com/media/l4FGDDckQkYxaMFyw/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
 },{
     title: 'Help You Get Around',
     subtitle: 'We can help you find your way around Southampton via the expansive bus network.',
-    image_url: 'http://imgur.com/VGEbOwI.png',
+    image_url: 'https://media.giphy.com/media/l4FGHwbeuA8OjZXxe/giphy.gif',
     default_action: {
         type: 'web_url',
         url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
