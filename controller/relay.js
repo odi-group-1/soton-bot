@@ -44,7 +44,6 @@ let relay = (req, res) => {
 
             // does the message have attachments
             let attachments = event.message.attachments;
-            let postback = event.message.postback;
 
             if (attachments) {
                 let attachment = attachments[0];
@@ -56,18 +55,6 @@ let relay = (req, res) => {
                     // unrecognized attachments
                     relayExport.echo(sender, "I don't recognize the attachments", req, res);
                 }
-            } else if (postback) {
-                let postbackAction = postback.payload.split(':')[0];
-
-                if (postbackAction === 'SKILLS') {
-
-                    let skillGifUrl = skills[postback.payload].default_action.url;
-
-                    relayExport.echo(sender, skillGifUrl, req, res);
-                } else {
-                    relayExport.echo(sender, 'Cannot work with this postback!', req, res);
-                }
-
             } else {
                 // message without text or attachments!
                 relayExport.echo(sender, "I was expecting some attachments", req, res);
@@ -76,7 +63,23 @@ let relay = (req, res) => {
         } else {
             // not a message, probably a delivery or sent message, reply yes anyway
             logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
-            res.sendStatus(200);
+
+            let postback = event.message.postback;
+
+            if (postback) {
+                let postbackAction = postback.payload.split(':')[0];
+
+                if (postbackAction === 'SKILLS') {
+
+                    let skillGifUrl = skills[postback.payload].default_action.url;
+
+                    relayExport.echo(sender, skillGifUrl, req, res);
+                } else {
+                    relayExport.echo(sender, 'Developers have not build this feature yet!', req, res);
+                }
+            } else {
+                res.sendStatus(200);
+            }
         }
     }
 };
