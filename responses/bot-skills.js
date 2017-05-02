@@ -11,7 +11,7 @@ let skills = [{
     buttons:[
     {
         "type":"postback",
-        "title":"Start Chatting",
+        "title":"Show Me How",
         "payload":"PAYLOAD-BUILDINGS"
     }       
     ]
@@ -28,7 +28,7 @@ let skills = [{
     buttons:[
     {
         "type":"postback",
-        "title":"Start Chatting",
+        "title":"Show Me How",
         "payload":"PAYLOAD-ESSENTIALS"
     }       
     ]
@@ -46,7 +46,7 @@ let skills = [{
     buttons:[
     {
         "type":"postback",
-        "title":"Start Chatting",
+        "title":"Show Me How",
         "payload":"PAYLOAD-EAT"
     }       
     ]
@@ -64,7 +64,7 @@ let skills = [{
     buttons:[
     {
         "type":"postback",
-        "title":"Start Chatting",
+        "title":"Show Me How",
         "payload":"PAYLOAD-ROOM"
     }       
     ]
@@ -81,7 +81,7 @@ let skills = [{
     buttons:[
     {
         "type":"postback",
-        "title":"Start Chatting",
+        "title":"Show Me How",
         "payload":"PAYLOAD-BUS"
     }       
     ]
