@@ -4,7 +4,7 @@ let skills = [{
     image_url: 'http://imgur.com/5nc6azi.gif',
     default_action: {
         type: 'web_url',
-        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
+        url: 'https://media.giphy.com/media/3o7bufy1oZb88O1fOg/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -14,7 +14,7 @@ let skills = [{
     image_url: 'http://imgur.com/edMFqDQ.png',
     default_action: {
     type: 'web_url',
-        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
+        url: 'https://media.giphy.com/media/l0Iy0B0IqK78EGVSo/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -25,7 +25,7 @@ let skills = [{
     image_url: 'http://imgur.com/htosxDU.png',
     default_action: {
         type: 'web_url',
-        url: 'https://media.giphy.com/media/3ohzdXvB964GLaX7iw/giphy.gif',
+        url: 'https://media.giphy.com/media/l0Iy4RVheMJFwXbLG/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -35,7 +35,7 @@ let skills = [{
     image_url: 'http://imgur.com/KTGer6F.png',
     default_action: {
         type: 'web_url',
-        url: 'https://media.giphy.com/media/l4FGDDckQkYxaMFyw/giphy.gif',
+        url: 'https://media.giphy.com/media/l0Iyc5vgh0kar4UjS/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
@@ -45,7 +45,7 @@ let skills = [{
     image_url: 'http://imgur.com/VGEbOwI.png',
     default_action: {
         type: 'web_url',
-        url: 'https://media.giphy.com/media/l4FGHwbeuA8OjZXxe/giphy.gif',
+        url: 'https://media.giphy.com/media/3o7bu0eDBm2WGPFy1i/giphy.gif',
         messenger_extensions: true,
         webview_height_ratio : 'tall',
     }
