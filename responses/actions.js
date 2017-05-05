@@ -29,7 +29,7 @@ function switchOnAction(req, res){
 
                 case 'bot-skills' :
 
-                    let skillsResponse = createGenericMessengerTemplateAttachment(skills);
+                    let skillsResponse = createGenericMessengerTemplateAttachment(_.values(skills));
 
                     echo(sender, skillsResponse, req, res);
 

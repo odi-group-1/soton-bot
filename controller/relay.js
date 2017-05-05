@@ -10,6 +10,7 @@ const aiHandler = require('../service/ai-handler');
 const queries = require('../service/queries');
 const actions = require('../responses/actions');
 const env = require('../config/staging');
+const skills = require('../responses/bot-skills').skills;
 
 const logger = Logger.colorConsole();
 
@@ -60,9 +61,38 @@ let relay = (req, res) => {
             }
 
         } else {
-            // not a message, probably a delivery or sent message, reply yes anyway
-            logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
-            res.sendStatus(200);
+            let postback = event.postback;
+
+            if (postback) {
+
+                // not a message, probably a delivery or sent message, reply yes anyway
+                logger.log("Received Postback => " + postback.payload);
+
+                let postbackAction = postback.payload.split(':')[0];
+
+                if (postbackAction === 'SKILLS') {
+
+                    let skillGifUrl = skills[postback.payload].default_action.url;
+                    let skillGif = {
+                        attachment:{
+                            type: 'image',
+                            payload: {
+                                url:skillGifUrl
+                            }
+                        }
+                    };
+
+                    relayExport.echo(sender, skillGif, req, res);
+                } else {
+                    relayExport.echo(sender, 'Developers have not build this feature yet!', req, res);
+                }
+            } else {
+
+                // not a message, probably a delivery or sent message, reply yes anyway
+                logger.log("Received Misc message => " + JSON.stringify(event) + " Sending 200 to Bot");
+
+                res.sendStatus(200);
+            }
         }
     }
 };
