@@ -183,7 +183,6 @@ let room = (room) => {
         select: [ '?room',
             '(SAMPLE (?building) AS ?roomBuilding)',
             '(SAMPLE (?type) AS ?roomType)',
-            '(SAMPLE (?access) AS ?roomAccess)',
             '(SAMPLE (?notation) AS ?roomNotation)',
             '(SAMPLE (?img) AS ?roomImage)',
             '(SAMPLE (?capacity) AS ?roomCapacity)'
@@ -206,12 +205,6 @@ let room = (room) => {
                 s: '?room',
                 p: 'rdf:label',
                 o: '?type'
-            },
-            {
-                type: 'STANDARD',
-                s: '?room',
-                p: 'purl:access',
-                o: '?access'
             },
             {
                 type: 'STANDARD',
