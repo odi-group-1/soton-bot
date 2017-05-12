@@ -445,19 +445,19 @@ function switchOnAction(req, res){
                     );
                     break;
 
-                // case "when-term-end":
-                //     // Get the term they asked for
-                //     var term = aiResponse.result.parameters.term;
-                //     // Find the end date for that term
-                //     queries.endTermDates(term, function (stringEndDate) {
-                //         let aiRawSpeech = aiResponse.result.fulfillment.speech;
-                //         echo(sender, aiRawSpeech + " " + stringEndDate, req, res);
-                //
-                //     }, function (errorMessage) {
-                //         // Give some random response
-                //         echo(sender, "Some term error message", req, res);
-                //     });
-                //     break;
+                case "when-term-end":
+                    // Get the term they asked for
+                    var term = aiResponse.result.parameters.term;
+                    // Find the end date for that term
+                    queries.endTermDates(term).then( stringEndDate => {
+                        let aiRawSpeech = aiResponse.result.fulfillment.speech;
+                        echo(sender, aiRawSpeech + " " + stringEndDate, req, res);
+
+                    }).catch(errorMessage =>
+                        // Give some random response
+                        echo(sender, "Some term error message", req, res)
+                    );
+                    break;
 
                 default:
                     if (aiResponse.result.fulfillment && aiResponse.result.fulfillment.speech) {
