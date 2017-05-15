@@ -1,0 +1,202 @@
+{
+  "userSays": [
+    {
+      "id": "d321d515-887e-4215-bcf1-a16ddbb0ba3a",
+      "data": [
+        {
+          "text": "When opens "
+        },
+        {
+          "text": "winter term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "3228784b-dd69-45d9-86e0-c3c6e6b5c662",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "winter term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " opn?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "673c9ef5-fb86-43e2-813b-a4df95739730",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "spring",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " commence?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "8414b5b8-689e-498a-bb57-5baa2f750b1c",
+      "data": [
+        {
+          "text": "When commences "
+        },
+        {
+          "text": "spring",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " ?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1c371828-5e93-4224-bef0-f1c379b604db",
+      "data": [
+        {
+          "text": "Whe begins "
+        },
+        {
+          "text": "autumn term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f5f25e18-3dd6-4b4f-b877-a8e96d886a3c",
+      "data": [
+        {
+          "text": "term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " start"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e7d81897-b6a3-42f1-8623-e70b3556bf4b",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "winter",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " begin?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "637ae445-11fc-4a97-ad37-172004adcaea",
+      "data": [
+        {
+          "text": "When starts "
+        },
+        {
+          "text": "summer term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1ef0512e-d5c6-49f1-a19c-979ab359b7f5",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "summer term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " start?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "9adba9a7-8e58-4adc-8d36-c395d5e2c425",
+  "name": "WHEN START term times",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "when-term-start",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@terms",
+          "name": "term",
+          "value": "$term",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "$term term starts on"
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

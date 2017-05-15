@@ -1,0 +1,163 @@
+{
+  "userSays": [
+    {
+      "id": "a09695e8-f467-45d3-b1da-02ae00840c6b",
+      "data": [
+        {
+          "text": "get me to "
+        },
+        {
+          "text": "jesters",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "57cf87c9-9184-4b02-8eda-2730c7998b00",
+      "data": [
+        {
+          "text": "bus",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " to "
+        },
+        {
+          "text": "giddy bridge",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ebce8ca1-f4bb-4bc3-93e5-2982a775e35f",
+      "data": [
+        {
+          "text": "which "
+        },
+        {
+          "text": "bus",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " gets me to "
+        },
+        {
+          "text": "Oceana",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b3073162-d912-4c1d-ad3f-b4e47c8232c1",
+      "data": [
+        {
+          "text": "what "
+        },
+        {
+          "text": "bus",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " can I take to "
+        },
+        {
+          "text": "jesters",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "858e2789-87fc-448c-8f2b-c86eff24ebb3",
+      "data": [
+        {
+          "text": "How can I go to "
+        },
+        {
+          "text": "Giddy Bridge",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "da5c2774-d015-4b30-9594-92c50d70635a",
+      "data": [
+        {
+          "text": "How can I get to the "
+        },
+        {
+          "text": "Civic Centre",
+          "alias": "busStopDest",
+          "meta": "@bus-stops",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "4a281704-1fec-4e94-8196-67f2740b390d",
+  "name": "FIND bus stop to bus stop",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-from-and-to",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@bus-stops",
+          "name": "busStopDest",
+          "value": "$busStopDest",
+          "prompts": [
+            "Which bus stop did you want to get to?"
+          ],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find the nearest bus stop."
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ah I recognise the bus stop $busStopDest."
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

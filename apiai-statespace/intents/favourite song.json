@@ -1,0 +1,36 @@
+{
+  "userSays": [
+    {
+      "id": "4404b8c0-24bd-4db2-9d09-22dcab6ca2da",
+      "data": [
+        {
+          "text": "What is your favourite song?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "45780b8f-d30c-4921-8a6e-243c81bb7065",
+  "name": "favourite song",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "My favourite song would be technologic by Daft Punk."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

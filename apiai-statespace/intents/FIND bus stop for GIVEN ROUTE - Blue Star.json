@@ -1,0 +1,177 @@
+{
+  "userSays": [
+    {
+      "id": "cc75dfca-1081-44f9-8964-93f938386300",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "first bus",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6ec60722-fff5-4df6-87a3-adc6f724c726",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "T3",
+          "alias": "busRoute",
+          "meta": "@bus-routes-bluestar",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "7400abc0-65ff-4fdb-8ca9-5f9c4d56f1ab",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "u1n",
+          "alias": "busRoute",
+          "meta": "@bus-routes-bluestar",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "74117370-d0a2-4ca2-ad04-d5b6fdac4d13",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "a",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "T3",
+          "alias": "busRoute",
+          "meta": "@bus-routes-bluestar",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "33075439-f628-44d1-b284-8c672d5f3e62",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "T3",
+          "alias": "busRoute",
+          "meta": "@bus-routes-bluestar",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c0124214-3d41-4650-82c5-4caf51e35da3",
+      "data": [
+        {
+          "text": "Where can I find a "
+        },
+        {
+          "text": "BlueStar",
+          "meta": "@sys.ignore",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "502",
+          "alias": "busRoute",
+          "meta": "@bus-routes-bluestar",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5a56e0f0-1a83-4847-9f16-9283c49ba69d",
+  "name": "FIND bus stop for GIVEN ROUTE - Blue Star",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-stop-for-route",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@bus-routes-bluestar",
+          "name": "busRoute",
+          "value": "$busRoute",
+          "prompts": [
+            "Which route did you want?"
+          ],
+          "isList": false
+        },
+        {
+          "required": false,
+          "name": "busCompany",
+          "value": "Bluestar"
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find your nearest the nearest $busRoute stop."
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

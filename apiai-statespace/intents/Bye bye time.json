@@ -1,0 +1,133 @@
+{
+  "userSays": [
+    {
+      "id": "5abdb719-ce54-4cb8-a388-00f13d78b320",
+      "data": [
+        {
+          "text": "Toodleloo"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "df672b37-8e70-4ce2-a3b4-b1fabd07ba02",
+      "data": [
+        {
+          "text": "Bye bye"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "2dfbce5b-436a-46ae-85e5-ef264527d4bb",
+      "data": [
+        {
+          "text": "Asta lavista baby"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "8ad73c59-808b-45ad-8508-968cd64bc84b",
+      "data": [
+        {
+          "text": "bye bye time"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c542816a-d31e-4bde-8d9d-eb8e125e224b",
+      "data": [
+        {
+          "text": "Cya"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5a92d400-fd6a-4bcc-a35d-66d429feeb66",
+      "data": [
+        {
+          "text": "See you later"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2a7e25c5-ebe5-4e4f-8a26-ba95d7154924",
+      "data": [
+        {
+          "text": "See ya"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e9e537c8-f832-4aa6-ba32-b2eae8eaefda",
+      "data": [
+        {
+          "text": "Goodbye"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "184cc4fd-7c0d-4254-a318-e0c27d1a94fa",
+      "data": [
+        {
+          "text": "Adios"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ea53c52b-3857-4f8f-aa32-cc39783a130a",
+      "data": [
+        {
+          "text": "Bye"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "1985cb1e-9f21-41b5-847c-efcff7b073a6",
+  "name": "Bye bye time",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "user-said-bye",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Goodbye.",
+            "Lovely talking to you.",
+            "Bye, see you again!",
+            "Goodbye, have a nice day.",
+            "See you later!"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

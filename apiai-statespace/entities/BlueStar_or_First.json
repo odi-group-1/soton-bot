@@ -1,0 +1,27 @@
+{
+  "id": "d5897143-1b13-4988-a26c-2e7e0a60c707",
+  "name": "BlueStar_or_First",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Bluestar",
+      "synonyms": [
+        "Bluestar",
+        "Blue Star",
+        "Blue Bus",
+        "Blue*"
+      ]
+    },
+    {
+      "value": "First in Hampshire",
+      "synonyms": [
+        "First in Hampshire",
+        "First",
+        "First for Hampshire",
+        "1st"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

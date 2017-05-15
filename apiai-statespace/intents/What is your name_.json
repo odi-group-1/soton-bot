@@ -1,0 +1,75 @@
+{
+  "userSays": [
+    {
+      "id": "79b81af7-41ad-420c-bb9c-17384b8f1928",
+      "data": [
+        {
+          "text": "Who are you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "47bba09d-e583-402f-bd09-d5220021cc0c",
+      "data": [
+        {
+          "text": "Are you called "
+        },
+        {
+          "text": "balrg",
+          "alias": "any",
+          "meta": "@sys.any",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "ffa66889-34bf-48b4-9e74-a9b08da9413e",
+      "data": [
+        {
+          "text": "What are you called?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "9ab4c2fe-25b3-4d4f-83ea-ebe9435c0a8b",
+  "name": "What is your name?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sys.any",
+          "name": "any",
+          "value": "$any",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "My name is \"Soton-Bot\" and I am THE bot for southampton!",
+            ""
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

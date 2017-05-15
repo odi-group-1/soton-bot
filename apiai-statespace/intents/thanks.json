@@ -1,0 +1,61 @@
+{
+  "userSays": [
+    {
+      "id": "6157da1d-db57-442a-9fe2-438d9f83e1c2",
+      "data": [
+        {
+          "text": "Thank you"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f76e6862-ff24-4c0d-8c94-e2d0398da146",
+      "data": [
+        {
+          "text": "Cheers"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e2e2f62d-b99f-49be-aba0-efab6ec5d157",
+      "data": [
+        {
+          "text": "Thanks"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "c2824d9b-170a-4c05-9a4a-df233e4de170",
+  "name": "thanks",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "user-said-thanks",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "My pleasure.",
+            "You are welcome.",
+            "Any time!"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

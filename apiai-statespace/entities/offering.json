@@ -1,0 +1,819 @@
+{
+  "id": "d2b6415c-c196-490e-9e5c-e775d2bd077f",
+  "name": "offering",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Alcohol",
+      "synonyms": [
+        "Alcohol",
+        "Booze",
+        "Pub",
+        "Tavern",
+        "Inn",
+        "Public House",
+        "Bar"
+      ]
+    },
+    {
+      "value": "Soft Drinks",
+      "synonyms": [
+        "Soft Drinks",
+        "Coke",
+        "Pepsi",
+        "Fanta",
+        "Tango",
+        "Sprite",
+        "7up",
+        "Mountain Dew",
+        "Red Bull",
+        "Monster",
+        "Energy Drinks",
+        "Energry Drink",
+        "Cola",
+        "Lemonade"
+      ]
+    },
+    {
+      "value": "Home Insurance",
+      "synonyms": [
+        "Home Insurance   "
+      ]
+    },
+    {
+      "value": "Car Insurance",
+      "synonyms": [
+        "Car Insurance   "
+      ]
+    },
+    {
+      "value": "Travel Insurance",
+      "synonyms": [
+        "Travel Insurance   "
+      ]
+    },
+    {
+      "value": "Bureau de Change",
+      "synonyms": [
+        "Bureau de Change",
+        "Euros"
+      ]
+    },
+    {
+      "value": "Instant Saver Accounts",
+      "synonyms": [
+        "Instant Saver Accounts",
+        "Saver Accounts"
+      ]
+    },
+    {
+      "value": "Mail Re-direction",
+      "synonyms": [
+        "Mail Re-direction",
+        "Mail"
+      ]
+    },
+    {
+      "value": "Home Phone",
+      "synonyms": [
+        "Home Phone   "
+      ]
+    },
+    {
+      "value": "Broadband",
+      "synonyms": [
+        "Broadband    "
+      ]
+    },
+    {
+      "value": "Black and White photocopying",
+      "synonyms": [
+        "Black and White photocopying "
+      ]
+    },
+    {
+      "value": "ATM",
+      "synonyms": [
+        "ATM",
+        "ATM Machine",
+        "Cash Machine",
+        "Cash",
+        "Money Machine",
+        "Money"
+      ]
+    },
+    {
+      "value": "Caffeine",
+      "synonyms": [
+        "Caffeine",
+        "Coffee",
+        "Espresso",
+        "expresso",
+        "late",
+        "mocha",
+        "americano",
+        "costa",
+        "star bucks",
+        "cafe nero",
+        "nero"
+      ]
+    },
+    {
+      "value": "Hot Drinks",
+      "synonyms": [
+        "Hot Drinks",
+        "Tea",
+        "Chai",
+        "Hot Chocolate"
+      ]
+    },
+    {
+      "value": "Gifts",
+      "synonyms": [
+        "Gifts    "
+      ]
+    },
+    {
+      "value": "Beers",
+      "synonyms": [
+        "Beers",
+        "Cider",
+        "Ale"
+      ]
+    },
+    {
+      "value": "Wines",
+      "synonyms": [
+        "Wines",
+        "Wine"
+      ]
+    },
+    {
+      "value": "Spirits",
+      "synonyms": [
+        "Spirits",
+        "Vodka",
+        "Gin",
+        "Rum",
+        "Cognac",
+        "Brandy",
+        "Whiskey",
+        "Jaeger",
+        "Jaeger Bombs",
+        "WKD",
+        "Cocktail",
+        "Cocktails"
+      ]
+    },
+    {
+      "value": "Lotto",
+      "synonyms": [
+        "Lotto",
+        "Lottery Tickets",
+        "Lottery"
+      ]
+    },
+    {
+      "value": "PayPoint",
+      "synonyms": [
+        "PayPoint    "
+      ]
+    },
+    {
+      "value": "Cigarettes",
+      "synonyms": [
+        "Cigarettes",
+        "Fags",
+        "Backie",
+        "Backy",
+        "Tobacco",
+        "Tobaco",
+        "Cigarette",
+        "Cigar",
+        "Cigars"
+      ]
+    },
+    {
+      "value": "Bank Accounts",
+      "synonyms": [
+        "Bank Accounts",
+        "Banks",
+        "HSBC",
+        "Barclays",
+        "Santandear",
+        "Loyds"
+      ]
+    },
+    {
+      "value": "Current Accounts",
+      "synonyms": [
+        "Current Accounts   "
+      ]
+    },
+    {
+      "value": "Books",
+      "synonyms": [
+        "Books    "
+      ]
+    },
+    {
+      "value": "Stationery",
+      "synonyms": [
+        "Stationery",
+        "Pens",
+        "Pencils"
+      ]
+    },
+    {
+      "value": "Hair Styling",
+      "synonyms": [
+        "Hair Styling   "
+      ]
+    },
+    {
+      "value": "Hair Cut",
+      "synonyms": [
+        "Hair Cut   "
+      ]
+    },
+    {
+      "value": "Mail Sending",
+      "synonyms": [
+        "Mail Sending   "
+      ]
+    },
+    {
+      "value": "Art Gallery",
+      "synonyms": [
+        "Art Gallery   "
+      ]
+    },
+    {
+      "value": "Art Exhibitions",
+      "synonyms": [
+        "Art Exhibitions   "
+      ]
+    },
+    {
+      "value": "Theatrical Performances",
+      "synonyms": [
+        "Theatrical Performances   "
+      ]
+    },
+    {
+      "value": "Concerts",
+      "synonyms": [
+        "Concerts    "
+      ]
+    },
+    {
+      "value": "Unleaded Petrol",
+      "synonyms": [
+        "Unleaded Petrol",
+        "Gas",
+        "Fuel"
+      ]
+    },
+    {
+      "value": "Diesel",
+      "synonyms": [
+        "Diesel    "
+      ]
+    },
+    {
+      "value": "Car Wash",
+      "synonyms": [
+        "Car Wash   "
+      ]
+    },
+    {
+      "value": "Petrol",
+      "synonyms": [
+        "Petrol    "
+      ]
+    },
+    {
+      "value": "Garden",
+      "synonyms": [
+        "Garden    "
+      ]
+    },
+    {
+      "value": "Outdoor Seating",
+      "synonyms": [
+        "Outdoor Seating   "
+      ]
+    },
+    {
+      "value": "Pool Table",
+      "synonyms": [
+        "Pool Table",
+        "Snooker"
+      ]
+    },
+    {
+      "value": "Squash Court",
+      "synonyms": [
+        "Squash Court",
+        "Squash"
+      ]
+    },
+    {
+      "value": "Nightclub",
+      "synonyms": [
+        "Nightclub",
+        "Club"
+      ]
+    },
+    {
+      "value": "Cinema",
+      "synonyms": [
+        "Cinema    "
+      ]
+    },
+    {
+      "value": "Prescription Collection",
+      "synonyms": [
+        "Prescription Collection   "
+      ]
+    },
+    {
+      "value": "Pregnancy Testing",
+      "synonyms": [
+        "Pregnancy Testing   "
+      ]
+    },
+    {
+      "value": "Emergency Contraception",
+      "synonyms": [
+        "Emergency Contraception",
+        "Morning after pill"
+      ]
+    },
+    {
+      "value": "Stop smoking help",
+      "synonyms": [
+        "Stop smoking help  "
+      ]
+    },
+    {
+      "value": "Photographic Service",
+      "synonyms": [
+        "Photographic Service   "
+      ]
+    },
+    {
+      "value": "First Aid Products",
+      "synonyms": [
+        "First Aid Products  "
+      ]
+    },
+    {
+      "value": "Public Library",
+      "synonyms": [
+        "Public Library   "
+      ]
+    },
+    {
+      "value": "Computer Use",
+      "synonyms": [
+        "Computer Use   "
+      ]
+    },
+    {
+      "value": "Internet Access",
+      "synonyms": [
+        "Internet Access   "
+      ]
+    },
+    {
+      "value": "Films",
+      "synonyms": [
+        "Films"
+      ]
+    },
+    {
+      "value": "Music",
+      "synonyms": [
+        "Music    "
+      ]
+    },
+    {
+      "value": "Enquiry service",
+      "synonyms": [
+        "Enquiry service   "
+      ]
+    },
+    {
+      "value": "Newspapers",
+      "synonyms": [
+        "Newspapers    "
+      ]
+    },
+    {
+      "value": "Magazines",
+      "synonyms": [
+        "Magazines    "
+      ]
+    },
+    {
+      "value": "Photocopier",
+      "synonyms": [
+        "Photocopier    "
+      ]
+    },
+    {
+      "value": "Business information centre",
+      "synonyms": [
+        "Business information centre  "
+      ]
+    },
+    {
+      "value": "Fax",
+      "synonyms": [
+        "Fax    "
+      ]
+    },
+    {
+      "value": "Photocopying",
+      "synonyms": [
+        "Photocopying    "
+      ]
+    },
+    {
+      "value": "Local studies",
+      "synonyms": [
+        "Local studies   "
+      ]
+    },
+    {
+      "value": "Family history",
+      "synonyms": [
+        "Family history   "
+      ]
+    },
+    {
+      "value": "Maritime collection",
+      "synonyms": [
+        "Maritime collection   "
+      ]
+    },
+    {
+      "value": "Playsets",
+      "synonyms": [
+        "Playsets    "
+      ]
+    },
+    {
+      "value": "Music scores",
+      "synonyms": [
+        "Music scores   "
+      ]
+    },
+    {
+      "value": "Reading groups",
+      "synonyms": [
+        "Reading groups   "
+      ]
+    },
+    {
+      "value": "Police Enquiry Office",
+      "synonyms": [
+        "Police Enquiry Office",
+        "Police",
+        "Bobbies",
+        "Coppers",
+        "Po po",
+        "Poh poh"
+      ]
+    },
+    {
+      "value": "Childhood immunisations",
+      "synonyms": [
+        "Childhood immunisations   "
+      ]
+    },
+    {
+      "value": "Contraception",
+      "synonyms": [
+        "Contraception",
+        "Condoms",
+        "Pill",
+        "Pills",
+        "combined pill",
+        "jonnies",
+        "johnies",
+        "jonnys",
+        "rubber",
+        "hot socks",
+        "condom",
+        "condoms"
+      ]
+    },
+    {
+      "value": "Diabetic care",
+      "synonyms": [
+        "Diabetic care   "
+      ]
+    },
+    {
+      "value": "Drug advice",
+      "synonyms": [
+        "Drug advice   "
+      ]
+    },
+    {
+      "value": "Alcohol advice",
+      "synonyms": [
+        "Alcohol advice   "
+      ]
+    },
+    {
+      "value": "Foreign travel advice",
+      "synonyms": [
+        "Foreign travel advice  "
+      ]
+    },
+    {
+      "value": "Vaccination",
+      "synonyms": [
+        "Vaccination",
+        "Vaccines",
+        "Vacinated"
+      ]
+    },
+    {
+      "value": "Flu vaccination",
+      "synonyms": [
+        "Flu vaccination",
+        "Flu vaccines"
+      ]
+    },
+    {
+      "value": "Maternity care",
+      "synonyms": [
+        "Maternity care   "
+      ]
+    },
+    {
+      "value": "Meningitis advice",
+      "synonyms": [
+        "Meningitis advice   "
+      ]
+    },
+    {
+      "value": "Minor surgery",
+      "synonyms": [
+        "Minor surgery   "
+      ]
+    },
+    {
+      "value": "Sexual health",
+      "synonyms": [
+        "Sexual health   "
+      ]
+    },
+    {
+      "value": "Sports injury",
+      "synonyms": [
+        "Sports injury   "
+      ]
+    },
+    {
+      "value": "Physiotherapy",
+      "synonyms": [
+        "Physiotherapy    "
+      ]
+    },
+    {
+      "value": "Mother and Baby Clinic",
+      "synonyms": [
+        "Mother and Baby Clinic "
+      ]
+    },
+    {
+      "value": "Airmail",
+      "synonyms": [
+        "Airmail    "
+      ]
+    },
+    {
+      "value": "Business parcels",
+      "synonyms": [
+        "Business parcels   "
+      ]
+    },
+    {
+      "value": "Courier services",
+      "synonyms": [
+        "Courier services   "
+      ]
+    },
+    {
+      "value": "Dangerous goods carriage",
+      "synonyms": [
+        "Dangerous goods carriage  "
+      ]
+    },
+    {
+      "value": "Dry ice",
+      "synonyms": [
+        "Dry ice   "
+      ]
+    },
+    {
+      "value": "Freight forwarding",
+      "synonyms": [
+        "Freight forwarding   "
+      ]
+    },
+    {
+      "value": "Inland letter post",
+      "synonyms": [
+        "Inland letter post  "
+      ]
+    },
+    {
+      "value": "Internal post",
+      "synonyms": [
+        "Internal post   "
+      ]
+    },
+    {
+      "value": "Mail priority services",
+      "synonyms": [
+        "Mail priority services  "
+      ]
+    },
+    {
+      "value": "Mail shot",
+      "synonyms": [
+        "Mail shot   "
+      ]
+    },
+    {
+      "value": "Presstream",
+      "synonyms": [
+        "Presstream    "
+      ]
+    },
+    {
+      "value": "Response services",
+      "synonyms": [
+        "Response services   "
+      ]
+    },
+    {
+      "value": "Same day Mail",
+      "synonyms": [
+        "Same day Mail  "
+      ]
+    },
+    {
+      "value": "Hospital",
+      "synonyms": [
+        "Hospital    "
+      ]
+    },
+    {
+      "value": "Emergency Department",
+      "synonyms": [
+        "Emergency Department   "
+      ]
+    },
+    {
+      "value": "Public Telephone",
+      "synonyms": [
+        "Public Telephone   "
+      ]
+    },
+    {
+      "value": "Sculpture",
+      "synonyms": [
+        "Sculpture    "
+      ]
+    },
+    {
+      "value": "University Library",
+      "synonyms": [
+        "University Library   "
+      ]
+    },
+    {
+      "value": "Long Distance Coaches",
+      "synonyms": [
+        "Long Distance Coaches",
+        "National Express"
+      ]
+    },
+    {
+      "value": "Coach Travel",
+      "synonyms": [
+        "Coach Travel",
+        "National Express"
+      ]
+    },
+    {
+      "value": "Ticket Office",
+      "synonyms": [
+        "Ticket Office   "
+      ]
+    },
+    {
+      "value": "Waiting Room",
+      "synonyms": [
+        "Waiting Room   "
+      ]
+    },
+    {
+      "value": "Train Travel",
+      "synonyms": [
+        "Train Travel",
+        "Train",
+        "Train Station"
+      ]
+    },
+    {
+      "value": "Air Travel",
+      "synonyms": [
+        "Air Travel",
+        "Airport",
+        "Catch Flight"
+      ]
+    },
+    {
+      "value": "Ferry Travel",
+      "synonyms": [
+        "Ferry Travel   "
+      ]
+    },
+    {
+      "value": "Car Parking",
+      "synonyms": [
+        "Car Parking",
+        "Parking",
+        "Parking Car",
+        "park my car"
+      ]
+    },
+    {
+      "value": "Pay on Foot Car Parking",
+      "synonyms": [
+        "Pay on Foot Car Parking"
+      ]
+    },
+    {
+      "value": "Pay and Display Car Parking",
+      "synonyms": [
+        "Pay and Display Car Parking",
+        "Parking"
+      ]
+    },
+    {
+      "value": "Mixed Recycling Collection",
+      "synonyms": [
+        "Mixed Recycling Collection",
+        "Recycling"
+      ]
+    },
+    {
+      "value": "General Waste Collection",
+      "synonyms": [
+        "General Waste Collection",
+        "Dump"
+      ]
+    },
+    {
+      "value": "Food Waste Recycling Collection",
+      "synonyms": [
+        "Food Waste Recycling Collection "
+      ]
+    },
+    {
+      "value": "Bicycle Parking",
+      "synonyms": [
+        "Bicycle Parking   "
+      ]
+    },
+    {
+      "value": "Bicycle Secure Storage Passes",
+      "synonyms": [
+        "Bicycle Secure Storage Passes "
+      ]
+    },
+    {
+      "value": "University Parking Permits",
+      "synonyms": [
+        "University Parking Permits  "
+      ]
+    },
+    {
+      "value": "Glass Recycling Collection",
+      "synonyms": [
+        "Glass Recycling Collection"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

@@ -1,0 +1,32 @@
+{
+  "id": "d7ca9828-9ec8-49e3-8fea-26af6cd9953d",
+  "name": "they-want-food",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "munch",
+      "synonyms": [
+        "munch",
+        "place to eat",
+        "food",
+        "hungry"
+      ]
+    },
+    {
+      "value": "eat",
+      "synonyms": [
+        "eat"
+      ]
+    },
+    {
+      "value": "sandwich",
+      "synonyms": [
+        "sandwich",
+        "burger",
+        "chips"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

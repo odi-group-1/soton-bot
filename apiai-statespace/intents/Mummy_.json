@@ -1,0 +1,57 @@
+{
+  "userSays": [
+    {
+      "id": "4306fe52-0948-42b3-891e-e1d247b92b39",
+      "data": [
+        {
+          "text": "Who is your mum?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "721300ac-a207-4663-967b-c8e2831916bd",
+      "data": [
+        {
+          "text": "Who is your mother?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c939eba4-1ea7-4310-a023-424d270424cd",
+      "data": [
+        {
+          "text": "Who is your mummy?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5bfb96f8-aaff-4746-9658-9b599e216db2",
+  "name": "Mummy?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "mummy?",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ina is my mother."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

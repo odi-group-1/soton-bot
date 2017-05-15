@@ -1,0 +1,66 @@
+{
+  "userSays": [
+    {
+      "id": "259ff7ae-47a3-4fc9-ac12-dcba2d687815",
+      "data": [
+        {
+          "text": "Wow"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "74c4e6fd-5261-434a-8e31-4aa0512af399",
+      "data": [
+        {
+          "text": "Awesome"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b62d9208-060e-4874-9a35-b189154a6616",
+      "data": [
+        {
+          "text": "Cheers"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c025f845-5310-4c60-a290-a36ba254a61c",
+      "data": [
+        {
+          "text": "Cool"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "cdf30e25-c234-4497-8151-25acb99a9875",
+  "name": "Wow",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here to please 😎"
+        }
+      ]
+    }
+  ],
+  "priority": 250000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

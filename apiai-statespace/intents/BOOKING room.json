@@ -1,0 +1,264 @@
+{
+  "userSays": [
+    {
+      "id": "f6135bd3-7f22-4b14-bad7-06f45df8d808",
+      "data": [
+        {
+          "text": "Can i book a room "
+        },
+        {
+          "text": "tomorrow",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time"
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6dd99df1-daf1-4b7c-bb93-ae8989e4b09b",
+      "data": [
+        {
+          "text": "book a room "
+        },
+        {
+          "text": "next week monday",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "870aa1df-c5d8-4102-9bab-4d82f9edfd8e",
+      "data": [
+        {
+          "text": "book a room "
+        },
+        {
+          "text": "monday nexft week",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0e0997f1-e54e-4634-9fff-a47484d5e726",
+      "data": [
+        {
+          "text": "book room "
+        },
+        {
+          "text": "tomorrow",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "cf47f975-9016-4ccf-bdde-f0165367a19f",
+      "data": [
+        {
+          "text": "book room "
+        },
+        {
+          "text": "monday next week",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f1743998-4ea8-4021-9689-5c1d45631def",
+      "data": [
+        {
+          "text": "Can I grab a room "
+        },
+        {
+          "text": "8pm",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6adfb7d1-3b2c-4f82-a0e5-cfb8fe79a0ed",
+      "data": [
+        {
+          "text": "Can I have a room "
+        },
+        {
+          "text": "7pm tomorrow",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "508d655e-1415-428e-860e-a074c7bb1b41",
+      "data": [
+        {
+          "text": "Can we get a room "
+        },
+        {
+          "text": "tomorrow",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "83538c21-2ebb-44bb-927e-23ca0e7e7d14",
+      "data": [
+        {
+          "text": "What rooms are free "
+        },
+        {
+          "text": "today",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "5b817573-c663-4b27-bcf4-e18757a032cb",
+      "data": [
+        {
+          "text": "Where can I get a room "
+        },
+        {
+          "text": "today",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "39778f96-5125-4e0c-bbc3-f316b02e5cbe",
+      "data": [
+        {
+          "text": "Where can I grab a room "
+        },
+        {
+          "text": "today",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9f9af7a2-2343-49c2-8d54-990c85637db6",
+      "data": [
+        {
+          "text": "When can I grab a room "
+        },
+        {
+          "text": "today",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "8615fb19-c357-4ff2-97fa-51515fea603e",
+      "data": [
+        {
+          "text": "Where can I grab a room at "
+        },
+        {
+          "text": "5pm",
+          "alias": "bookingTime",
+          "meta": "@sys.date-time",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "81282d6c-6f8d-470e-889a-2d2eb9a72c40",
+  "name": "BOOKING room",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bookable-rooms",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.date-time",
+          "name": "bookingTime",
+          "value": "$bookingTime",
+          "prompts": [
+            "When do you want the room?"
+          ],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I cannot find anywhere available at $bookingTime, try another time. \nHint: Rooms tend to become empty after 5pm."
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,314 @@
+{
+  "userSays": [
+    {
+      "id": "cb717dfd-8195-4266-b7ba-6af2dbef7fe9",
+      "data": [
+        {
+          "text": "parking",
+          "alias": "offering",
+          "meta": "@offering"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ae4184cb-4811-4154-ab27-2ba19d3a58f3",
+      "data": [
+        {
+          "text": "coffee",
+          "alias": "offering",
+          "meta": "@offering"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "d5411357-306b-4ec3-ad1d-a8c70e0f2101",
+      "data": [
+        {
+          "text": "Where can I buy a "
+        },
+        {
+          "text": "cocktail",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "6cb40d83-fc06-46ee-b57e-18ab5588ee60",
+      "data": [
+        {
+          "text": "Where is the "
+        },
+        {
+          "text": "wine",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "8fbe743f-d0d2-4c67-bfe8-216a2d6d7536",
+      "data": [
+        {
+          "text": "Where is the "
+        },
+        {
+          "text": "beer",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "d91bc86c-e825-4c53-8265-a89043cde9d3",
+      "data": [
+        {
+          "text": "Where can I locate "
+        },
+        {
+          "text": "travel insurance",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "77dfd993-a3d3-43e2-ae5a-7927b9a83458",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "condoms",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "029cef3c-b8b7-452f-9efd-b0d6c855b482",
+      "data": [
+        {
+          "text": "Where can I find an "
+        },
+        {
+          "text": "atm",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "99e5b46d-d799-4f6c-b184-2df820804d96",
+      "data": [
+        {
+          "text": "Where can I buy "
+        },
+        {
+          "text": "condoms",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "aa018ccd-ac95-47dc-8abd-c1cad1ddfbb6",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "Dry Ice",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "07028251-7387-4a36-9478-12d5b5fa5f03",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "contraception",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f75def87-e349-42ee-9b54-dec7efc33aff",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "alcohol",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0e3cd463-34a0-42ca-a1d5-c484308a531b",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "snacks",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "06379d95-b7c8-484f-97e6-78d8097dc50c",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "Hot Drinks",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c12bf9ec-d7e4-4679-8305-fb9d207cdf19",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "atm",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "009579f1-d541-430e-b9cc-b65621ff05b0",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "alcohol",
+          "alias": "offering",
+          "meta": "@offering",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "45f54a12-7b3d-4397-a66c-5b1bd6b2e02e",
+  "name": "FIND NEAREST service",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-nearest-service",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@offering",
+          "name": "offering",
+          "value": "$offering",
+          "prompts": [
+            "What was it you were looking for?",
+            "Sorry, I don\u0027t understand what you were looking for?",
+            "I don\u0027t think I know what that is, try something similar."
+          ],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find you the nearest one."
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here are your nearest places to get $offering."
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

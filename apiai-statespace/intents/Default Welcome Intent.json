@@ -1,0 +1,168 @@
+{
+  "userSays": [
+    {
+      "id": "d559c227-85ae-4c53-80fa-f8575474f411",
+      "data": [
+        {
+          "text": "Good morning"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "94ad66ea-3798-451f-81ec-76fec673627f",
+      "data": [
+        {
+          "text": "Good evening"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e3bd5f91-eec0-4b2d-8a0f-64690dc4f08d",
+      "data": [
+        {
+          "text": "Good afternoon"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3f86ba3d-6856-45bd-98bd-c5ce9d60ce06",
+      "data": [
+        {
+          "text": "Morning",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "bb869a33-197a-4891-b329-2d62e32abb3f",
+      "data": [
+        {
+          "text": "Hola"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c7a9d5d3-1699-4506-8eb9-19a7ba8ca230",
+      "data": [
+        {
+          "text": "Hey"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6da5335e-ed89-458f-8403-e5d2bd542bb8",
+      "data": [
+        {
+          "text": "Yo"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "cdff7d02-d935-4a56-94b7-2aff16abb6f0",
+      "data": [
+        {
+          "text": "Sup"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1a3285b3-e0a8-461d-8230-ea528766be7c",
+      "data": [
+        {
+          "text": "Hello?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e3424bad-fb7b-4ea2-beaa-4eb01ebdf030",
+      "data": [
+        {
+          "text": "Hi there"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0757bd86-2462-4080-8355-5cc2090b87d5",
+      "data": [
+        {
+          "text": "Grettings"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5c6cec9a-4da5-4723-a2b2-550fe7ab0a84",
+      "data": [
+        {
+          "text": "Hello"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3eddfd10-f65a-4a35-9a28-20b50801c624",
+      "data": [
+        {
+          "text": "Hi"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "b33bdd15-5765-49b1-aa56-a39dfdab069c",
+  "name": "Default Welcome Intent",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "input.welcome",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Hi!",
+            "Hello!",
+            "Good day!",
+            "Greetings!"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": [
+    {
+      "name": "WELCOME"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "userSays": [
+    {
+      "id": "4196231e-ee1b-4db7-acac-6cf28f1e5a0d",
+      "data": [
+        {
+          "text": "Show me how to get "
+        },
+        {
+          "text": "a",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3a70eb76-505b-4582-8520-780e0f548f1f",
+      "data": [
+        {
+          "text": "Show me how to get around"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "617df5a1-9c96-4b59-8f4c-d119bc589c9f",
+  "name": "SHOW ME HOW Help You Get Around",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "show-me",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "link",
+          "value": "https://media.giphy.com/media/3o7bu0eDBm2WGPFy1i/giphy.gif"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Here is a GIF demo on how to find bus stops:\nhttps://media.giphy.com/media/3o7bu0eDBm2WGPFy1i/giphy.gif",
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

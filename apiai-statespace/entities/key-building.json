@@ -1,0 +1,16 @@
+{
+  "id": "898f2b05-b80d-46fd-8056-5cfbf09be528",
+  "name": "key-building",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "building",
+      "synonyms": [
+        "building",
+        "buildin"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

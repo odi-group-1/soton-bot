@@ -1,0 +1,33 @@
+{
+  "id": "6fb2af0f-62fd-4d49-a01d-193dffd36e2c",
+  "name": "terms",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Autumn",
+      "synonyms": [
+        "Autumn",
+        "Autumn Term",
+        "Winter Term",
+        "Winter"
+      ]
+    },
+    {
+      "value": "Spring",
+      "synonyms": [
+        "Spring",
+        "Spring Term"
+      ]
+    },
+    {
+      "value": "Summer",
+      "synonyms": [
+        "Summer",
+        "Summer Term",
+        "Term"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

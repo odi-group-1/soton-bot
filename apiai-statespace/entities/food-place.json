@@ -1,0 +1,34 @@
+{
+  "id": "a24b248c-51c3-4333-882f-416273c89af2",
+  "name": "food-place",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "cafe",
+      "synonyms": [
+        "cafe",
+        "piazza",
+        "place to eat"
+      ]
+    },
+    {
+      "value": "restaurant",
+      "synonyms": [
+        "restaurant"
+      ]
+    },
+    {
+      "value": "food",
+      "synonyms": [
+        "chips",
+        "mash",
+        "munch",
+        "food",
+        "snacks",
+        "snack"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

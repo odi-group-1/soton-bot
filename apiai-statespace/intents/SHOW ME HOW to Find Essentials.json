@@ -1,0 +1,42 @@
+{
+  "userSays": [
+    {
+      "id": "f63372b7-5a80-4383-a724-d889f0978801",
+      "data": [
+        {
+          "text": "Show me how to Find Essentials"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "15f6f82b-bf06-40d4-b881-20887c922a61",
+  "name": "SHOW ME HOW to Find Essentials",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "show-me",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "link",
+          "value": "https://media.giphy.com/media/l0Iy0B0IqK78EGVSo/giphy.gif"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here is a GIF demo on how to find essentials:\nhttps://media.giphy.com/media/l0Iy0B0IqK78EGVSo/giphy.gif"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

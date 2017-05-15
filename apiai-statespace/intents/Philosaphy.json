@@ -1,0 +1,66 @@
+{
+  "userSays": [
+    {
+      "id": "3f66990b-6670-490d-b2c7-a8c9120e4e0e",
+      "data": [
+        {
+          "text": "What is the meaning to life and everythings?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a4ebfb95-e5ac-4fb1-b717-3f98713c288c",
+      "data": [
+        {
+          "text": "What is the meaning to life and everything?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "aecffee0-df83-473d-8936-e0ce98bf5bd4",
+      "data": [
+        {
+          "text": "What is the meaning of life?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f308be09-36e1-4cb1-8fd8-f2fadc3d197f",
+      "data": [
+        {
+          "text": "What is life?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "b5363cc9-1ea6-41be-b7e3-725a5c82ee97",
+  "name": "Philosaphy",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "The answer to life and everything is 42."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

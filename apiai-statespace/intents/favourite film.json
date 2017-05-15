@@ -1,0 +1,46 @@
+{
+  "userSays": [
+    {
+      "id": "c392cc14-906d-451e-859e-e042097ca42c",
+      "data": [
+        {
+          "text": "What is your favourite movie?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "00541c91-4019-4cc1-8f27-57cc6e8bc70e",
+      "data": [
+        {
+          "text": "What is your favourite film?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "1903981a-6ef5-49df-9420-3746fae02c57",
+  "name": "favourite film",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "My favourite song is iRobot, it\u0027s a shame that Will Smith won in the end. 😞"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

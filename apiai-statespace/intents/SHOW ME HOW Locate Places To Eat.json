@@ -1,0 +1,43 @@
+{
+  "userSays": [
+    {
+      "id": "4b36e018-59c5-4fd6-b047-651b7d4505f6",
+      "data": [
+        {
+          "text": "show me how to Locate Places To Eat"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "67d9f17e-0d0e-442f-926c-f7351d0e5b16",
+  "name": "SHOW ME HOW Locate Places To Eat",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "show-me",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "",
+          "name": "link",
+          "value": "https://media.giphy.com/media/l0Iy4RVheMJFwXbLG/giphy.gif"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here is a GIF demo on how to locate places to eat\nhttps://media.giphy.com/media/l0Iy4RVheMJFwXbLG/giphy.gif"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,62 @@
+{
+  "userSays": [
+    {
+      "id": "30e1eff0-a402-42d4-be7f-3e17b35ab5eb",
+      "data": [
+        {
+          "text": "how can i Discover Campus "
+        },
+        {
+          "text": "Buildings",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6edc615b-f959-48d4-a7e6-1991fea2be7d",
+      "data": [
+        {
+          "text": "Show me how to Discover Campus "
+        },
+        {
+          "text": "Buildings",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "b660296e-c84b-4bac-abb6-787b7aa283af",
+  "name": "SHOW ME HOW to Discover Campus Buildings",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "show-me",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "link",
+          "value": "https://media.giphy.com/media/3o7bufy1oZb88O1fOg/giphy.gif"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here is a GIF demo on how to find buildings on campus:\nhttps://media.giphy.com/media/3o7bufy1oZb88O1fOg/giphy.gif"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

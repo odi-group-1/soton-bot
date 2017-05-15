@@ -1,0 +1,46 @@
+{
+  "userSays": [
+    {
+      "id": "4bce0b07-2173-4a7d-9a83-6aed7ac2841f",
+      "data": [
+        {
+          "text": "where is the nearest bus stop?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "c528963c-5bf1-4b9c-a058-e178707528db",
+  "name": "FIND NEAREST Bus Stop",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-nearest-bus-stop",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin"
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

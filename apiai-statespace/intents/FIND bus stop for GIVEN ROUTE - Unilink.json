@@ -1,0 +1,204 @@
+{
+  "userSays": [
+    {
+      "id": "0854f3f1-9079-4c7f-87cc-37d6ea201f3e",
+      "data": [
+        {
+          "text": "where is the next unilink?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "afe163ba-1df2-4482-a5c5-925eee8db938",
+      "data": [
+        {
+          "text": "where can I get a "
+        },
+        {
+          "text": "U1C",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink"
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "87ecf33e-d161-489c-af93-35382deee644",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "u1c",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "d0489de9-0ad9-4caa-9987-4ab3220442bd",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "U1C",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a480e04e-b6a9-48b9-afa6-796ad8d2344a",
+      "data": [
+        {
+          "text": "Where can I grab "
+        },
+        {
+          "text": "a",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "U1C",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "52706511-029e-4ce9-b9b6-9682ffd07982",
+      "data": [
+        {
+          "text": "Where can I take "
+        },
+        {
+          "text": "U1C",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a42764c3-40ea-4d18-9d58-a546f16c0bc9",
+      "data": [
+        {
+          "text": "Where is the "
+        },
+        {
+          "text": "Unilink",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "U1A",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "118ad5ec-6b64-4ff8-8810-34dd1ba94dbb",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "U1C",
+          "alias": "busRoute",
+          "meta": "@bus-routes-unilink",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "35bf58cc-591f-4663-9b30-b7f2b104c787",
+  "name": "FIND bus stop for GIVEN ROUTE - Unilink",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-stop-for-route",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@bus-routes-unilink",
+          "name": "busRoute",
+          "value": "$busRoute",
+          "prompts": [
+            "Which route did you want?"
+          ],
+          "isList": false
+        },
+        {
+          "name": "busCompany",
+          "value": "Unilink"
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find your nearest the nearest $busRoute stop."
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

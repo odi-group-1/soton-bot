@@ -1,0 +1,16 @@
+{
+  "id": "acbac3e1-bc40-4f49-8ea0-d64b7f7ebae1",
+  "name": "key-bus",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "bus",
+      "synonyms": [
+        "bus",
+        "Bus"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

@@ -1,0 +1,60 @@
+{
+  "userSays": [
+    {
+      "id": "2d843011-df69-40b0-829c-ca3d6ddb5838",
+      "data": [
+        {
+          "text": "Could you love me?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "170b3cb2-8d01-40bc-8900-e8e5b10b99ba",
+      "data": [
+        {
+          "text": "I\u0027m single"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e25d85d4-e494-4e0d-8dd4-0a46bb292317",
+      "data": [
+        {
+          "text": "I love you"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    }
+  ],
+  "id": "07af1a7d-691e-49d6-ad5b-4d6787463c2f",
+  "name": "I love you",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "love-at-bot",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "I appreciate you too.",
+            "You will find someone."
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

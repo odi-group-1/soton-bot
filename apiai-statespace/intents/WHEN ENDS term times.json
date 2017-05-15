@@ -1,0 +1,250 @@
+{
+  "userSays": [
+    {
+      "id": "8343bf6b-9183-4f90-983f-259cf781cad2",
+      "data": [
+        {
+          "text": "term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " finshining"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "8e8694c3-c8c5-45f4-9ba7-68d13efdd1b7",
+      "data": [
+        {
+          "text": "autumn",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " end"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6be1eef7-563b-42b8-8f31-eb1bbdeecc25",
+      "data": [
+        {
+          "text": "autumn",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " over"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0ea05aca-b4fc-458c-a7e6-61cc534f748a",
+      "data": [
+        {
+          "text": "When is "
+        },
+        {
+          "text": "term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " finishing?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "7147be4a-af62-4ba3-a634-8cfe1f8d6ac1",
+      "data": [
+        {
+          "text": "When closes "
+        },
+        {
+          "text": "autumn term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c97e2aa1-f0f8-4c49-88ae-2e838f48da0c",
+      "data": [
+        {
+          "text": "when does "
+        },
+        {
+          "text": "term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " finalise?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5cc325e8-4209-4eec-8869-e4da8d105979",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " finalize?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "20ac5f42-d60b-4a3d-899d-d54ec916f4db",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "winter term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " finish?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0c247be3-f1ed-41b3-a6d6-82a5640c08b2",
+      "data": [
+        {
+          "text": "When is "
+        },
+        {
+          "text": "autumn term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " over?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "16aa9084-c9ea-4c50-b18f-0065921b5d63",
+      "data": [
+        {
+          "text": "when ends "
+        },
+        {
+          "text": "spring term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "64e66159-7765-4d0a-9e8a-f6f6cf2532e9",
+      "data": [
+        {
+          "text": "when does "
+        },
+        {
+          "text": "summer term",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " end?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "bc303698-5501-420e-b79a-d84166d8d2fe",
+      "data": [
+        {
+          "text": "When does "
+        },
+        {
+          "text": "summer",
+          "alias": "term",
+          "meta": "@terms",
+          "userDefined": false
+        },
+        {
+          "text": " end?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "a84f7c4f-8580-4424-9b68-351bf093d35b",
+  "name": "WHEN ENDS term times",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "when-term-end",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@terms",
+          "name": "term",
+          "value": "$term",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "$term term ends soon or has already ended."
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

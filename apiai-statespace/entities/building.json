@@ -1,0 +1,21 @@
+{
+  "id": "74efecd6-c0f6-489e-beaa-22c74acf8b9b",
+  "name": "building",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "building @sys.cardinal:buildingNumber",
+      "synonyms": [
+        "building @sys.number:buildingNumber"
+      ]
+    },
+    {
+      "value": "building @building2a:buildingNumber",
+      "synonyms": [
+        "building @building2a:buildingNumber"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

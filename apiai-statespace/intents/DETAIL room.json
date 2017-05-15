@@ -1,0 +1,286 @@
+{
+  "userSays": [
+    {
+      "id": "b43c7936-eaee-4ab8-ba81-a305a909cd27",
+      "data": [
+        {
+          "text": "show me room "
+        },
+        {
+          "text": "45",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": "-"
+        },
+        {
+          "text": "1001",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "84bf78d2-0707-4881-83fd-15e597c2a56e",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "27",
+          "alias": "building",
+          "meta": "@sys.number-integer"
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "3001",
+          "alias": "room",
+          "meta": "@sys.number-integer"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "42312af1-be3d-42e5-bc42-a079deecd2c5",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "32",
+          "alias": "building",
+          "meta": "@sys.number-integer"
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "3001",
+          "alias": "room",
+          "meta": "@sys.number-integer"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "80c4eb63-2add-4101-8fc0-f8df9a8ad50c",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "53",
+          "alias": "building",
+          "meta": "@sys.number-integer"
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "4025",
+          "alias": "room",
+          "meta": "@sys.number-integer"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "dc322142-e5f5-4ff6-87ce-71393cac767b",
+      "data": [
+        {
+          "text": "show me "
+        },
+        {
+          "text": "32",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": "/"
+        },
+        {
+          "text": "1001",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "cae3b6ee-004a-45e1-b117-c236ea1ff880",
+      "data": [
+        {
+          "text": "show me room "
+        },
+        {
+          "text": "27",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": "-"
+        },
+        {
+          "text": "1139",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "144743ec-9182-49a6-8891-edce352b2527",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "27",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "1139",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a5394743-41ca-4dd1-8f01-96eee8a0a653",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "28",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "1019",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "28b55dc7-44a1-4086-ba76-39cd4ace1efc",
+      "data": [
+        {
+          "text": "building "
+        },
+        {
+          "text": "28",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "1021",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "fbb1651d-6127-4f98-b0b7-ff23640a70ba",
+      "data": [
+        {
+          "text": "Tell me about building "
+        },
+        {
+          "text": "32",
+          "alias": "building",
+          "meta": "@sys.number-integer",
+          "userDefined": true
+        },
+        {
+          "text": " room "
+        },
+        {
+          "text": "3001",
+          "alias": "room",
+          "meta": "@sys.number-integer",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "89a41f8c-32dc-4ab8-a86c-9b8281d8dff3",
+  "name": "DETAIL room",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-room-details",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.number-integer",
+          "name": "building",
+          "value": "$building",
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@sys.number-integer",
+          "name": "room",
+          "value": "$room",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ah a mighty fine room $building-$room that!"
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

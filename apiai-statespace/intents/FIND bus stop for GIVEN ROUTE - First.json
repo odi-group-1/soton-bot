@@ -1,0 +1,195 @@
+{
+  "userSays": [
+    {
+      "id": "62ce0a52-cf78-4e9d-b1d5-c9dff8bbdcd4",
+      "data": [
+        {
+          "text": "where is the next first?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "7e20d60c-4d65-42d7-a590-fc57a9a4166a",
+      "data": [
+        {
+          "text": "where is the next first bus?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "4ee72f93-c19a-482f-b027-6e033bc62d3d",
+      "data": [
+        {
+          "text": "where can I get a "
+        },
+        {
+          "text": "C1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first"
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a0704125-afc4-4f6b-8f33-17438f2ba9a5",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "C1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first"
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "0594135d-1244-4aa2-8af9-af99216376e7",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "C1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "96558b77-f94c-43e2-982c-a7facfcda8a6",
+      "data": [
+        {
+          "text": "Where can I take "
+        },
+        {
+          "text": "a",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": "  "
+        },
+        {
+          "text": "C1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "07347c3c-f46a-480c-ae31-6b5674c0f6d5",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "first",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "C1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "d2bc01c3-fd36-4ce5-b7e7-03b935e08e3e",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "D1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-first",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "776fd53d-7477-49ff-bf54-3f6dab50f1a6",
+  "name": "FIND bus stop for GIVEN ROUTE - First",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-stop-for-route",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@bus-routes-first",
+          "name": "busRoute",
+          "value": "$busRoute",
+          "isList": false
+        },
+        {
+          "name": "busCompany",
+          "value": "First in Hampshire"
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find your nearest the nearest $busRoute stop."
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": []
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

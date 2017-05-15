@@ -1,0 +1,94 @@
+{
+  "userSays": [
+    {
+      "id": "9b08b80a-4652-4384-b246-d1111cd7d3b4",
+      "data": [
+        {
+          "text": "where is the nearest "
+        },
+        {
+          "text": "20000",
+          "alias": "busRoute",
+          "meta": "@sys.cardinal",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "cd6e0f99-f4b3-4976-b4cc-7bc57ca1135f",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@sys.cardinal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "785a2471-99c3-49fc-9b2f-eaeacd57c354",
+  "name": "FIND bus stop for GIVEN ROUTE - Blue Star Vs. First  - ERROR CASE",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-stop-for-route-FAILURE",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@key-bus",
+          "name": "key-bus",
+          "value": "$key-bus",
+          "isList": false
+        },
+        {
+          "required": false,
+          "dataType": "@sys.cardinal",
+          "name": "busRoute",
+          "value": "$busRoute",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I cannot find a bus route numbered $busRoute."
+        }
+      ]
+    }
+  ],
+  "priority": 250000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

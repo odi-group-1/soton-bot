@@ -1,0 +1,302 @@
+{
+  "userSays": [
+    {
+      "id": "f32e50f5-e48d-4263-8edd-fa312a0ea00f",
+      "data": [
+        {
+          "text": "hungry",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "559fae9e-bc0a-4f71-9087-63d4e168903a",
+      "data": [
+        {
+          "text": "what can I have for "
+        },
+        {
+          "text": "lunch",
+          "alias": "mealtime",
+          "meta": "@mealtime",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1196d831-7186-4dd8-9fbd-51b43581bfc1",
+      "data": [
+        {
+          "text": "breakfast",
+          "alias": "mealtime",
+          "meta": "@mealtime",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b27c42a3-a926-4153-81ea-8b943e595e04",
+      "data": [
+        {
+          "text": "Where can I get "
+        },
+        {
+          "text": "chips",
+          "alias": "food-place",
+          "meta": "@food-place",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "2313c184-d492-480f-9b33-1d56c58c502d",
+      "data": [
+        {
+          "text": "I am "
+        },
+        {
+          "text": "hungry",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "!"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "beee065c-e5f0-4a07-b925-53e616442a9f",
+      "data": [
+        {
+          "text": "Hungry, where is "
+        },
+        {
+          "text": "food",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "087ac930-a74c-4cd1-a2a7-fa66d6b86623",
+      "data": [
+        {
+          "text": "where is "
+        },
+        {
+          "text": "food",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b435b4b2-e279-4938-8e7b-637398511ba8",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "cafe",
+          "alias": "food-place",
+          "meta": "@food-place",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "fb35f8e7-d494-41a3-8ff4-005de568f03d",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "place to eat",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "fb05977a-2e60-496a-994a-9e216c555b57",
+      "data": [
+        {
+          "text": "Where can I get some "
+        },
+        {
+          "text": "munch",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "05bd2bb9-85a6-4796-b123-c41328440f8a",
+      "data": [
+        {
+          "text": "Where can I buy a "
+        },
+        {
+          "text": "sandwich",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "efc66949-aa92-46a5-985f-42af1a22632b",
+      "data": [
+        {
+          "text": "What "
+        },
+        {
+          "text": "restaurants",
+          "alias": "food-place",
+          "meta": "@food-place",
+          "userDefined": true
+        },
+        {
+          "text": " are near me?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ed028ba6-136e-4a2c-a0c3-05b7833e9cc6",
+      "data": [
+        {
+          "text": "What "
+        },
+        {
+          "text": "cafes",
+          "alias": "food-place",
+          "meta": "@food-place",
+          "userDefined": true
+        },
+        {
+          "text": " are near me?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "bbc669ab-a74b-42d2-a022-7f2b308a0315",
+      "data": [
+        {
+          "text": "Where can I "
+        },
+        {
+          "text": "eat",
+          "alias": "they-want-food",
+          "meta": "@they-want-food",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "c6facc63-0edb-4c53-8d42-bbf5039c19bf",
+  "name": "FIND NEAREST place to eat",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "nearest-food",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find your nearest places to eat."
+          ]
+        },
+        {
+          "dataType": "@food-place",
+          "name": "food-place",
+          "value": "$food-place",
+          "isList": false
+        },
+        {
+          "dataType": "@mealtime",
+          "name": "mealtime",
+          "value": "$mealtime",
+          "isList": false
+        },
+        {
+          "dataType": "@they-want-food",
+          "name": "they-want-food",
+          "value": "$they-want-food",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Your nearest places to eat are:"
+        }
+      ]
+    }
+  ],
+  "priority": 750000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,46 @@
+{
+  "userSays": [
+    {
+      "id": "41943a07-28de-43ef-babb-9f6bcfd2e836",
+      "data": [
+        {
+          "text": "Are you ok?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0f5a4fd5-f2e9-4ee5-bf7e-53e2f4ba84eb",
+      "data": [
+        {
+          "text": "How are you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "267b8646-c29c-4d21-9c12-7b32113a91dc",
+  "name": "How are you?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I am fantastic, today is a good day!"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

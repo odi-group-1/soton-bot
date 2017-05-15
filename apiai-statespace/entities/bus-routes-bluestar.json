@@ -1,0 +1,153 @@
+{
+  "id": "58bae0aa-123b-43c1-9038-dcf596d5f19f",
+  "name": "bus-routes-bluestar",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "4",
+      "synonyms": [
+        "4"
+      ]
+    },
+    {
+      "value": "5",
+      "synonyms": [
+        "5"
+      ]
+    },
+    {
+      "value": "35",
+      "synonyms": [
+        "35"
+      ]
+    },
+    {
+      "value": "36",
+      "synonyms": [
+        "36"
+      ]
+    },
+    {
+      "value": "39",
+      "synonyms": [
+        "39"
+      ]
+    },
+    {
+      "value": "502",
+      "synonyms": [
+        "502"
+      ]
+    },
+    {
+      "value": "538",
+      "synonyms": [
+        "538"
+      ]
+    },
+    {
+      "value": "539",
+      "synonyms": [
+        "539"
+      ]
+    },
+    {
+      "value": "604",
+      "synonyms": [
+        "604"
+      ]
+    },
+    {
+      "value": "606",
+      "synonyms": [
+        "606"
+      ]
+    },
+    {
+      "value": "701",
+      "synonyms": [
+        "701"
+      ]
+    },
+    {
+      "value": "702",
+      "synonyms": [
+        "702"
+      ]
+    },
+    {
+      "value": "706",
+      "synonyms": [
+        "706"
+      ]
+    },
+    {
+      "value": "A1",
+      "synonyms": [
+        "A1"
+      ]
+    },
+    {
+      "value": "C7",
+      "synonyms": [
+        "C7"
+      ]
+    },
+    {
+      "value": "CityLink",
+      "synonyms": [
+        "CityLink"
+      ]
+    },
+    {
+      "value": "CP",
+      "synonyms": [
+        "CP"
+      ]
+    },
+    {
+      "value": "H1",
+      "synonyms": [
+        "H1"
+      ]
+    },
+    {
+      "value": "H2",
+      "synonyms": [
+        "H2"
+      ]
+    },
+    {
+      "value": "N1",
+      "synonyms": [
+        "N1"
+      ]
+    },
+    {
+      "value": "QuayConn",
+      "synonyms": [
+        "QuayConn"
+      ]
+    },
+    {
+      "value": "T3",
+      "synonyms": [
+        "T3"
+      ]
+    },
+    {
+      "value": "T4",
+      "synonyms": [
+        "T4"
+      ]
+    },
+    {
+      "value": "U1N",
+      "synonyms": [
+        "U1N"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "11ece43a-1291-4b4b-a639-d0b334a90387",
+  "name": "mealtime",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Lunch",
+      "synonyms": [
+        "Lunch"
+      ]
+    },
+    {
+      "value": "Dinner",
+      "synonyms": [
+        "Dinner"
+      ]
+    },
+    {
+      "value": "Breakfast",
+      "synonyms": [
+        "Breakfast"
+      ]
+    },
+    {
+      "value": "sandwich",
+      "synonyms": [
+        "sandwich"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

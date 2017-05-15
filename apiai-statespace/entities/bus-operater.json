@@ -1,0 +1,28 @@
+{
+  "id": "d15e3303-d0ba-4303-bff0-0b8a7ed3c40b",
+  "name": "bus-operater",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Bluestar",
+      "synonyms": [
+        "BlueStar",
+        "Blue Star",
+        "Blue Bus",
+        "Blue"
+      ]
+    },
+    {
+      "value": "First in Hampshire",
+      "synonyms": [
+        "First",
+        "First for Hampshire",
+        "First in Hampshire",
+        "First in Hampshire",
+        "First Bus"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

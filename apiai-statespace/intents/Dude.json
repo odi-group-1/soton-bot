@@ -1,0 +1,90 @@
+{
+  "userSays": [
+    {
+      "id": "356c53f6-ce45-404c-9279-24936cd34f88",
+      "data": [
+        {
+          "text": "Waaasssaaap"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "a42b1dff-601b-4d8f-9f89-22ca9a59fe25",
+      "data": [
+        {
+          "text": "Waaaasaaap"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "30bd07c2-e968-4512-a375-7aa8737ac570",
+      "data": [
+        {
+          "text": "Wassaap"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "06aa0aaa-4fe1-4eed-951a-5c1268eb6d61",
+      "data": [
+        {
+          "text": "Brah"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "87404d05-b3eb-4021-830f-69911ef6779c",
+      "data": [
+        {
+          "text": "Bro"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "48b709d0-3793-4765-ad56-067de8c01c3e",
+      "data": [
+        {
+          "text": "Dude"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "3de095fa-5418-4393-8acb-151016d42e2d",
+  "name": "Dude",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Waaaaassaaaaaap",
+            "Broooooooo",
+            "S\u0027up?"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

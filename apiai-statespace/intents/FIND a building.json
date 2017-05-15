@@ -1,0 +1,173 @@
+{
+  "userSays": [
+    {
+      "id": "5afe452a-c971-4691-8af3-f805185b559e",
+      "data": [
+        {
+          "text": "where is "
+        },
+        {
+          "text": "building",
+          "alias": "key-building",
+          "meta": "@key-building",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f8499714-a6b2-495f-a33e-38a18cc81b8b",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "building",
+          "alias": "key-building",
+          "meta": "@key-building",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "32",
+          "alias": "buidingNumber",
+          "meta": "@sys.cardinal",
+          "userDefined": false
+        },
+        {
+          "text": " located?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "147d4f1a-f7d6-4348-b47f-dfaf0db59f5c",
+      "data": [
+        {
+          "text": "Find "
+        },
+        {
+          "text": "building",
+          "alias": "key-building",
+          "meta": "@key-building",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "12",
+          "alias": "buidingNumber",
+          "meta": "@sys.cardinal",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "2ba2ea19-0527-482a-afc9-625be65aad16",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "building",
+          "alias": "key-building",
+          "meta": "@key-building",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "45",
+          "alias": "buidingNumber",
+          "meta": "@sys.cardinal",
+          "userDefined": true
+        },
+        {
+          "text": " located?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "5a0f6b13-b8eb-4760-bb67-767635be812f",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "building",
+          "alias": "key-building",
+          "meta": "@key-building",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "32",
+          "alias": "buidingNumber",
+          "meta": "@sys.cardinal",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    }
+  ],
+  "id": "b82f519b-b200-469c-a2e5-6ac0a32c5752",
+  "name": "FIND a building",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-building",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@sys.cardinal",
+          "name": "buidingNumber",
+          "value": "$buidingNumber",
+          "prompts": [
+            "Sorry which building?"
+          ],
+          "isList": false
+        },
+        {
+          "required": false,
+          "dataType": "@key-building",
+          "name": "key-building",
+          "value": "$key-building",
+          "prompts": [
+            "Are you looking for the building or bus?"
+          ],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here is building $buidingNumber!"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

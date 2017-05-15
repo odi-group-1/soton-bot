@@ -1,0 +1,46 @@
+{
+  "userSays": [
+    {
+      "id": "ad6a62d3-0746-4624-80b3-cb7c87fbd633",
+      "data": [
+        {
+          "text": "Who owns those droids?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "4abb44d3-348d-4b26-8829-c675a4f1de71",
+      "data": [
+        {
+          "text": "Show me some identification"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "3af0f81e-490f-4920-b115-93af259a4c9a",
+  "name": "These are not the droids you\u0027re looking for",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "These are not the droids you\u0027re looking for."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

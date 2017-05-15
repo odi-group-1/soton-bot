@@ -1,0 +1,81 @@
+{
+  "id": "fbebb7e4-49a5-4239-903b-f58235952167",
+  "name": "bus-routes-unilink",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "U1A",
+      "synonyms": [
+        "U1A"
+      ]
+    },
+    {
+      "value": "U1C",
+      "synonyms": [
+        "U1C"
+      ]
+    },
+    {
+      "value": "U1E",
+      "synonyms": [
+        "U1E"
+      ]
+    },
+    {
+      "value": "U1W",
+      "synonyms": [
+        "U1W"
+      ]
+    },
+    {
+      "value": "U2",
+      "synonyms": [
+        "U2"
+      ]
+    },
+    {
+      "value": "U2B",
+      "synonyms": [
+        "U2B"
+      ]
+    },
+    {
+      "value": "U2C",
+      "synonyms": [
+        "U2C"
+      ]
+    },
+    {
+      "value": "U2X",
+      "synonyms": [
+        "U2X"
+      ]
+    },
+    {
+      "value": "U6",
+      "synonyms": [
+        "U6"
+      ]
+    },
+    {
+      "value": "U6C",
+      "synonyms": [
+        "U6C"
+      ]
+    },
+    {
+      "value": "U6H",
+      "synonyms": [
+        "U6H"
+      ]
+    },
+    {
+      "value": "U9",
+      "synonyms": [
+        "U9"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

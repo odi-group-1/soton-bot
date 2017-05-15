@@ -1,0 +1,42 @@
+{
+  "userSays": [
+    {
+      "id": "6720b0c6-6709-41b5-b240-115a5c16b788",
+      "data": [
+        {
+          "text": "Show me how to Access Room Details"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "2b6aa10d-7d42-4d17-8d67-7eefba779399",
+  "name": "SHOW ME HOW Access Room Details",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "show-me",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "link",
+          "value": "https://media.giphy.com/media/l0Iyc5vgh0kar4UjS/giphy.gif"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Here is a GIF demo on how to get details on rooms:\nhttps://media.giphy.com/media/l0Iyc5vgh0kar4UjS/giphy.gif"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,110 @@
+{
+  "userSays": [
+    {
+      "id": "4b10b145-a4da-422e-9bb3-014a82d4f760",
+      "data": [
+        {
+          "text": "penis"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "fbfcf4df-55d8-4dbf-b3bd-4011fe7634b6",
+      "data": [
+        {
+          "text": "fucking"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2260335e-a757-40b6-8e1a-21657edeccd3",
+      "data": [
+        {
+          "text": "poo"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "08bc3f69-4acd-45f4-9f8b-0cc1fa4225ea",
+      "data": [
+        {
+          "text": "cunt"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "23f8ce21-5155-46a6-b28b-46ec796af15e",
+      "data": [
+        {
+          "text": "willy"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "ca929c7c-8ad4-4747-a526-52d2e280742c",
+      "data": [
+        {
+          "text": "dick"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "40ccb6a8-fa13-457c-b9ca-73c0e1894d18",
+      "data": [
+        {
+          "text": "shit"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "795b2787-6607-432d-881a-a8ca7f5720e5",
+      "data": [
+        {
+          "text": "fuck"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "a311e466-cb8f-4924-8004-7686f4864369",
+  "name": "swearing",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "swearing-at-bot",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Mind your profanity!",
+            ""
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

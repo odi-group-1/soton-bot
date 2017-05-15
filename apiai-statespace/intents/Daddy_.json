@@ -1,0 +1,92 @@
+{
+  "userSays": [
+    {
+      "id": "cbbdcf46-7487-45e4-b86d-c5e59de8fae0",
+      "data": [
+        {
+          "text": "daddy"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "da193e14-63bb-4a98-9548-839b3ea2bbf7",
+      "data": [
+        {
+          "text": "dad"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "15b3767a-2184-4d25-a4ce-dc4b6efa930d",
+      "data": [
+        {
+          "text": "daddy",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "180d33f5-bce9-4288-b188-0cc9a9234b58",
+      "data": [
+        {
+          "text": "Who is your daddy?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "bc030aee-d41a-45a7-b197-762f90231f25",
+      "data": [
+        {
+          "text": "Who is your dad?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "6d965890-edde-4522-9d0a-cf0585634153",
+      "data": [
+        {
+          "text": "Who is your father?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "de6e2705-b910-4563-85ec-c7c0fb37d124",
+  "name": "Daddy?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "daddy?",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "Hmmm... I\u0027m not sure, there is a few of them.",
+            "Well there is Tom, Stefan, Shakib and Deepak. It\u0027s definitely one of them!"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,123 @@
+{
+  "userSays": [
+    {
+      "id": "6b821989-44ac-4f35-b015-3de7cfd08ebf",
+      "data": [
+        {
+          "text": "sstop"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "d8f485d7-7720-4c42-bc5e-ec6a049b02fe",
+      "data": [
+        {
+          "text": "stop"
+        }
+      ],
+      "isTemplate": false,
+      "count": 4
+    },
+    {
+      "id": "089bbc9d-1dd6-463b-9d69-ec1076ab2910",
+      "data": [
+        {
+          "text": "Go away"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "dac2360f-f2e0-4ce1-8af1-7f76f46af6a4",
+      "data": [
+        {
+          "text": "no"
+        }
+      ],
+      "isTemplate": false,
+      "count": 2
+    },
+    {
+      "id": "5052558e-704c-419f-b4ff-e91f19bc091b",
+      "data": [
+        {
+          "text": "bugger off"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "832e7c8e-e818-4915-9f07-d7f9ceb78fed",
+      "data": [
+        {
+          "text": "sod off"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9403d8e0-4c08-4ef1-918b-83e5ab875160",
+      "data": [
+        {
+          "text": "get lost"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "dacc57c7-e0f5-454b-ac12-7b2000cac693",
+      "data": [
+        {
+          "text": "leave me alone"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "54e15119-b64f-49be-9063-fd83f0b20ee8",
+      "data": [
+        {
+          "text": "Stop"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "a9f5856b-a61a-4c4e-a6b2-160873ab0d6f",
+  "name": "stop",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "apologize",
+      "affectedContexts": [
+        {
+          "name": "stop-followup",
+          "parameters": {},
+          "lifespan": 2
+        }
+      ],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I\u0027m sorry, are you sure I cannot help?"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

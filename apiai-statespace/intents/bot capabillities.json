@@ -1,0 +1,121 @@
+{
+  "userSays": [
+    {
+      "id": "e315dd6b-2fbd-40fc-b4c0-24a5af88f003",
+      "data": [
+        {
+          "text": "Show me your wisdom"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9cedf5d4-cda4-4b97-a1bb-01366705a8e1",
+      "data": [
+        {
+          "text": "Show me your magic"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "156ba79f-068a-4bfc-b7f1-e8eee6c86b84",
+      "data": [
+        {
+          "text": "Show me your skills"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "42a5330f-4227-4ba3-86a4-186915d21559",
+      "data": [
+        {
+          "text": "What is your use?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "53c70f0a-cd9b-40fc-9785-812c4a2311fb",
+      "data": [
+        {
+          "text": "Explain yourself"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "640c51f6-5ee7-41e2-92bc-b77d4bd95356",
+      "data": [
+        {
+          "text": "What do you do?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c7e74333-8175-4b80-b1d2-4dd40890f165",
+      "data": [
+        {
+          "text": "How can I use you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "af18d35f-feb8-415a-9948-4d101d3516a6",
+      "data": [
+        {
+          "text": "Are you useless?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "aebeeace-9ac1-45b3-a7ce-cdfca4ecd4a2",
+      "data": [
+        {
+          "text": "What can you do?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "93e0d8d1-7141-4f0a-ac30-85206c6b1eba",
+  "name": "bot capabillities",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "bot-skills",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "I can do loads of things.\nI can tell you the location of buildings on campus. Find you places to eat near you. Locate various services for you. Tell you term times.\nFor example, ask me \"Where is building 32?\" and prepare to be amazed.",
+            "I can do loads of things.\nI can tell you the location of buildings on campus. Find you places to eat near you. Locate various services for you. Tell you term times.\nFor example, ask me \"Where can I get condoms?\" and prepare to be amazed?",
+            "I can do loads of things.\nI can tell you the location of buildings on campus. Find you places to eat near you. Locate various services for you. Tell you term times.\nFor example, ask me \"Where can I find wine?\" and prepare to be amazed?"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

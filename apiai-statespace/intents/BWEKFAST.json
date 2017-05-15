@@ -1,0 +1,47 @@
+{
+  "userSays": [
+    {
+      "id": "a3bba388-95d2-434f-838d-a74c654c0c5c",
+      "data": [
+        {
+          "text": "BWEKFAST",
+          "alias": "bwekfast",
+          "meta": "@bwekfast",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    }
+  ],
+  "id": "53663924-e4b6-44d1-8245-757fbdf57c76",
+  "name": "BWEKFAST",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "banter-bwekfast",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@bwekfast",
+          "name": "bwekfast",
+          "value": "$bwekfast",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "BWEKFAST: https://www.youtube.com/watch?v\u003d3Dj6Swg4Rks"
+        }
+      ]
+    }
+  ],
+  "priority": 250000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,67 @@
+{
+  "userSays": [
+    {
+      "id": "b5da63c9-731c-458f-a70f-3788be25d9dd",
+      "data": [
+        {
+          "text": "Who built you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "622ab70b-0be4-4358-a469-88e674f36022",
+      "data": [
+        {
+          "text": "Who designed you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b81dc9e4-7f24-4aa3-bd5c-cf646c5974f2",
+      "data": [
+        {
+          "text": "Who is your maker?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2f123bbe-d4d4-446a-aa0c-6338a7a9b7c9",
+      "data": [
+        {
+          "text": "Who made you?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "669728bd-d328-4e17-8689-1b2240ce4a18",
+  "name": "Who built you?",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "who-is-builder?",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I was designed, commissioned and built by Ina, Tom, Stefan, Shakib and Deepak!"
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

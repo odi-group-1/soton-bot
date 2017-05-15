@@ -1,0 +1,456 @@
+{
+  "userSays": [
+    {
+      "id": "80c33bf2-4134-44ed-910f-97afd02d6925",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "d3b1241b-e85a-4099-a10d-4a921f7c3a43",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "6005da28-b7c2-4a07-9a36-88300e19c4a2",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "25cc448d-c11b-4e44-a05c-509b26af7f1d",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "bf782be5-6d12-43a5-b8d7-8f0fbfd9b222",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "915708ca-d9e9-49ee-83a7-e333a2157b30",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "got-coords--InaDeepakTomShakibStefan-hidden-key",
+          "alias": "hidden-found-location-key",
+          "meta": "@hidden-key--retreived_coords",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2ad5736d-ea46-412e-916f-043ef2fd3cfc",
+      "data": [
+        {
+          "text": "Where is the nearest "
+        },
+        {
+          "text": "first",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9a24e127-9515-4986-8c74-bc8d7421413d",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "2",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "57186cc4-c3e4-4f2b-a2a1-6513e2097b25",
+      "data": [
+        {
+          "text": "where is the next "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "2",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "133c7bb1-1e91-4a6f-b0d0-8490fb56011d",
+      "data": [
+        {
+          "text": "where is the next "
+        },
+        {
+          "text": "first",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "2",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "87d69731-ca77-44bd-96c3-181d6c47b25b",
+      "data": [
+        {
+          "text": "Where can I grab "
+        },
+        {
+          "text": "a",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "first",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "da6111e1-58f1-42ac-9bcd-095c765b5b23",
+      "data": [
+        {
+          "text": "Where is the next "
+        },
+        {
+          "text": "bluestar",
+          "alias": "busCompany",
+          "meta": "@bus-operater",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1",
+          "alias": "busRoute",
+          "meta": "@bus-routes-duplicates",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "bus",
+          "alias": "key-bus",
+          "meta": "@key-bus",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "ff0d51ac-32c2-41cf-91d8-ecfd1d19b837",
+  "name": "FIND bus stop for GIVEN ROUTE - Blue Star Vs. First",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "find-bus-stop-for-route",
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@bus-routes-duplicates",
+          "name": "busRoute",
+          "value": "$busRoute",
+          "prompts": [],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@bus-operater",
+          "name": "busCompany",
+          "value": "$busCompany",
+          "prompts": [
+            "Which operator was that (Bluestar or First)?"
+          ],
+          "isList": false
+        },
+        {
+          "required": true,
+          "dataType": "@hidden-key--retreived_coords",
+          "name": "hidden-found-location-key",
+          "value": "$hidden-found-location-key",
+          "prompts": [
+            "Drop a location pin, so that I can find your nearest the nearest $busRoute stop."
+          ]
+        },
+        {
+          "dataType": "@key-bus",
+          "name": "key-bus",
+          "value": "$key-bus",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Let me go find the nearest $busRoute by $busCompany."
+        }
+      ]
+    }
+  ],
+  "priority": 1000000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

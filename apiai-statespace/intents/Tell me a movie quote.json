@@ -1,0 +1,155 @@
+{
+  "userSays": [
+    {
+      "id": "85a6800c-6842-4169-83c1-0aab5ca762d0",
+      "data": [
+        {
+          "text": "movie quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "c24c75c7-f33d-4c13-beba-4811da14ba7c",
+      "data": [
+        {
+          "text": "Tell us a "
+        },
+        {
+          "text": "film",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "6f0c5d2c-c5e2-428f-bce2-04257c876c81",
+      "data": [
+        {
+          "text": "Tell us a movie quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "29423c17-f58c-493d-9166-3f95cfa0f26b",
+      "data": [
+        {
+          "text": "move quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "42701b55-2dd7-4fb6-a428-dafd6c4e0d11",
+      "data": [
+        {
+          "text": "Qoute a "
+        },
+        {
+          "text": "film",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "8cfc3d07-3481-419a-b0e5-a51a5e7ec5df",
+      "data": [
+        {
+          "text": "Tell me a "
+        },
+        {
+          "text": "film",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1c80c14c-c5b9-4ba6-9213-37bdffb0d263",
+      "data": [
+        {
+          "text": "Quote a movie"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "9227d559-1bed-46dd-bd78-d1764dea656b",
+      "data": [
+        {
+          "text": "Tell me a movie quote"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "58795676-ddef-4707-a9f2-f79e9a35c3b6",
+  "name": "Tell me a movie quote",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "action": "film-quote",
+      "affectedContexts": [],
+      "parameters": [],
+      "messages": [
+        {
+          "type": 0,
+          "speech": [
+            "These are not the droids you are looking for.",
+            "YOU SHALL NOT PASS!",
+            "Here\u0027s Johnny!! *axe through door*",
+            "My name is Inigo Montoya... You killed my father... Prepare to die!",
+            "I don\u0027t know who you are. I don\u0027t know what you want. If you are looking for ransom, I can tell you I don\u0027t have money. But what I do have are a very particular set of skills, skills I have acquired over a very long career. Skills that make me a nightmare for people like you. If you let my daughter go now, that\u0027ll be the end of it. I will not look for you, I will not pursue you. But if you don\u0027t, I will look for you, I will find you, and I will kill you.",
+            "Revenge is a dish best served cold",
+            "Nunchuck skills… bowhunting skills… computer hacking skills… Girls only want boyfriends who have great skills!",
+            "They may take our lives, but they\u0027ll never take our freedom!",
+            "My name is Maximus Decimus Meridius, commander of the Armies of the North, General of the Felix Legions and loyal servant to the true emperor, Marcus Aurelius. Father to a murdered son, husband to a murdered wife. And I will have my vengeance, in this life or the next.",
+            "Chewie, we\u0027re home.",
+            "The first rule of Fight Club is: You do not talk about Fight Club.",
+            "You\u0027re gonna need a bigger boat.",
+            "May the Force be with you.",
+            "Toto, I\u0027ve a feeling we\u0027re not in Kansas anymore.",
+            "I\u0027m going to make him an offer he can\u0027t refuse.",
+            "I am your father.",
+            "Why so serious?",
+            "The names Bond. James Bond.",
+            "I see dead people.",
+            "I\u0027ll be back.",
+            "E.T. phone home.",
+            "Yippie-ki-yay, mother**er!",
+            "To infinity and beyond!",
+            "Houston, we have a problem.",
+            "Say hello to my little friend!",
+            "You\u0027re only supposed to blow the bloody doors off!"
+          ]
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

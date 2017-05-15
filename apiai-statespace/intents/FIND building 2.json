@@ -1,0 +1,53 @@
+{
+  "userSays": [
+    {
+      "id": "90403fa2-3da6-44fd-be3b-4f865253a8cd",
+      "data": [
+        {
+          "text": "Where is "
+        },
+        {
+          "text": "building 2",
+          "alias": "building",
+          "meta": "@building",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "0877ccec-da94-429f-85d1-9c1e4cc3668b",
+  "name": "FIND building 2",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@building",
+          "name": "building",
+          "value": "$building",
+          "prompts": [
+            "Which building did you want?"
+          ],
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I don\u0027t seem to be able to find $building"
+        }
+      ]
+    }
+  ],
+  "priority": 0,
+  "webhookUsed": false,
+  "webhookForSlotFilling": false,
+  "fallbackIntent": false,
+  "events": []
+}

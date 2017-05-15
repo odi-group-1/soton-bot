@@ -1,0 +1,15 @@
+{
+  "id": "24f63f51-8be5-430c-aec6-703d2f3a0fd3",
+  "name": "building2a",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "2a",
+      "synonyms": [
+        "2a"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}
