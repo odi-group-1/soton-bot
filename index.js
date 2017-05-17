@@ -25,6 +25,8 @@ app.get('/', (req, res) => {
     res.send('Soton Bot Running')
 });
 
+// delete this comment later
+
 // for Facebook verification
 app.get('/webhook/', verifyAppToken);
 
