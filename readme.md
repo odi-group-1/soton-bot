@@ -45,7 +45,8 @@ In order to set up the nlp agent we have made and pre-trained you must:
 
 1. Make a api.ai account
 2. Make a clean agent
-2. Import our agent dump
+3. Import our agent dump
+4. Connect the Node.js bot to api.ai agent
 
 ##### 1 - Making an account
 Each agent is (as of 18.05.17) associated with a single account. Hence until this issue is solved you may want to share an account.
@@ -65,11 +66,26 @@ However in short:
 2. Choose the 'Export and Import' tab.
 3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
     * Note: This will wipe anything you have made (if you strayed from the instructions 😛).
-   
-##### 4 - Hello World!
-It's done! You now have a clone of our nlp agent. 
 
-**Top Tips about api.ai**
+##### 4 - Connect the Node.js bot to api.ai agent
+It's done! You now have a clone of our nlp agent. However you need to forward messages from the node application to nlp agent.
+In order to do this, you need to include the api.ai 'Client access token' in the node.js bot:
+
+1. Get the api.ai 'client access token'
+    1. Go to the settings (cog in the top left corner)
+    2. Go to the 'General' tab (should be the default tab)
+    3. (Half way down the page) under 'API Keys' is the client access token. 
+    4. Copy it
+2. Connect the node bot to the api.ai agent
+    1. Go to the file `<soton-bot-source>/config/staging.js`
+    2. Paste the 'Client Access Token' in the `API_AI_CLIENT_ID`
+
+...and now you are connected! 🎉
+
+To see if the api.ai agent is receiving any traffic click the 'Analytics' section on the left and you should see more than 0 sessions.
+
+##### 5 - Hello World!
+Here are some **Top Tips** about api.ai.
 
 Here is a great (slightly outdated) [video](https://www.youtube.com/watch?v=Om7tyGGemXI) on getting started in "*3* minutes". Sells it pretty nicely!
  
@@ -85,6 +101,14 @@ You can test the agent's chat on the right hand column and the JSON that would b
  The Training\[beta\] section (from the left side bar) is where you can evaluate the intents that each message that a conversation is mapped to.
  If it seems weird, don't worry, it is a tad weird but you can get used to it pretty quick. Each 'Dialog'
 is a conversation with a separate user (it tells the different conversations by differing userIds). More infor on this   [here](https://docs.api.ai/docs/training).
+
+If you want to message the bot via CURL or a REST Client. You can GET the following URL (given you fill in the blanks):
+```
+ curl 'https://api.api.ai/api/query?v=20150910&query=<YOUR SENTANCE>&lang=en&sessionId=d741e727-33e8-4cd3-92bc-dd929e1dde0a&timezone=2017-05-18T18:00:28+0100'  -H 'Authorization:Bearer <YOUR API.AI CLIENT ACCESS TOKEN>'
+```
+Note: the `sessionId` can be anything really, it just keeps track of who is having the conversation. You can leave it as `d741e727-33e8-4cd3-92bc-dd929e1dde0a` for the curls.
+but **it must be different for actual users**, which is implemented in our code.
+
 
 **Others NLP services** 
  - [init.ai](https://www.init.ai/)
