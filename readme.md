@@ -52,7 +52,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ## Deployment
 
-#### Setup and Deployment on Heroku
+### Setup and Deployment on Heroku
 
 Heroku has documentation to get started with a NodeJS application [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
 
@@ -98,6 +98,47 @@ Now it's as simple as ```git push heroku master``` from within ```soton-bot``` d
 to make the deployment. To ensure that at least one instance of the app is running, use
 the command ```heroku ps:scale web=1```
 
+### Local Development using ngrok
+
+A key tool in Soton-Bot's development is ```ngrok``` which is a secure tunnel to localhost.
+Recall the part of the setup on Facebook Developers Console that required a webhook? this
+was to instruct Facebook where to deliver incoming messages to. Thus for local development
+you will want to run Soton-Bot's code locally and have messenger messages delivered to
+your local running version.
+
+#### Running Soton-Bot locally
+
+TODO: FB_PAGE_ACCESS_TOKEN
+
+With the code stored locally (see ```Prepare Soton-Bot for deployment```) you will first
+need to run ```npm install``` within the ```soton-bot``` directory to install dependencies.
+
+To start running Soton-Bot, simply use the command ```npm start```
+
+#### Starting ngrok
+
+ngrok is available [here](https://ngrok.com/download).
+
+With the archive unzipped, you will need to run it with the parameters as shown:
+```ngrok http 5000``` where the port number ```5000``` is dictated by the port property 
+in ```config/staging.js```. Below is an example of the output when ngrok is running.
+
+You will need the ```https``` url - ```https://a211a676.ngrok.io``` in this example to
+replace the heroku webhook when redirecting messages for local development.
+
+```ngrok by @inconshreveable                                                                               (Ctrl+C to quit)
+   
+   Session Status                online
+   Version                       2.2.4
+   Region                        United States (us)
+   Web Interface                 http://127.0.0.1:4040
+   Forwarding                    http://a211a676.ngrok.io -> localhost:5000
+   Forwarding                    https://a211a676.ngrok.io -> localhost:5000
+   
+   Connections                   ttl     opn     rt1     rt5     p50     p90
+                                 0       0       0.00    0.00    0.00    0.00
+```
+
 ## API.AI Setup
 The natural language processing of Soton Bot is achieved by a third party service hosted on [api.ai](https://api.ai/).
 
@@ -105,7 +146,8 @@ In order to set up the nlp agent we have made and pre-trained you must:
 
 1. Make a api.ai account
 2. Make a clean agent
-2. Import our agent dump
+3. Import our agent dump
+4. Connect the Node.js bot to api.ai agent
 
 ##### 1 - Making an account
 Each agent is (as of 18.05.17) associated with a single account. Hence until this issue is solved you may want to share an account.
@@ -125,11 +167,26 @@ However in short:
 2. Choose the 'Export and Import' tab.
 3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
     * Note: This will wipe anything you have made (if you strayed from the instructions 😛).
-   
-##### 4 - Hello World!
-It's done! You now have a clone of our nlp agent. 
 
-**Top Tips about api.ai**
+##### 4 - Connect the Node.js bot to api.ai agent
+It's done! You now have a clone of our nlp agent. However you need to forward messages from the node application to nlp agent.
+In order to do this, you need to include the api.ai 'Client access token' in the node.js bot:
+
+1. Get the api.ai 'client access token'
+    1. Go to the settings (cog in the top left corner)
+    2. Go to the 'General' tab (should be the default tab)
+    3. (Half way down the page) under 'API Keys' is the client access token. 
+    4. Copy it
+2. Connect the node bot to the api.ai agent
+    1. Go to the file `<soton-bot-source>/config/staging.js`
+    2. Paste the 'Client Access Token' in the `API_AI_CLIENT_ID`
+
+...and now you are connected! 🎉
+
+To see if the api.ai agent is receiving any traffic click the 'Analytics' section on the left and you should see more than 0 sessions.
+
+##### 5 - Hello World!
+Here are some **Top Tips** about api.ai.
 
 Here is a great (slightly outdated) [video](https://www.youtube.com/watch?v=Om7tyGGemXI) on getting started in "*3* minutes". Sells it pretty nicely!
  
@@ -145,6 +202,14 @@ You can test the agent's chat on the right hand column and the JSON that would b
  The Training\[beta\] section (from the left side bar) is where you can evaluate the intents that each message that a conversation is mapped to.
  If it seems weird, don't worry, it is a tad weird but you can get used to it pretty quick. Each 'Dialog'
 is a conversation with a separate user (it tells the different conversations by differing userIds). More infor on this   [here](https://docs.api.ai/docs/training).
+
+If you want to message the bot via CURL or a REST Client. You can GET the following URL (given you fill in the blanks):
+```
+ curl 'https://api.api.ai/api/query?v=20150910&query=<YOUR SENTANCE>&lang=en&sessionId=d741e727-33e8-4cd3-92bc-dd929e1dde0a&timezone=2017-05-18T18:00:28+0100'  -H 'Authorization:Bearer <YOUR API.AI CLIENT ACCESS TOKEN>'
+```
+Note: the `sessionId` can be anything really, it just keeps track of who is having the conversation. You can leave it as `d741e727-33e8-4cd3-92bc-dd929e1dde0a` for the curls.
+but **it must be different for actual users**, which is implemented in our code.
+
 
 **Others NLP services** 
  - [init.ai](https://www.init.ai/)
