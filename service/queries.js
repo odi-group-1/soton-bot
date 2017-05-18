@@ -470,7 +470,6 @@ function findRoomDetails(room, cb) {
         imgURL: undefined,
         building: undefined,
         floor: undefined,
-        accessNotes: undefined,
         capacity: undefined};
 
     // Build query to find room info using room parameter
@@ -486,7 +485,6 @@ function findRoomDetails(room, cb) {
                 result.name = roomDetails[0].roomNotation.value;
                 result.roomType = roomDetails[0].roomType.value;
                 result.imgURL = roomDetails[0].roomImage.value;
-                result.accessNotes = roomDetails[0].roomAccess.value;
                 result.capacity = roomDetails[0].roomCapacity.value;
 
                 // Some rooms provide a floor attribute, others just provide building

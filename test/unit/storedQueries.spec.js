@@ -108,7 +108,7 @@ describe('Test stored queries', function () {
 
             let result = '?room = rm:' + room;
 
-            expect(stored.room(room).where[7].cond).to.be.equal(result);
+            expect(stored.room(room).where[6].cond).to.be.equal(result);
 
         });
 
