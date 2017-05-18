@@ -166,17 +166,17 @@ In order to set up the nlp agent we have made and pre-trained you must:
 3. Import our agent dump
 4. Connect the Node.js bot to api.ai agent
 
-##### 1 - Making an account
+#### Making an account
 Each agent is (as of 18.05.17) associated with a single account. Hence until this issue is solved you may want to share an account.
 Maybe follow [this issue](https://discuss.api.ai/t/adding-additional-member-of-a-team-to-the-account/1155) on their Q & A forum to be updated.
  
-##### 2 - Make a clean agent
+#### Make a clean agent
 When you log in for the first time, you should be prompted to make a agent. However, if not click on the top left (next to the cog) and click 'create new agent'.
 Then simply give any name for the agent (this is just for you) and a description if you fancy. 
 
 Leave everything else blank.
  
-##### 3 - Import our agent dump
+#### Import our agent dump
 How to import an agent is covered in [api.ai's documentation](https://docs.api.ai/docs/concept-agents#export-and-import).
 However in short:
 
@@ -185,7 +185,7 @@ However in short:
 3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
     * Note: This will wipe anything you have made (if you strayed from the instructions 😛).
 
-##### 4 - Connect the Node.js bot to api.ai agent
+#### Connect the Node.js bot to api.ai agent
 It's done! You now have a clone of our nlp agent. However you need to forward messages from the node application to nlp agent.
 In order to do this, you need to include the api.ai 'Client access token' in the node.js bot:
 
@@ -202,7 +202,7 @@ In order to do this, you need to include the api.ai 'Client access token' in the
 
 To see if the api.ai agent is receiving any traffic click the 'Analytics' section on the left and you should see more than 0 sessions.
 
-##### 5 - Hello World!
+#### Hello World!
 Here are some **Top Tips** about api.ai.
 
 Here is a great (slightly outdated) [video](https://www.youtube.com/watch?v=Om7tyGGemXI) on getting started in "*3* minutes". Sells it pretty nicely!
