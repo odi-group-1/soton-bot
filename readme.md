@@ -3,6 +3,7 @@
 1. You need to set up a Facebook business account, page and an app to control messages to that page
 2. You need to set up an AI agent on API.AI and import our zipped dump into it.
 3. You need to deploy your NodeJS app remotely and run on your local machine.
+4. You need to get access to a Transportapi account and get your api key.
 
 ## Facebook Application
 
@@ -149,4 +150,7 @@ is a conversation with a separate user (it tells the different conversations by 
  - [init.ai](https://www.init.ai/)
  - [wit.ai](https://wit.ai/)
 
+## TransportAPI
 
+1. Go [here](https://developer.transportapi.com/), sign up/in.
+2. Copy over your App Id and Key to ```config/staging.js``` file's ```TRANSPORT_API_APP_ID``` and ```TRANSPORT_API_APP_KEY```.
