@@ -38,6 +38,22 @@ You can get a getting started guide [here](https://developers.facebook.com/docs/
 
 ### Whitelisting
 
+Facebook does not allow sending links or objects (like images) from websites from non Whitelisted domains or domains that are not https (for default actions in messenger templates).
+
+You can find detailed information [here](https://developers.facebook.com/docs/messenger-platform/thread-settings/domain-whitelisting).
+
+We need to whitelist all the domain names of links that we send via the bot. Typing in the following command should work.
+
+You can find FB_PAGE_ACCESS_TOKEN from logging into your Facebook developers console > your app > Messenger on left side menu > Token Generation > select your business page for this bot > copy the token
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type" : "domain_whitelisting",
+  "whitelisted_domains" : ["http://data.southampton.ac.uk/", "https://www.openstreetmap.org/", "http://staticmap.openstreetmap.de/", "http://bus.southampton.ac.uk/", "https://media.giphy.com/"],
+  "domain_action_type": "add"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=FB_PAGE_ACCESS_TOKEN"
+```
+
 ### API.AI Setup
 
 ### Deployment
