@@ -180,9 +180,12 @@ Leave everything else blank.
 How to import an agent is covered in [api.ai's documentation](https://docs.api.ai/docs/concept-agents#export-and-import).
 However in short:
 
-1. Click the cog next to your agent's name (in the top left).
-2. Choose the 'Export and Import' tab.
-3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
+1.Get the bot dump
+  1. Download `<soton-bot-source>/bot_backup/final-bot-dump.zip`
+2. Upload the dump
+  1. Click the cog next to your agent's name (in the top left).
+  2. Choose the 'Export and Import' tab.
+  3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
     * Note: This will wipe anything you have made (if you strayed from the instructions 😛).
 
 #### Connect the Node.js bot to api.ai agent
