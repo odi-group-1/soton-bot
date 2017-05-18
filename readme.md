@@ -64,15 +64,20 @@ However in short:
 1. Click the cog next to your agent's name (in the top left).
 2. Choose the 'Export and Import' tab.
 3. Click the 'RESTORE FROM ZIP' button and drag in the zip (which is just a dump of the agent).
-..* Note: This will wipe anything you have made (if you strayed from the instructions 😛).
+    * Note: This will wipe anything you have made (if you strayed from the instructions 😛).
    
 ##### 4 - Hello World!
 It's done! You now have a clone of our nlp agent. 
 
 **Top Tips about api.ai**
-Here is a great (slightly outdated) [video](https://www.youtube.com/watch?v=Om7tyGGemXI) on getting started in "*3* minutes". Sells it pretty nicely! 
+
+Here is a great (slightly outdated) [video](https://www.youtube.com/watch?v=Om7tyGGemXI) on getting started in "*3* minutes". Sells it pretty nicely!
+ 
+
 The world of NLP in api.ai exists of two elements: intents and entities
+
 **[Intents](https://docs.api.ai/docs/concept-intents)** are the types of messages users will send to the agent.
+
 **[Entities](https://docs.api.ai/docs/concept-entities)** are enums of things the agent can talk about (they can be [composite](https://docs.api.ai/docs/concept-entities#section-developer-composite-entities) e.g. "Building \<number\>")
 
 You can test the agent's chat on the right hand column and the JSON that would be responded to an API call. (This is great for debugging)
