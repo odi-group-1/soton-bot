@@ -22,6 +22,7 @@ You should create a business account. That business needs to have a page on Face
 
 #### Facebook App
 
+1. 
 
 ### Whitelisting
 
